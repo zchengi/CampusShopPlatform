@@ -29,7 +29,7 @@ public class Area {
     /**
      * 更新时间
      */
-    private Date lastTime;
+    private Date lastEditTime;
 
     public Integer getAreaId() {
         return areaId;
@@ -63,11 +63,11 @@ public class Area {
         this.createTime = createTime;
     }
 
-    public Date getLastTime() {
-        return lastTime;
+    public Date getLastEditTime() {
+        return lastEditTime;
     }
 
-    public void setLastTime(Date lastTime) {
-        this.lastTime = lastTime;
+    public void setLastEditTime(Date lastEditTime) {
+        this.lastEditTime = lastEditTime;
     }
 }
