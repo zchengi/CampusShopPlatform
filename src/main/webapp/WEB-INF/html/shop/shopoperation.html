@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="keywords" content="test"/>
+    <meta name="description" content="test"/>
+    <title>店铺操作</title>
+
+    <link rel="stylesheet" href="../../../resources/css/weui/weui.css">
+</head>
+<body ontouchstart>
+<div id="container">
+    <div class="registerForm">
+        <div class="weui-cells__title">商店信息</div>
+        <div class="weui-cells weui-cells_form">
+            <!-- 商品名称 文本框 -->
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">商铺名称</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" required placeholder="商铺名称" emptytips="商铺名称">
+                </div>
+            </div>
+            <!-- 商铺分类 下拉列表 -->
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">商铺分类</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <div class="weui-picker weui-animate-slide-up">
+                        <div class="weui-picker__hd">
+                        </div>
+                        <div class="weui-picker__bd">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 区域分类 下拉列表 -->
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">所属区域</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <div class="weui-picker weui-animate-slide-up">
+                        <div class="weui-picker__hd">
+                        </div>
+                        <div class="weui-picker__bd">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 详细地址 文本框 -->
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">详细地址</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" id="shop-addr" type="text"
+                           required placeholder="详细地址" emptytips="详细地址">
+                </div>
+            </div>
+            <!-- 联系电话 文本框 -->
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">联系电话</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" id="shop-addr" type="number"
+                           required placeholder="联系电话" emptytips=联系电话>
+                </div>
+            </div>
+            <!-- 缩略图 上传控件 -->
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <div class="weui-uploader">
+                        <div class="weui-uploader__hd">
+                            <p class="weui-uploader__title">缩略图</p>
+                        </div>
+                        <div class="weui-uploader__bd">
+                        </div>
+                        <div class="weui-uploader__input-box">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 店铺简介 文本域 -->
+            <div >
+                <div class="weui-cells__title">店铺简介</div>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <textarea id="shop-desc" class="weui-textarea" placeholder="店铺简介" rows="3"></textarea>
+                            <div class="weui-textarea-counter"><span>0</span>/200</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 验证码 kaptcha -->
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
