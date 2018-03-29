@@ -1,6 +1,6 @@
 package com.cheng.o2o.entity;
 
-import javax.xml.crypto.Data;
+import java.util.Date;
 
 /**
  * 用户
@@ -43,11 +43,11 @@ public class PersonInfo {
     /**
      * 创建时间
      */
-    private Data createTime;
+    private Date createTime;
     /**
      * 修改时间
      */
-    private Data lastEditTime;
+    private Date lastEditTime;
 
     public Long getUserId() {
         return userId;
@@ -105,19 +105,19 @@ public class PersonInfo {
         this.userType = userType;
     }
 
-    public Data getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Data createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Data getLastEditTime() {
+    public Date getLastEditTime() {
         return lastEditTime;
     }
 
-    public void setLastEditTime(Data lastEditTime) {
+    public void setLastEditTime(Date lastEditTime) {
         this.lastEditTime = lastEditTime;
     }
 }

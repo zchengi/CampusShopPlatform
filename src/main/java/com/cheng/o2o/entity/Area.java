@@ -13,7 +13,7 @@ public class Area {
     /**
      * ID
      */
-    private Integer areaId;
+    private Long areaId;
     /**
      * 名称
      */
@@ -31,11 +31,11 @@ public class Area {
      */
     private Date lastEditTime;
 
-    public Integer getAreaId() {
+    public Long getAreaId() {
         return areaId;
     }
 
-    public void setAreaId(Integer areaId) {
+    public void setAreaId(Long areaId) {
         this.areaId = areaId;
     }
 
