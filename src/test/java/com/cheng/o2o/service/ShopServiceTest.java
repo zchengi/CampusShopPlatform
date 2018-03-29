@@ -1,4 +1,4 @@
-package com.cheng.o2o.service.impl;
+package com.cheng.o2o.service;
 
 import com.cheng.o2o.BaseTest;
 import com.cheng.o2o.dto.ShopExecution;
@@ -13,6 +13,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Date;
 
 /**
@@ -28,7 +30,7 @@ public class ShopServiceTest extends BaseTest {
     private ShopService shopService;
 
     @Test
-    public void testAddShop() {
+    public void testAddShop() throws FileNotFoundException {
 
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
@@ -40,16 +42,17 @@ public class ShopServiceTest extends BaseTest {
         shop.setOwner(owner);
         shop.setArea(area);
         shop.setShopCategory(shopCategory);
-        shop.setShopName("测试店铺2");
-        shop.setShopDesc("test2");
-        shop.setShopAddr("test2");
-        shop.setPhone("test2");
+        shop.setShopName("测试店铺3");
+        shop.setShopDesc("test3");
+        shop.setShopAddr("test3");
+        shop.setPhone("test3");
         shop.setCreateTime(new Date());
         shop.setEnableStatus(ShopStateEnum.CHECK.getState());
         shop.setAdvice("审核中");
 
         File shopImg = new File("D:/IntelliJProject/O2O/target/test-classes/img/002.png");
-        ShopExecution se = shopService.addShop(shop, shopImg);
+        FileInputStream fis = new FileInputStream(shopImg);
+        ShopExecution se = shopService.addShop(shop, fis, shopImg.getName());
         Assert.assertEquals(ShopStateEnum.CHECK.getState(), se.getState());
     }
 }

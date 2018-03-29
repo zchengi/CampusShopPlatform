@@ -1,4 +1,4 @@
-package com.cheng.o2o.service.impl;
+package com.cheng.o2o.service;
 
 import com.cheng.o2o.BaseTest;
 import com.cheng.o2o.entity.Area;
@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 /**
- * AreaServiceImpl Tester.
+ * AreaService Tester.
  *
  * @author cheng
  * @version 1.0
  * @since <pre>03/28/2018</pre>
  */
-public class AreaServiceImplTest extends BaseTest {
+public class AreaServiceTest extends BaseTest {
 
     @Autowired
     private AreaService areaService;
