@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *         2018/3/29 23:28
  */
 @Controller
-@RequestMapping(value = "/shopadmin", method = RequestMethod.GET)
-public class ShopAdminController {
+@RequestMapping(value = "/shop", method = RequestMethod.GET)
+public class AdminController {
 
-    @GetMapping("shopoperation")
-    public String shopOperation() {
-        return "shop/shopoperation";
+    @GetMapping("shopedit")
+    public String shopEdit() {
+        return "shop/shopedit";
     }
 }

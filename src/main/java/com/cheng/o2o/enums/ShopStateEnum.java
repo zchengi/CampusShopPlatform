@@ -1,13 +1,16 @@
 package com.cheng.o2o.enums;
 
 /**
- * 商店状态信息
+ * 商铺状态信息
  *
  * @author cheng
  *         2018/3/29 14:58
  */
 public enum ShopStateEnum {
 
+    /**
+     * 状态信息
+     */
     CHECK(0, "审核中"),
     OFFLINE(-1, "非法店铺"),
     SUCCESS(1, "操作成功"),
