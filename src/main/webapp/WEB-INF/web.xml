@@ -21,4 +21,59 @@
         <!-- 默认匹配所有的请求 -->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <!-- 配置验证码相关 -->
+    <servlet>
+        <servlet-name>Kaptcha</servlet-name>
+        <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+        <!-- 使用哪些字符生成验证码 -->
+        <init-param>
+            <param-name>kaptcha.textproducer.char.string</param-name>
+            <param-value>ACDEFHKPRSTWX345679</param-value>
+        </init-param>
+        <!-- 字符个数 -->
+        <init-param>
+            <param-name>kaptcha.textproducer.char.length</param-name>
+            <param-value>4</param-value>
+        </init-param>
+        <!-- 字体 -->
+        <init-param>
+            <param-name>kaptcha.textproducer.font.names</param-name>
+            <param-value>微软雅黑</param-value>
+        </init-param>
+        <!-- 边框 -->
+        <init-param>
+            <param-name>kaptcha.border</param-name>
+            <param-value>no</param-value>
+        </init-param>
+        <!-- 字体颜色 -->
+        <init-param>
+            <param-name>kaptcha.textproducer.font.color</param-name>
+            <param-value>blue</param-value>
+        </init-param>
+        <!-- 字体大小 -->
+        <init-param>
+            <param-name>kaptcha.textproducer.font.size</param-name>
+            <param-value>30</param-value>
+        </init-param>
+        <!-- 干扰线颜色 -->
+        <init-param>
+            <param-name>kaptcha.noise.color</param-name>
+            <param-value>blue</param-value>
+        </init-param>
+        <!-- 图片宽度 -->
+        <init-param>
+            <param-name>kaptcha.image.width</param-name>
+            <param-value>110</param-value>
+        </init-param>
+        <!-- 图片高度 -->
+        <init-param>
+            <param-name>kaptcha.image.height</param-name>
+            <param-value>45</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Kaptcha</servlet-name>
+        <url-pattern>/Kaptcha</url-pattern>
+    </servlet-mapping>
 </web-app>

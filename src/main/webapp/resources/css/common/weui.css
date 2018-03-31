@@ -558,6 +558,7 @@ z-index:
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .weui-cell__ft {
@@ -700,6 +701,7 @@ z-index:
     color: inherit;
     height: 1.47058824em;
     line-height: 1.47058824;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .weui-input::-webkit-outer-spin-button,
@@ -717,6 +719,7 @@ z-index:
     font-size: 1em;
     line-height: inherit;
     outline: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .weui-textarea-counter {

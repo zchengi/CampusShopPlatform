@@ -6,11 +6,12 @@
     <meta name="format-detection" content="telephone=no">
     <title>商铺信息</title>
 
-    <link rel="stylesheet" href="../resources/css/common/weui.css">
-    <link rel="stylesheet" href="../resources/css/shop/shopedit.css">
+    <link rel="stylesheet" href="/resources/css/common/weui.css">
+    <link rel="stylesheet" href="/resources/css/shop/shopedit.css">
+    <!--    <link rel="stylesheet" href="../resources/css/common/weui.css">
+        <link rel="stylesheet" href="../resources/css/shop/shopedit.css">-->
 </head>
-<body ontouchstart>
-
+<body>
 <div class="container">
     <!-- 导航层 -->
     <div class="bar" id="title">
@@ -33,21 +34,15 @@
             <div class="weui-cell__hd">
                 <label class="weui-label">商铺分类</label>
             </div>
-            <!-- <div class="weui-cell__bd">
-                 <div class="weui-picker weui-animate-slide-up">
-                     <div class="weui-picker__hd">
-                     </div>
-                     <div class="weui-picker__bd">
-                     </div>
-                 </div>
-             </div>-->
+            <div id="pickerShopCategory" class="weui-cell__bd">
+            </div>
         </div>
         <!-- 区域分类 下拉列表 -->
         <div class="weui-cell">
             <div class="weui-cell__hd">
                 <label class="weui-label">所属区域</label>
             </div>
-            <div class="weui-cell__bd">
+            <div id="pickerArea" class="weui-cell__bd">
             </div>
         </div>
         <!-- 详细地址 文本框 -->
@@ -65,8 +60,8 @@
                 <label class="weui-label">联系电话</label>
             </div>
             <div class="weui-cell__bd">
-                <input class="weui-input" id="shop-addr" type="tel" required=""
-                       pattern="[\d]{8,11}" notmatchtips="请输入正确的手机号" placeholder="请输入手机号">
+                <input class="weui-input" id="shop-phone" type="tel" required="" maxlength="11"
+                       pattern="[\d]{8,11}" notmatchtips="请输入正确的手机号" placeholder="手机号">
             </div>
         </div>
         <!-- 店铺简介 文本域 -->
@@ -84,19 +79,38 @@
             <div class="weui-cell__bd weui-uploader">
                 <div class="weui-uploader__hd">
                     <p class="weui-uploader__title">图片上传</p>
-                    <div class="weui-uploader__info">0/2</div>
+                    <div class="weui-uploader__info">0/1</div>
                 </div>
                 <div class="weui-uploader__input-box">
-                    <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple/>
+                    <input id="shop-img" class="weui-uploader__input" type="file" accept="image/*" multiple/>
                 </div>
             </div>
         </div>
         <!-- 验证码 kaptcha -->
+        <div class="weui-cell weui-cell_vcode">
+            <div class="weui-cell__hd">
+                <label class="weui-label">验证码</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input id="j_captcha" class="weui-input" maxlength="4" type="text" placeholder="请输入验证码">
+            </div>
+            <div class="weui-cell__ft">
+                <img onclick="changeVerifyCode(this)" class="weui-vcode-img" src="/Kaptcha">
+            </div>
+        </div>
     </div>
 
     <div class="weui-btn-area">
-        <a href="javascript:;" class="weui-btn weui-btn_primary">提交</a>
+        <a href="javascript:;" id="submit" class="weui-btn weui-btn_primary">提交</a>
     </div>
 </div>
+<script type="text/javascript" src="/resources/js/common/weui.js"></script>
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/common/commonUtil.js"></script>
+<script type="text/javascript" src="/resources/js/shop/shopedit.js"></script>
+<!--<script type="text/javascript" src="../resources/js/common/weui.js"></script>
+<script type="text/javascript" src="../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../resources/js/common/commonUtil.js"></script>
+<script type="text/javascript" src="../resources/js/shop/shopedit.js"></script>-->
 </body>
 </html>
