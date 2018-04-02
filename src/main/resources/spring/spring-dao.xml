@@ -12,23 +12,59 @@
     <context:property-placeholder location="classpath:jdbc.properties"/>
 
     <!-- 2.数据库连接池 -->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <bean id="abstractDataSource" abstract="true" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
         <!-- 配置连接池属性 -->
-        <property name="driverClass" value="${jdbc.driver}"/>
-        <property name="jdbcUrl" value="${jdbc.url}"/>
-        <property name="user" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
+        <!--  <property name="driverClass" value="${jdbc.driver}"/>
+          <property name="jdbcUrl" value="${jdbc.url}"/>
+          <property name="user" value="${jdbc.username}"/>
+          <property name="password" value="${jdbc.password}"/>-->
 
         <!-- c3p0连接池的似有属性 -->
-        <property name="maxPoolSize" value="30"/>
+        <!--<property name="maxPoolSize" value="30"/>
         <property name="minPoolSize" value="10"/>
-        <!-- 关闭连接后不自动commit -->
+        &lt;!&ndash; 关闭连接后不自动commit &ndash;&gt;
         <property name="autoCommitOnClose" value="false"/>
-        <!-- 连接超时时间 -->
+        &lt;!&ndash; 连接超时时间 &ndash;&gt;
         <property name="checkoutTimeout" value="10000"/>
-        <!-- 当获取连接失败重试次数 -->
-        <property name="acquireRetryAttempts" value="2"/>
+        &lt;!&ndash; 当获取连接失败重试次数 &ndash;&gt;
+        <property name="acquireRetryAttempts" value="2"/>-->
     </bean>
+
+    <!-- 主从复制 -->
+
+    <!-- 主数据源 -->
+    <bean id="master" parent="abstractDataSource">
+        <!-- 配置连接池属性 -->
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.master.url}"/>
+        <property name="user" value="${jdbc.master.username}"/>
+        <property name="password" value="${jdbc.master.password}"/>
+    </bean>
+
+    <!-- 从数据源 -->
+    <bean id="slave" parent="abstractDataSource">
+        <!-- 配置连接池属性 -->
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.slave.url}"/>
+        <property name="user" value="${jdbc.slave.username}"/>
+        <property name="password" value="${jdbc.slave.password}"/>
+    </bean>
+
+    <!-- 配置动态数据源,这儿的 targetDataSources 就是路由数据源所对应的名称 -->
+    <bean id="dynamicDataSource" class="com.cheng.o2o.dao.split.DynamicDataSource">
+        <property name="targetDataSources">
+            <map>
+                <entry value-ref="master" key="master"/>
+                <entry value-ref="slave" key="slave"/>
+            </map>
+        </property>
+    </bean>
+    <!-- 懒加载 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+        <property name="targetDataSource" ref="dynamicDataSource"/>
+    </bean>
+
 
     <!-- 3.配置SqlSessionFactory对象 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

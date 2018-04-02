@@ -25,7 +25,6 @@ public class ShopDaoTest extends BaseTest {
     private ShopDao shopDao;
 
     @Test
-    @Ignore
     public void insertShop() {
 
         Shop shop = new Shop();
@@ -38,11 +37,11 @@ public class ShopDaoTest extends BaseTest {
         shop.setOwner(owner);
         shop.setArea(area);
         shop.setShopCategory(shopCategory);
-        shop.setShopName("测试店铺1");
-        shop.setShopDesc("test");
-        shop.setShopAddr("test");
-        shop.setPhone("test");
-        shop.setShopImg("test");
+        shop.setShopName("测试店铺4");
+        shop.setShopDesc("test4");
+        shop.setShopAddr("test4");
+        shop.setPhone("test4");
+        shop.setShopImg("test4");
         shop.setCreateTime(new Date());
         shop.setEnableStatus(1);
         shop.setAdvice("审核中");
@@ -52,6 +51,7 @@ public class ShopDaoTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void updateShop() {
 
         Shop shop = new Shop();
