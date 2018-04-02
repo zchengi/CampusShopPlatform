@@ -33,7 +33,7 @@ public class AreaController {
 
         logger.info("===start===");
         long startTime = System.currentTimeMillis();
-        Map<String, Object> modelMap = new HashMap<>(100);
+        Map<String, Object> modelMap = new HashMap<>(10);
         try {
             List<Area> list = areaService.getAreaList();
             modelMap.put("rows", list);

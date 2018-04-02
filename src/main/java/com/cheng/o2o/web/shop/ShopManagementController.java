@@ -25,6 +25,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,7 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> getShopInitInfo() {
 
-        Map<String, Object> modelMap = new HashMap<>(100);
+        Map<String, Object> modelMap = new HashMap<>(10);
         List<ShopCategory> shopCategoryList;
         List<Area> areaList;
 
@@ -71,7 +72,7 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> registerShop(HttpServletRequest request) {
 
-        Map<String, Object> modelMap = new HashMap<>(100);
+        Map<String, Object> modelMap = new HashMap<>(10);
 
         // 校验验证码
         if (!CodeUtil.checkVerifyCode(request)) {
@@ -108,14 +109,84 @@ public class ShopManagementController {
 
         // 2.注册店铺
         if (shop != null && shopImg != null) {
-            // TODO 暂时设置初始值为 1,之后假如 session 获取 owner
-            PersonInfo owner = new PersonInfo();
-            owner.setUserId(1L);
+            PersonInfo owner = (PersonInfo) request.getSession().getAttribute("user");
             shop.setOwner(owner);
 
             try {
                 ShopExecution se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
                 if (se.getState() == ShopStateEnum.CHECK.getState()) {
+                    modelMap.put("success", true);
+                    @SuppressWarnings("unchecked")
+                    List<Shop> shopList = (List<Shop>) request.getSession().getAttribute("shopList");
+                    if (shopList == null || shopList.size() == 0) {
+                        shopList = new ArrayList<>();
+                    }
+                    shopList.add(se.getShop());
+                    request.getSession().setAttribute("shopList", shopList);
+
+                } else {
+                    modelMap.put("success", false);
+                    modelMap.put("errMsg", se.getStateInfo());
+                }
+            } catch (ShopOperationException | IOException e) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", e.getMessage());
+            }
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "请输入店铺信息");
+        }
+
+        return modelMap;
+    }
+
+
+    @PostMapping("/modifyshop")
+    @ResponseBody
+    private Map<String, Object> modifyShop(HttpServletRequest request) {
+
+        Map<String, Object> modelMap = new HashMap<>(10);
+
+        // 校验验证码
+        if (!CodeUtil.checkVerifyCode(request)) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "验证码有误!");
+            return modelMap;
+        }
+
+        // 1.接收并转换相应的参数,包括店铺信息以及图片信息
+        String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
+        ObjectMapper mapper = new ObjectMapper();
+        Shop shop;
+        try {
+            shop = mapper.readValue(shopStr, Shop.class);
+        } catch (Exception e) {
+            modelMap.put("success", false);
+            // TODO 错误信息返回修改
+            modelMap.put("errMsg", e.getMessage());
+            return modelMap;
+        }
+
+        CommonsMultipartFile shopImg = null;
+        CommonsMultipartResolver commonsMultipartResolver =
+                new CommonsMultipartResolver(request.getSession().getServletContext());
+        if (commonsMultipartResolver.isMultipart(request)) {
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    (MultipartHttpServletRequest) request;
+            shopImg = (CommonsMultipartFile) multipartHttpServletRequest.getFile("shopImg");
+        }
+
+        // 2.修改店铺信息
+        if (shop != null && shop.getShopId() != null) {
+            ShopExecution se;
+            try {
+                if (shopImg == null) {
+                    se = shopService.modifyShop(shop, null, null);
+                } else {
+                    se = shopService.modifyShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                }
+
+                if (se.getState() == ShopStateEnum.SUCCESS.getState()) {
                     modelMap.put("success", true);
                 } else {
                     modelMap.put("success", false);
@@ -128,6 +199,31 @@ public class ShopManagementController {
         } else {
             modelMap.put("success", false);
             modelMap.put("errMsg", "请输入店铺信息");
+        }
+
+        return modelMap;
+    }
+
+
+    @GetMapping("/getshopbyid")
+    @ResponseBody
+    private Map<String, Object> getShopById(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<>(10);
+        Long shopId = HttpServletRequestUtil.getLong(request, "shopId");
+        if (shopId > -1) {
+            try {
+                Shop shop = shopService.getByShopId(shopId);
+                List<Area> areaList = areaService.getAreaList();
+                modelMap.put("shop", shop);
+                modelMap.put("areaList", areaList);
+                modelMap.put("success", true);
+            } catch (Exception e) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", e.toString());
+            }
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "empty shopId");
         }
 
         return modelMap;

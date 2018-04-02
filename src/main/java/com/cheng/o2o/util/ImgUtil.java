@@ -70,6 +70,27 @@ public class ImgUtil {
         }
     }
 
+    /**
+     * 删除 storePath
+     * 如果是文件:删除该文件
+     * 如果是目录:删除该目录下所有文件且删除目录
+     *
+     * @param storePath 文件的目录或路径
+     */
+    public static void deleteFileOrPath(String storePath) {
+
+        File fileOrPath = new File(FileUtil.getImgBasePath() + storePath);
+        if (fileOrPath.exists()) {
+            if (fileOrPath.isDirectory()) {
+                File[] files = fileOrPath.listFiles();
+                for (File file : files) {
+                    file.delete();
+                }
+            }
+            fileOrPath.delete();
+        }
+    }
+
     public static void main(String[] args) throws IOException {
 
         // 这里或得的路径是当前线程运行时的根目录(路径中不能有空格等非法字符，下同)
