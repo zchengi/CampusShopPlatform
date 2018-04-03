@@ -195,6 +195,7 @@ public class ShopManagementController {
             } catch (ShopOperationException | IOException e) {
                 modelMap.put("success", false);
                 modelMap.put("errMsg", e.getMessage());
+                System.out.println(e.getMessage());
             }
         } else {
             modelMap.put("success", false);

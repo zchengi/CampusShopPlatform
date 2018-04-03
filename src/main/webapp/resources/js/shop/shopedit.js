@@ -7,20 +7,34 @@
     "use strict";
 
     /* var initUrl = '/o2o/shop/getshopinitinfo'
-         , editShopUrl = '/o2o/shop/registershop'*/
+         , registerShopUrl = '/o2o/shop/registershop'*/
 
     var initUrl = '/shop/getshopinitinfo'
-        , editShopUrl = '/shop/registershop'
+        , registerShopUrl = '/shop/registershop'
+        , shopId = getQueryString('shopId')
+        // var isEdit = shopId ? true : false;
+        , isEdit = !!shopId
+        , shopInfoUrl = '/shop/getshopbyid?shopId=' + shopId
+        , editShopUrl = '/shop/modifyshop'
         , $pickerShopCategory = $('#pickerShopCategory')
         , $pickerArea = $('#pickerArea');
 
+
     // 初始化
     // TODO 表单校验
-    getCategory();
+    if (!isEdit) {
+        getShopInitInfo();
+    }else {
+        getShopInfo(shopId);
+    }
 
 
     $('#submit').on('click', function () {
         var shop = {};
+        if (isEdit){
+            shop.shopId = shopId;
+        }
+
         shop.shopName = $('#shop-name').val();
         shop.shopAddr = $('#shop-addr').val();
         shop.phone = $('#shop-phone').val();
@@ -36,16 +50,16 @@
         var verifyCodeActual = $('#j_captcha').val();
 
         if (!verifyCodeActual) {
-            weui.alert("请输入验证码!");
+            weui.alert('请输入验证码!');
             return;
         }
 
         var formData = new FormData();
         formData.append('shopStr', JSON.stringify(shop));
         formData.append('shopImg', shopImg);
-        formData.append("verifyCodeActual", verifyCodeActual);
+        formData.append('verifyCodeActual', verifyCodeActual);
         $.ajax({
-            url: editShopUrl,
+            url: (isEdit ? editShopUrl : registerShopUrl),
             type: 'POST',
             data: formData,
             contentType: false,
@@ -55,7 +69,7 @@
                 if (data.success) {
                     weui.toast('提交成功!');
                 } else {
-                    weui.alert('提交失败,' + data.errMsg + ".");
+                    weui.alert('提交失败,' + data.errMsg + '.');
                 }
                 $('#j_captcha').click();
             }
@@ -65,7 +79,7 @@
     /**
      * 获取商铺初始信息
      */
-    function getCategory() {
+    function getShopInitInfo() {
         $.getJSON(initUrl, function (data) {
             if (data.success) {
                 var areaList = [];
@@ -91,11 +105,11 @@
 
                 // 区域类别选择器
                 $pickerArea.on('click', function () {
-                    initPicker(areaList, $pickerArea)
+                    initPicker(areaList, $pickerArea);
                 });
                 // 商铺分类选择器
                 $pickerShopCategory.on('click', function () {
-                    initPicker(shopCategoryList, $pickerShopCategory)
+                    initPicker(shopCategoryList, $pickerShopCategory);
                 });
             } else {
                 // TODO 请求失败处理
@@ -103,6 +117,41 @@
         });
     }
 
+    /**
+     * 获取商铺信息
+     */
+    function getShopInfo(shopId) {
+        $.getJSON(shopInfoUrl, function (data) {
+            if (data.success) {
+                var shop = data.shop;
+                $('#shop-name').val(shop.shopName);
+                $('#shop-addr').val(shop.shopAddr);
+                $('#shop-phone').val(shop.phone);
+                $('#shop-desc').val(shop.shopDesc);
+
+                $pickerShopCategory.html(shop.shopCategory.shopCategoryName);
+                $pickerShopCategory.pickerId = shop.shopCategory.shopCategoryId;
+                $pickerArea.html(shop.area.areaName);
+                $pickerArea.pickerId = shop.area.areaId;
+
+                var areaList = [];
+                data.areaList.map(function (item, index) {
+                    areaList[index] = {
+                        label: item.areaName,
+                        value: item.areaId
+                    };
+                });
+                // 区域类别选择器
+                $pickerArea.on('click', function () {
+                    initPicker(areaList, $pickerArea);
+                });
+            }
+        });
+    }
+
+    /**
+     * 初始化 picker
+     */
     function initPicker(data, picker) {
         // 单列picker
         weui.picker(data, {
