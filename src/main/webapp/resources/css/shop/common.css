@@ -1,5 +1,5 @@
 
-.container {
+body {
     background-color: #eee;
 }
 
@@ -18,4 +18,8 @@
 
 .content {
     margin-top: 80px;
+}
+
+.weui-flex__item {
+    margin: 0 5px;
 }

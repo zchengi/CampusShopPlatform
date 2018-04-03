@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * ShopDao Tester.
@@ -67,10 +68,34 @@ public class ShopDaoTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testQueryByShopId() {
         long shopId = 1;
         Shop shop = shopDao.queryByShopId(shopId);
         System.out.println("areaId:" + shop.getArea().getAreaId());
         System.out.println("areaName:" + shop.getArea().getAreaName());
+    }
+
+    @Test
+    public void testQueryShopListAndCount() {
+        Shop shopCondition = new Shop();
+        PersonInfo owner = new PersonInfo();
+        owner.setUserId(1L);
+        shopCondition.setOwner(owner);
+
+        List<Shop> shopList = shopDao.queryShopList(shopCondition, 0, 5);
+        int count = shopDao.queryShopCount(shopCondition);
+        System.out.println("店铺列表大小: " + shopList.size());
+        System.out.println("店铺总数: " + count);
+
+        ShopCategory shopCategory = new ShopCategory();
+        shopCategory.setShopCategoryId(1L);
+        shopCondition.setShopCategory(shopCategory);
+
+        shopList = shopDao.queryShopList(shopCondition, 0, 5);
+        count = shopDao.queryShopCount(shopCondition);
+        System.out.println("新店铺列表大小: " + shopList.size());
+        System.out.println("新店铺总数: " + count);
+
     }
 }

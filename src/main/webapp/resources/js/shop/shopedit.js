@@ -4,7 +4,7 @@
 
 ;(function () {
 
-    "use strict";
+    'use strict';
 
     /* var initUrl = '/o2o/shop/getshopinitinfo'
          , registerShopUrl = '/o2o/shop/registershop'*/
@@ -15,7 +15,7 @@
         // var isEdit = shopId ? true : false;
         , isEdit = !!shopId
         , shopInfoUrl = '/shop/getshopbyid?shopId=' + shopId
-        , editShopUrl = '/shop/modifyshop'
+        , editShopUrl = '/shopadmin/modifyshop'
         , $pickerShopCategory = $('#pickerShopCategory')
         , $pickerArea = $('#pickerArea');
 

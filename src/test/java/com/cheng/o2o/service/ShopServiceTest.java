@@ -8,8 +8,8 @@ import com.cheng.o2o.entity.Shop;
 import com.cheng.o2o.entity.ShopCategory;
 import com.cheng.o2o.enums.ShopStateEnum;
 import com.cheng.o2o.exceptions.ShopOperationException;
-import com.cheng.o2o.service.ShopService;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,6 +32,7 @@ public class ShopServiceTest extends BaseTest {
     private ShopService shopService;
 
     @Test
+    @Ignore
     public void testAddShop() throws FileNotFoundException {
 
         Shop shop = new Shop();
@@ -59,6 +60,7 @@ public class ShopServiceTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testModifyShop() throws ShopOperationException, FileNotFoundException {
         Shop shop = new Shop();
         shop.setShopId(1L);
@@ -70,10 +72,22 @@ public class ShopServiceTest extends BaseTest {
     }
 
     @Test
-    public void testGetByShopId() throws ShopOperationException, FileNotFoundException {
+    @Ignore
+    public void testGetByShopId() throws ShopOperationException {
 
         Shop shop = shopService.getByShopId(17L);
         System.out.println("areaId:" + shop.getArea().getAreaId());
         System.out.println("areaName:" + shop.getArea().getAreaName());
+    }
+
+    @Test
+    public void testGetShopList() {
+        Shop shopCondition = new Shop();
+        ShopCategory sc = new ShopCategory();
+        sc.setShopCategoryId(1L);
+        shopCondition.setShopCategory(sc);
+        ShopExecution se = shopService.getShopList(shopCondition, 1, 2);
+        System.out.println("店铺列表数为: " + se.getShopList().size());
+        System.out.println("店铺总数为: " + se.getCount());
     }
 }
