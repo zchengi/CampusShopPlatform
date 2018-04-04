@@ -39,7 +39,7 @@ public class ShopCategory {
      */
     private Date lastEditTime;
     /**
-     * 上级商铺
+     * 上级店铺
      */
     private ShopCategory parent;
 

@@ -12,7 +12,7 @@ import java.util.List;
 public interface ShopCategoryDao {
 
     /**
-     * 查询商铺类别
+     * 查询店铺类别
      *
      * @param shopCategoryCondition
      * @return

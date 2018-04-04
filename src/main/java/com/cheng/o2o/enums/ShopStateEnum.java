@@ -1,7 +1,7 @@
 package com.cheng.o2o.enums;
 
 /**
- * 商铺状态信息
+ * 店铺状态信息
  *
  * @author cheng
  *         2018/3/29 14:58

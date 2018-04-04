@@ -11,7 +11,7 @@ import java.util.List;
 public interface ShopCategoryService {
 
     /**
-     * 获取商铺列表
+     * 获取店铺列表
      *
      * @param shopCategoryCondition
      * @return

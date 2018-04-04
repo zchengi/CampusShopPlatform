@@ -77,7 +77,7 @@
     });
 
     /**
-     * 获取商铺初始信息
+     * 获取店铺初始信息
      */
     function getShopInitInfo() {
         $.getJSON(initUrl, function (data) {
@@ -97,7 +97,7 @@
                     };
                 });
 
-                // 显示初始值(默认为第1个商铺)
+                // 显示初始值(默认为第1个店铺)
                 $pickerArea.html(areaList[0].label);
                 $pickerArea.pickerId = areaList[0].value;
                 $pickerShopCategory.html(shopCategoryList[0].label);
@@ -107,7 +107,7 @@
                 $pickerArea.on('click', function () {
                     initPicker(areaList, $pickerArea);
                 });
-                // 商铺分类选择器
+                // 店铺分类选择器
                 $pickerShopCategory.on('click', function () {
                     initPicker(shopCategoryList, $pickerShopCategory);
                 });
@@ -118,7 +118,7 @@
     }
 
     /**
-     * 获取商铺信息
+     * 获取店铺信息
      */
     function getShopInfo(shopId) {
         $.getJSON(shopInfoUrl, function (data) {
