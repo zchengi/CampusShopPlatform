@@ -1,0 +1,18 @@
+
+.my-label_center {
+    text-align: center;
+}
+
+.my-btn_warn {
+    margin-left: 19px;
+    width: 67px;
+    margin-right: 19px
+}
+
+.my-warn {
+    background-color: #0894ec;
+}
+
+.my-warn:not(.weui-btn_disabled):active {
+    background-color: #0a89d9;
+}

@@ -11,7 +11,9 @@
             priority,
             create_time,
             last_edit_time
-        FROM tb_area
-        ORDER BY priority DESC;
+        FROM
+            tb_area
+        ORDER BY
+            priority DESC;
     </select>
 </mapper>
