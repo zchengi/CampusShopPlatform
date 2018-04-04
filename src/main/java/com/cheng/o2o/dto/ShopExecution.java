@@ -17,7 +17,7 @@ public class ShopExecution {
     private int state;
 
     /**
-     * 状态表示
+     * 状态标识
      */
     private String stateInfo;
 

@@ -118,7 +118,7 @@
     }
 
     /**
-     * 获取店铺信息
+     * 获取商铺信息
      */
     function getShopInfo(shopId) {
         $.getJSON(shopInfoUrl, function (data) {

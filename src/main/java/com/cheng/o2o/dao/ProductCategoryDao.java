@@ -1,6 +1,7 @@
 package com.cheng.o2o.dao;
 
 import com.cheng.o2o.entity.ProductCategory;
+import com.cheng.o2o.exceptions.ProductCategoryOperationException;
 
 import java.util.List;
 
@@ -11,10 +12,21 @@ import java.util.List;
 public interface ProductCategoryDao {
 
     /**
+     * 批量新增商品类别
+     *
+     * @param productCategoryList
+     * @return
+     * @throws ProductCategoryOperationException
+     */
+    int batchInsertProductCategory(List<ProductCategory> productCategoryList)
+            throws ProductCategoryOperationException;
+
+    /**
      * 通过 shop id 查询店铺商品类别
      *
      * @param shopId
      * @return List<ProductCategory>
      */
     List<ProductCategory> queryProductCategoryList(Long shopId);
+
 }

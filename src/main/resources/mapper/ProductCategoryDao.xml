@@ -5,6 +5,16 @@
 
 <mapper namespace="com.cheng.o2o.dao.ProductCategoryDao">
 
+    <insert id="batchInsertProductCategory" parameterType="list">
+        INSERT INTO
+        tb_product_category (product_category_name, priority, create_time, shop_id)
+        VALUES
+        <foreach collection="list" item="productCategory" index="index" separator=",">
+            (#{productCategory.productCategoryName}, #{productCategory.priority},
+            #{productCategory.createTime},#{productCategory.shopId})
+        </foreach>
+    </insert>
+
     <select id="queryProductCategoryList" resultType="productCategory" parameterType="Long">
         SELECT
             product_category_id,
