@@ -1,4 +1,4 @@
-package com.cheng.o2o.dao.split;
+package com.cheng.o2o.interceptor.dao;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 

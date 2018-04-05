@@ -16,6 +16,6 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <plugins>
-        <plugin interceptor="com.cheng.o2o.dao.split.DynamicDataSourceInterceptor"/>
+        <plugin interceptor="com.cheng.o2o.interceptor.dao.DynamicDataSourceInterceptor"/>
     </plugins>
 </configuration>

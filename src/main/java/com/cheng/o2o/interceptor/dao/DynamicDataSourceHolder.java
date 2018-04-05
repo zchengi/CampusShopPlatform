@@ -1,4 +1,4 @@
-package com.cheng.o2o.dao.split;
+package com.cheng.o2o.interceptor.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

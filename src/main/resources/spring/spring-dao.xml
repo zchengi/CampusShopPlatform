@@ -52,7 +52,7 @@
     </bean>
 
     <!-- 配置动态数据源,这儿的 targetDataSources 就是路由数据源所对应的名称 -->
-    <bean id="dynamicDataSource" class="com.cheng.o2o.dao.split.DynamicDataSource">
+    <bean id="dynamicDataSource" class="com.cheng.o2o.interceptor.dao.DynamicDataSource">
         <property name="targetDataSources">
             <map>
                 <entry value-ref="master" key="master"/>
