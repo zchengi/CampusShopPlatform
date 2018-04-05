@@ -59,6 +59,33 @@ public class ProductCategoryManagementController {
         return modelMap;
     }
 
+    @PostMapping("/removeproductcategory")
+    @ResponseBody
+    private Map<String, Object> removeProductCategory(Long productCategoryId, HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<>(10);
+        if (productCategoryId != null && productCategoryId > 0) {
+            try {
+                Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+                ProductCategoryExecution pe = productCategoryService.deleteProductCategory(productCategoryId, currentShop.getShopId());
+                if (pe.getState() == ProductCategoryStateEnum.SUCCESS.getState()) {
+                    modelMap.put("success", true);
+                } else {
+                    modelMap.put("success", false);
+                    modelMap.put("errMsg", pe.getStateInfo());
+                }
+            } catch (ProductCategoryOperationException pe) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", pe.toString());
+                return modelMap;
+            }
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "请至少删除一个商品类别!");
+        }
+
+        return modelMap;
+    }
+
     @GetMapping("/getproductcategorylist")
     @ResponseBody
     private Result<List<ProductCategory>> getProductCategoryList(HttpServletRequest request) {

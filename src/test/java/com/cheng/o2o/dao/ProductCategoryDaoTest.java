@@ -3,8 +3,9 @@ package com.cheng.o2o.dao;
 import com.cheng.o2o.BaseTest;
 import com.cheng.o2o.entity.ProductCategory;
 import org.junit.Assert;
-import org.junit.Ignore;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -18,13 +19,15 @@ import java.util.List;
  * @version 1.1
  * @since <pre>04/4/2018</pre>
  */
+// 控制 Junit 里的方法按方法名顺序执行(字母顺序)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProductCategoryDaoTest extends BaseTest {
 
     @Autowired
     private ProductCategoryDao productCategoryDao;
 
     @Test
-    public void testBatchInsertProductCategory() {
+    public void testABatchInsertProductCategory() {
         List<ProductCategory> productCategoryList = new ArrayList<>();
         ProductCategory productCategory1 = new ProductCategory();
         ProductCategory productCategory2 = new ProductCategory();
@@ -47,8 +50,19 @@ public class ProductCategoryDaoTest extends BaseTest {
     }
 
     @Test
-    @Ignore
-    public void queryProductCategoryList() {
+    public void testCDeleteProductCategory() {
+        long shopId = 1;
+        List<ProductCategory> productCategoryDaoList = productCategoryDao.queryProductCategoryList(shopId);
+        for (ProductCategory pc : productCategoryDaoList) {
+            if ("商品类别4".equals(pc.getProductCategoryName()) || "商品类别5".equals(pc.getProductCategoryName())) {
+                int effectedNum = productCategoryDao.deleteProductCategory(pc.getProductCategoryId(), pc.getShopId());
+                Assert.assertEquals(1, effectedNum);
+            }
+        }
+    }
+
+    @Test
+    public void testBQueryProductCategoryList() {
         long shopId = 1;
         List<ProductCategory> productCategoryList = productCategoryDao.queryProductCategoryList(shopId);
         System.out.println("该店铺自定义类别数为: " + productCategoryList.size());

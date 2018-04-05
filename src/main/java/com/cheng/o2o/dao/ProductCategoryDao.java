@@ -2,6 +2,7 @@ package com.cheng.o2o.dao;
 
 import com.cheng.o2o.entity.ProductCategory;
 import com.cheng.o2o.exceptions.ProductCategoryOperationException;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,11 +23,18 @@ public interface ProductCategoryDao {
             throws ProductCategoryOperationException;
 
     /**
+     * 删除指定商品类别
+     * @param productCategoryId
+     * @param shopId
+     * @return
+     */
+    int deleteProductCategory(@Param("productCategoryId") long productCategoryId, @Param("shopId") long shopId);
+
+    /**
      * 通过 shop id 查询店铺商品类别
      *
      * @param shopId
      * @return List<ProductCategory>
      */
     List<ProductCategory> queryProductCategoryList(Long shopId);
-
 }

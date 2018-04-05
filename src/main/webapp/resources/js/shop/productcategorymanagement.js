@@ -14,16 +14,7 @@
     // 初始化商品分类管理列表
     getList();
 
-    function getList() {
-        $.getJSON(listUrl, function (data) {
-            if (data.success) {
-                handleList(data.data);
-            }else {
-                // TODO 错误处理
-            }
-        });
-    }
-
+    // 批量添加商品类别
     $('#new').on('click', function () {
         var categoryHtml = '<div class="weui-cell temp">'
             + '<div class="weui-cell__bd">'
@@ -39,6 +30,7 @@
         $category_list.append(categoryHtml);
     });
 
+    // 提交添加的商品类别
     $('#submit').on('click', function () {
         var tempArr = $('.temp'),
             productCategoryList = [];
@@ -68,10 +60,59 @@
         });
     });
 
+    // 当前商品的删除事件
+    $category_list.on('click', '.weui-cell.now .my-btn_warn', function (e) {
+        var target = e.currentTarget,
+            $this = $(this);
+
+        weui.confirm('确定删除吗?', {
+            buttons: [{
+                label: '取消',
+                type: 'default'
+            }, {
+                label: '确定',
+                type: 'primary',
+                onClick: function () {
+                    $.ajax({
+                        url: deleteUrl,
+                        type: 'POST',
+                        data: {
+                            productCategoryId: target.dataset.id
+                        },
+                        success: function (data) {
+                            if (data.success) {
+                                weui.toast('删除成功!');
+                                $this.parent().parent().remove();
+                            } else {
+                                weui.alert('删除失败，' + data.errMsg);
+                            }
+                        }
+                    });
+                }
+            }]
+        });
+    });
+
+    // 新增未提交的删除事件
+    $category_list.on('click', '.weui-cell.temp .my-btn_warn', function () {
+        //console.log($(this).parent().parent());
+        $(this).parent().parent().remove();
+    });
+
+    function getList() {
+        $.getJSON(listUrl, function (data) {
+            if (data.success) {
+                handleList(data.data);
+            } else {
+                // TODO 错误处理
+            }
+        });
+    }
+
     function handleList(data) {
         var categoryListHtml = '';
         data.map(function (item) {
-            categoryListHtml += '<div class="weui-cell">'
+            categoryListHtml += '<div class="weui-cell now">'
                 + '<div class="weui-cell__bd">' +
                 '<label class="weui-textarea">' + item.productCategoryName + '</label>'
                 + '</div>'
@@ -79,11 +120,12 @@
                 + '<label class="weui-label">' + item.priority + '</label>'
                 + '</div>'
                 + '<div class="weui-cell__ft">'
-                + '<a href="javascript:;" class="weui-label weui-btn weui-btn_mini weui-btn_warn my-btn_warn">删除</a>'
+                + '<a href="javascript:;" data-id="'
+                + item.productCategoryId
+                + '" class="weui-label weui-btn weui-btn_mini weui-btn_warn my-btn_warn">删除</a>'
                 + '</div>'
                 + '</div>';
         });
-
         $category_list.html(categoryListHtml);
     }
 })();

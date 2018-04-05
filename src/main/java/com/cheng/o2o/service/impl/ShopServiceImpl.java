@@ -28,7 +28,7 @@ public class ShopServiceImpl implements ShopService {
     private ShopDao shopDao;
 
     @Override
-    @Transactional(rollbackFor = ShopOperationException.class)
+    @Transactional(rollbackFor = Exception.class)
     public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName)
             throws ShopOperationException {
 
@@ -70,6 +70,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException {
 
         try {
