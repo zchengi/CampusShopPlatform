@@ -1,5 +1,6 @@
 package com.cheng.o2o.util;
 
+import com.cheng.o2o.dto.ImageHolder;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.slf4j.Logger;
@@ -23,11 +24,11 @@ public class ImgUtil {
 
     private static String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
 
-    public static String generateThumbnail(InputStream thumbnailInputStream, String fileName, String targetAddr) {
+    public static String generateThumbnail(ImageHolder thumbnail, String targetAddr) {
 
 
         String realFileName = FileUtil.getRandomFileName();
-        String extension = getFileExtension(fileName);
+        String extension = getFileExtension(thumbnail.getImageName());
         makeDirPath(targetAddr);
         String relativeAddr = targetAddr + realFileName + extension;
         logger.debug("current relativeAddr is : {}", relativeAddr);
@@ -37,7 +38,7 @@ public class ImgUtil {
         logger.debug("basePath is : {}", basePath);
 
         try {
-            Thumbnails.of(thumbnailInputStream)
+            Thumbnails.of(thumbnail.getImage())
                     .size(200, 200)
                     .watermark(Positions.BOTTOM_RIGHT,
                             ImageIO.read(new File(basePath + "img/watermark.jpg")), 0.25f)

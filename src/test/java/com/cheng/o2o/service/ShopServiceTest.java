@@ -1,6 +1,7 @@
 package com.cheng.o2o.service;
 
 import com.cheng.o2o.BaseTest;
+import com.cheng.o2o.dto.ImageHolder;
 import com.cheng.o2o.dto.ShopExecution;
 import com.cheng.o2o.entity.Area;
 import com.cheng.o2o.entity.PersonInfo;
@@ -55,7 +56,8 @@ public class ShopServiceTest extends BaseTest {
 
         File shopImg = new File("D:/IntelliJProject/O2O/target/test-classes/img/002.png");
         FileInputStream fis = new FileInputStream(shopImg);
-        ShopExecution se = shopService.addShop(shop, fis, shopImg.getName());
+        ImageHolder thumbnail = new ImageHolder(shopImg.getName(), fis);
+        ShopExecution se = shopService.addShop(shop, thumbnail);
         Assert.assertEquals(ShopStateEnum.CHECK.getState(), se.getState());
     }
 
@@ -67,7 +69,8 @@ public class ShopServiceTest extends BaseTest {
         shop.setShopName("修改后的店铺信息");
         File shopImg = new File("D:/IntelliJProject/O2O/target/test-classes/img/2.jpg");
         InputStream is = new FileInputStream(shopImg);
-        ShopExecution shopExecution = shopService.modifyShop(shop, is, "2.jpg");
+        ImageHolder thumbnail = new ImageHolder("2.jpg", is);
+        ShopExecution shopExecution = shopService.modifyShop(shop, thumbnail);
         System.out.println("新的图片地址为: " + shopExecution.getShop().getShopImg());
     }
 
