@@ -15,7 +15,7 @@ public enum ProductStateEnum {
     SUCCESS(0, "操作成功"),
     PASS(2, "通过认证"),
     INNER_ERROR(-1001, "操作失败"),
-    NULL_SHOP_ID(-1002, "商品为空");
+    Empty(-1002, "商品为空");
 
     private int state;
     private String stateInfo;
