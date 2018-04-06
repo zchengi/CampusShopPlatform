@@ -1,5 +1,6 @@
 package com.cheng.o2o.web.shop;
 
+import com.cheng.o2o.dto.ImageHolder;
 import com.cheng.o2o.dto.ShopExecution;
 import com.cheng.o2o.entity.Area;
 import com.cheng.o2o.entity.PersonInfo;
@@ -15,7 +16,6 @@ import com.cheng.o2o.util.HttpServletRequestUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -114,7 +114,7 @@ public class ShopManagementController {
             shop.setOwner(owner);
 
             try {
-                ShopExecution se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                ShopExecution se = shopService.addShop(shop, new ImageHolder(shopImg.getOriginalFilename(), shopImg.getInputStream()));
                 if (se.getState() == ShopStateEnum.CHECK.getState()) {
                     modelMap.put("success", true);
                     @SuppressWarnings("unchecked")
@@ -182,9 +182,9 @@ public class ShopManagementController {
             ShopExecution se;
             try {
                 if (shopImg == null) {
-                    se = shopService.modifyShop(shop, null, null);
+                    se = shopService.modifyShop(shop, new ImageHolder(null, null));
                 } else {
-                    se = shopService.modifyShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                    se = shopService.modifyShop(shop, new ImageHolder(shopImg.getOriginalFilename(),shopImg.getInputStream()));
                 }
 
                 if (se.getState() == ShopStateEnum.SUCCESS.getState()) {
