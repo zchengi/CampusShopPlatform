@@ -76,13 +76,16 @@
     </div>
     <!-- 缩略图 上传控件 -->
     <div class="weui-cell">
-        <div class="weui-cell__bd weui-uploader">
+        <div id="uploader" class="weui-cell__bd weui-uploader">
             <div class="weui-uploader__hd">
                 <p class="weui-uploader__title">图片上传</p>
-                <div class="weui-uploader__info">0/1</div>
+                <div class="weui-uploader__info"><span id="uploadCount">0</span>/1</div>
             </div>
-            <div class="weui-uploader__input-box">
-                <input id="shop-img" class="weui-uploader__input" type="file" accept="image/*" multiple/>
+            <div class="weui-uploader__bd">
+                <ul id="uploaderFiles" class="weui-uploader__files"></ul>
+                <div class="weui-uploader__input-box">
+                    <input id="shop-img" class="weui-uploader__input" type="file"/>
+                </div>
             </div>
         </div>
     </div>
@@ -95,7 +98,7 @@
             <input id="j_captcha" class="weui-input" maxlength="4" type="text" placeholder="请输入验证码">
         </div>
         <div class="weui-cell__ft">
-            <img onclick="changeVerifyCode(this)" class="weui-vcode-img" src="/Kaptcha">
+            <img id="img-verification-code" onclick="common.changeVerifyCode(this)" class="weui-vcode-img" src="/Kaptcha">
         </div>
     </div>
 </div>
@@ -105,8 +108,8 @@
 </div>
 <script type="text/javascript" src="/resources/js/common/jquery.js"></script>
 <script type="text/javascript" src="/resources/js/common/weui.js"></script>
-<script type="text/javascript" src="/resources/js/common/commonUtil.js"></script>
-<script type="text/javascript" src="/resources/js/shop/shopedit.js"></script>
+<script type="text/javascript" src="/resources/js/common/commonUtil.js?"></script>
+<script type="text/javascript" src="/resources/js/shop/shopedit.js?"></script>
 <!--<script type="text/javascript" src="../resources/js/common/weui.js"></script>
 <script type="text/javascript" src="../resources/js/common/jquery.js"></script>
 <script type="text/javascript" src="../resources/js/common/commonUtil.js"></script>

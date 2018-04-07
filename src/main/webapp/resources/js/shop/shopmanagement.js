@@ -6,7 +6,7 @@
 
     'use strict';
 
-    var shopId = getQueryString('shopId'),
+    var shopId = common.getQueryString('shopId'),
         shopInfoUrl = '/shop/getshopmanagementinfo?shopId=' + shopId;
 
     $.getJSON(shopInfoUrl, function (data) {

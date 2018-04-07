@@ -11,13 +11,18 @@
 
     var initUrl = '/shop/getshopinitinfo'
         , registerShopUrl = '/shop/registershop'
-        , shopId = getQueryString('shopId')
+        , shopId = common.getQueryString('shopId')
         // var isEdit = shopId ? true : false;
         , isEdit = !!shopId
         , shopInfoUrl = '/shop/getshopbyid?shopId=' + shopId
         , editShopUrl = '/shopadmin/modifyshop'
+        , shoplistUrl = '/shopadmin/shoplist'
         , $pickerShopCategory = $('#pickerShopCategory')
-        , $pickerArea = $('#pickerArea');
+        , $pickerArea = $('#pickerArea')
+        // 图片最大上传数
+        , maxCount = 1
+        // 图片文件
+        , uploadList;
 
 
     // 初始化
@@ -28,6 +33,8 @@
         getShopInfo(shopId);
     }
 
+    // 初始化图片相关控件(返回图片列表)
+    uploadList = common.imgShow(maxCount);
 
     $('#submit').on('click', function () {
         var shop = {};
@@ -45,7 +52,12 @@
         shop.shopCategory = {
             shopCategoryId: $pickerShopCategory.pickerId
         };
-        var shopImg = $('#shop-img')[0].files[0];
+
+        // 因为添加新的图片相关控件，获取图片的方法变化
+        // var shopImg = $('#shop-img')[0].files[0];
+        var shopImg = uploadList[0];
+
+
         // TODO 改为手机短信验证
         var verifyCodeActual = $('#j_captcha').val();
 
@@ -68,8 +80,10 @@
             success: function (data) {
                 if (data.success) {
                     weui.toast('提交成功!');
+                    window.location.href = shoplistUrl;
                 } else {
-                    weui.alert('提交失败,' + data.errMsg + '.');
+                    weui.alert('提交失败,' + data.errMsg);
+                    common.changeVerifyCode($('#img-verification-code')[0]);
                 }
                 $('#j_captcha').click();
             }
