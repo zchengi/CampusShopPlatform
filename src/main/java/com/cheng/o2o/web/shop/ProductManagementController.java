@@ -31,7 +31,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/shopadmin")
-public class ProductController {
+public class ProductManagementController {
 
     @Autowired
     private ProductService productService;
@@ -39,16 +39,17 @@ public class ProductController {
     /**
      * 支持上传商品详情图的最大数量
      */
-    private static final int IMAGE_MAX_COUNT = 6;
+    private static final int IMAGE_MAX_COUNT = 5;
 
     @PostMapping("/addproduct")
     @ResponseBody
     private Map<String, Object> addProduct(HttpServletRequest request) {
-        Map<String, Object> modelMap = new HashMap<>();
+        Map<String, Object> modelMap = new HashMap<>(10);
         // 验证码校验
         if (!CodeUtil.checkVerifyCode(request)) {
             modelMap.put("success", false);
             modelMap.put("errMsg", "输入了错误的验证码!");
+            return modelMap;
         }
 
         // 接收前端参数的变量的初始化，包括商品，缩略图，详情图片列表实现类
@@ -66,7 +67,10 @@ public class ProductController {
             if (multipartResolver.isMultipart(request)) {
                 multipartRequest = (MultipartHttpServletRequest) request;
                 // 取出缩略图并构建 ImageHolder 对象
-                CommonsMultipartFile thumbnailFile = (CommonsMultipartFile) multipartRequest;
+                CommonsMultipartFile thumbnailFile = (CommonsMultipartFile)
+                        multipartRequest.getFile("thumbnail");
+                thumbnail = new ImageHolder(thumbnailFile.getOriginalFilename(), thumbnailFile.getInputStream());
+
                 // 取出详情图列表并构建 List<ImageHolder> 列表对象，最大支持上传6张图片
                 for (int i = 0; i < IMAGE_MAX_COUNT; i++) {
                     CommonsMultipartFile productImgFIle = (CommonsMultipartFile)
@@ -97,6 +101,7 @@ public class ProductController {
             product = mapper.readValue(productStr, Product.class);
         } catch (Exception e) {
             modelMap.put("success", false);
+            e.printStackTrace();
             modelMap.put("errMsg", e.toString());
             return modelMap;
         }
@@ -106,9 +111,7 @@ public class ProductController {
             try {
                 // 从 session 中获取当前店铺的 id 并赋值给 product，减少对前端数据的依赖
                 Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
-                Shop shop = new Shop();
-                shop.setShopId(currentShop.getShopId());
-                product.setShop(shop);
+                product.setShop(currentShop);
 
                 // 执行添加操作
                 ProductExecution pe = productService.addProduct(product, thumbnail, productImgList);

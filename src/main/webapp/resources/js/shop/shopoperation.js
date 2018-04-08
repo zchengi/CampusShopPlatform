@@ -17,8 +17,8 @@
         , shopInfoUrl = '/shop/getshopbyid?shopId=' + shopId
         , editShopUrl = '/shopadmin/modifyshop'
         , shoplistUrl = '/shopadmin/shoplist'
-        , $pickerShopCategory = $('#pickerShopCategory')
-        , $pickerArea = $('#pickerArea')
+        , $picker_shop_category = $('#picker-shop-category')
+        , $picker_area = $('#picker-area')
         // 图片最大上传数
         , maxCount = 1
         // 图片文件
@@ -47,10 +47,10 @@
         shop.phone = $('#shop-phone').val();
         shop.shopDesc = $('#shop-desc').val();
         shop.area = {
-            areaId: $pickerArea.pickerId
+            areaId: $picker_area.pickerId
         };
         shop.shopCategory = {
-            shopCategoryId: $pickerShopCategory.pickerId
+            shopCategoryId: $picker_shop_category.pickerId
         };
 
         // 因为添加新的图片相关控件，获取图片的方法变化
@@ -83,9 +83,8 @@
                     window.location.href = shoplistUrl;
                 } else {
                     weui.alert('提交失败,' + data.errMsg);
-                    common.changeVerifyCode($('#img-verification-code')[0]);
                 }
-                $('#j_captcha').click();
+                $('#img-verification-code').click();
             }
         });
     });
@@ -112,18 +111,18 @@
                 });
 
                 // 显示初始值(默认为第1个店铺)
-                $pickerArea.html(areaList[0].label);
-                $pickerArea.pickerId = areaList[0].value;
-                $pickerShopCategory.html(shopCategoryList[0].label);
-                $pickerShopCategory.pickerId = shopCategoryList[0].value;
+                $picker_area.html(areaList[0].label);
+                $picker_area.pickerId = areaList[0].value;
+                $picker_shop_category.html(shopCategoryList[0].label);
+                $picker_shop_category.pickerId = shopCategoryList[0].value;
 
                 // 区域类别选择器
-                $pickerArea.on('click', function () {
-                    initPicker(areaList, $pickerArea);
+                $picker_area.on('click', function () {
+                    common.initPicker(areaList, $picker_area);
                 });
                 // 店铺分类选择器
-                $pickerShopCategory.on('click', function () {
-                    initPicker(shopCategoryList, $pickerShopCategory);
+                $picker_shop_category.on('click', function () {
+                    common.initPicker(shopCategoryList, $picker_shop_category);
                 });
             } else {
                 // TODO 请求失败处理
@@ -143,10 +142,10 @@
                 $('#shop-phone').val(shop.phone);
                 $('#shop-desc').val(shop.shopDesc);
 
-                $pickerShopCategory.html(shop.shopCategory.shopCategoryName);
-                $pickerShopCategory.pickerId = shop.shopCategory.shopCategoryId;
-                $pickerArea.html(shop.area.areaName);
-                $pickerArea.pickerId = shop.area.areaId;
+                $picker_shop_category.html(shop.shopCategory.shopCategoryName);
+                $picker_shop_category.pickerId = shop.shopCategory.shopCategoryId;
+                $picker_area.html(shop.area.areaName);
+                $picker_area.pickerId = shop.area.areaId;
 
                 var areaList = [];
                 data.areaList.map(function (item, index) {
@@ -156,26 +155,10 @@
                     };
                 });
                 // 区域类别选择器
-                $pickerArea.on('click', function () {
-                    initPicker(areaList, $pickerArea);
+                $picker_area.on('click', function () {
+                    common.initPicker(areaList, $picker_area);
                 });
             }
-        });
-    }
-
-    /**
-     * 初始化 picker
-     */
-    function initPicker(data, picker) {
-        // 单列picker
-        weui.picker(data, {
-            container: 'body',
-            defaultValue: [data[0].value],
-            onConfirm: function (result) {
-                picker.html(result[0].label);
-                picker.pickerId = result[0].value;
-            },
-            id: picker[0].id
         });
     }
 })();

@@ -9,7 +9,6 @@ var common = window.common || {};
  * 验证码生成
  */
 common.changeVerifyCode = function (img) {
-    console.log(img);
     img.src = '/Kaptcha?' + Math.floor(Math.random() * 100);
 };
 
@@ -24,6 +23,23 @@ common.getQueryString = function (name) {
         return decodeURIComponent(r[2]);
     }
     return '';
+};
+
+
+/**
+ * 初始化 picker
+ */
+common.initPicker = function (data, picker, defaultIndex) {
+    // 单列picker
+    weui.picker(data, {
+        container: 'body',
+        defaultValue: defaultIndex ? defaultIndex : [data[0].value],
+        onConfirm: function (result) {
+            picker.html(result[0].label);
+            picker.pickerId = result[0].value;
+        },
+        id: picker[0].id
+    });
 };
 
 /**

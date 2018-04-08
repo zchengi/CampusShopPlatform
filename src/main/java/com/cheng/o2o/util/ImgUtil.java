@@ -38,11 +38,11 @@ public class ImgUtil {
         makeDirPath(targetAddr);
         // 获取文件要保存的目标路径
         String relativeAddr = targetAddr + realFileName + extension;
-        logger.debug("current relativeAddr is : ", relativeAddr);
+        logger.debug("current relativeAddr is {}: ", relativeAddr);
         // 获取文件要保存到的目录路径
         File dest = new File(FileUtil.getImgBasePath() + relativeAddr);
-        logger.debug("current complete addr is : ", FileUtil.getImgBasePath() + realFileName);
-        logger.debug("basePath is : ", basePath);
+        logger.debug("current complete addr is {}: ", dest);
+        logger.debug("basePath is : {}", basePath);
 
         // 调用 Thumbnails 生成带有水印的图片
         try {
