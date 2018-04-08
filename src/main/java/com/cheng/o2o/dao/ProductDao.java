@@ -28,6 +28,14 @@ public interface ProductDao {
     int updateProduct(Product product);
 
     /**
+     * 通过 productId 查询唯一的商品信息
+     *
+     * @param productId
+     * @return
+     */
+    Product queryProductByProductId(long productId);
+
+    /**
      * 查询商品列表并分页，可输入的查询条件有：商品名(模糊)，商品状态，店铺id，商品类别
      *
      * @param productCondition

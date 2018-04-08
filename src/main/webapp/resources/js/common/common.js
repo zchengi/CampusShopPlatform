@@ -33,7 +33,7 @@ common.initPicker = function (data, picker, defaultIndex) {
     // 单列picker
     weui.picker(data, {
         container: 'body',
-        defaultValue: defaultIndex ? defaultIndex : [data[0].value],
+        defaultValue: [defaultIndex ? defaultIndex : data[0].value],
         onConfirm: function (result) {
             picker.html(result[0].label);
             picker.pickerId = result[0].value;

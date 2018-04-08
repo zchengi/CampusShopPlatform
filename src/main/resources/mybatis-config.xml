@@ -14,6 +14,10 @@
 
         <!-- 开启驼峰命名转换:Table{create_time} -> Entity{createTime} -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <!-- 开启懒加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
     <plugins>
         <plugin interceptor="com.cheng.o2o.interceptor.dao.DynamicDataSourceInterceptor"/>

@@ -19,7 +19,7 @@ public interface ProductImgDao {
     int batchInsertProductImg(List<ProductImg> productImgList);
 
     /**
-     * 删除当前商品的所有详情图片
+     * 删除指定商品的所有详情图片
      *
      * @param productId
      * @return

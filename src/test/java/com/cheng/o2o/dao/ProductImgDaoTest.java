@@ -2,8 +2,8 @@ package com.cheng.o2o.dao;
 
 import com.cheng.o2o.BaseTest;
 import com.cheng.o2o.entity.ProductImg;
-import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  * ProductImgDao Tester.
  *
  * @author cheng
- * @version 1.0
+ * @version 1.1
  * @since <pre>04/05/2018</pre>
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -51,14 +51,21 @@ public class ProductImgDaoTest extends BaseTest {
         productImgList.add(productImg2);
 
         int effectedNum = productImgDao.batchInsertProductImg(productImgList);
-        Assert.assertEquals(2, effectedNum);
+        assertEquals(2, effectedNum);
     }
 
     @Test
     public void testCDeleteProductImgByProductId() {
+        // 删除新增的两条商品详情图片记录
+        long productId = 1L;
+        int effectedNum = productImgDao.deleteProductImgByProductId(productId);
+        assertEquals(2, effectedNum);
     }
 
     @Test
     public void testBQueryProductImgList() {
+        // 检查 productId 为1的商品是否有且仅有两张商品详情图片
+        List<ProductImg> productImgList = productImgDao.queryProductImgList(1L);
+        assertEquals(2, productImgList.size());
     }
 }

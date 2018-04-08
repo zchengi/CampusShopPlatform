@@ -17,7 +17,7 @@
         // 店铺管理页面
         , productManagementUrl = '/shopadmin/productmanagement'
         // 由于商品添加和编辑使用的是同一个页面，该表示符用来表明本次是添加操作还是编辑操作
-        , isEdit = false
+        , isEdit = !!productId
         , $category_list = $('#category-list')
         , $picker_product_category = $('#picker-product-category')
         // 图片最大上传数
@@ -27,10 +27,9 @@
 
 
     // 初始化商品操作页
-    if (productId) {
+    if (isEdit) {
         // 如果 productId 存在则为编辑操作
         getInfo(productId);
-        isEdit = true;
         productPostUrl = '/shopadmin/modifyproduct';
     } else {
         getCategory();
@@ -105,7 +104,10 @@
         $.getJSON(infoUrl, function (data) {
             if (data.success) {
                 // 从返回的 JSON 中获取 product 对象的信息，并赋值给表单
-                var product = data.product;
+                var product = data.product
+                    , productCategoryList = []
+                    , defaultLabel
+                    , defaultValue;
                 $('#product-name').val(product.productName);
                 $('#product-desc').val(product.productDesc);
                 $('#priority').val(product.priority);
@@ -113,12 +115,25 @@
                 $('#promotion-price').val(product.promotionPrice);
 
                 // 获取原本的商品类别以及该店铺的所有商品类别列表
-                var optionHtml = ''
-                    , optionArr = data.productCategoryList
-                    , optionSelected = product.productCategory.product.productCategoryId;
+                data.productCategoryList.map(function (item, index) {
+                    if (product.productCategory.productCategoryId === item.productCategoryId) {
+                        defaultLabel = item.productCategoryName;
+                        defaultValue = item.productCategoryId;
+                    }
+                    productCategoryList[index] = {
+                        label: item.productCategoryName,
+                        value: item.productCategoryId
+                    }
+                });
 
-                // 生成前端的 HTML 商品类别列表，并默认选择编辑前的商品类别
-                $category_list.html(optionHtml);
+                // 目录选择器
+                // 显示初始值(默认为第1个店铺)
+                $picker_product_category.html(defaultLabel);
+                $picker_product_category.pickerId = defaultValue;
+                $picker_product_category.on('click', function () {
+                    common.initPicker(productCategoryList, $picker_product_category, defaultValue);
+                });
+
             } else {
 
             }

@@ -15,7 +15,7 @@
         // var isEdit = shopId ? true : false;
         , isEdit = !!shopId
         , shopInfoUrl = '/shop/getshopbyid?shopId=' + shopId
-        , editShopUrl = '/shopadmin/modifyshop'
+        , editShopUrl = '/shop/modifyshop'
         , shoplistUrl = '/shopadmin/shoplist'
         , $picker_shop_category = $('#picker-shop-category')
         , $picker_area = $('#picker-area')
@@ -136,7 +136,9 @@
     function getShopInfo(shopId) {
         $.getJSON(shopInfoUrl, function (data) {
             if (data.success) {
-                var shop = data.shop;
+                var shop = data.shop
+                    , defaultAreaName
+                    , defaultAreaId;
                 $('#shop-name').val(shop.shopName);
                 $('#shop-addr').val(shop.shopAddr);
                 $('#shop-phone').val(shop.phone);
@@ -144,19 +146,24 @@
 
                 $picker_shop_category.html(shop.shopCategory.shopCategoryName);
                 $picker_shop_category.pickerId = shop.shopCategory.shopCategoryId;
-                $picker_area.html(shop.area.areaName);
-                $picker_area.pickerId = shop.area.areaId;
 
                 var areaList = [];
                 data.areaList.map(function (item, index) {
+                    if (shop.area.areaId === item.areaId) {
+                        defaultAreaName = item.areaName;
+                        defaultAreaId = item.areaId;
+                    }
                     areaList[index] = {
                         label: item.areaName,
                         value: item.areaId
                     };
                 });
+
+                $picker_area.html(defaultAreaName);
+                $picker_area.pickerId = defaultAreaId;
                 // 区域类别选择器
                 $picker_area.on('click', function () {
-                    common.initPicker(areaList, $picker_area);
+                    common.initPicker(areaList, $picker_area, defaultAreaId);
                 });
             }
         });
