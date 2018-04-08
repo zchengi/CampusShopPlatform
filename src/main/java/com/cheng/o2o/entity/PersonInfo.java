@@ -11,7 +11,7 @@ import java.util.Date;
 public class PersonInfo {
 
     /**
-     * ID
+     * id
      */
     private Long userId;
     /**

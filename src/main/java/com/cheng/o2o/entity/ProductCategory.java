@@ -11,11 +11,11 @@ import java.util.Date;
 public class ProductCategory {
 
     /**
-     * ID
+     * id
      */
     private Long productCategoryId;
     /**
-     * 店铺ID
+     * 店铺id
      */
     private Long shopId;
     /**

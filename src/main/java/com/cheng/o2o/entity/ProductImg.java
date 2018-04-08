@@ -11,7 +11,7 @@ import java.util.Date;
 public class ProductImg {
 
     /**
-     * ID
+     * id
      */
     private Long productImgId;
     /**
@@ -31,7 +31,7 @@ public class ProductImg {
      */
     private Date createTime;
     /**
-     * 商品ID(属于哪一个商品的图片)
+     * 商品id(属于哪一个商品的图片)
      */
     private Long productId;
 

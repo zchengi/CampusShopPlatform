@@ -11,7 +11,7 @@ import java.util.Date;
 public class HeadLine {
 
     /**
-     * ID
+     * id
      */
     private Long lineId;
     /**

@@ -11,7 +11,7 @@ import java.util.Date;
 public class Shop {
 
     /**
-     * ID
+     * id
      */
     private Long shopId;
     /**

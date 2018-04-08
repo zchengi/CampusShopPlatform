@@ -11,7 +11,7 @@ import java.util.Date;
 public class LocalAuth {
 
     /**
-     * ID
+     * id
      */
     private Long localAuthId;
     /**

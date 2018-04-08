@@ -11,7 +11,7 @@ import java.util.Date;
 public class Area {
 
     /**
-     * ID
+     * id
      */
     private Long areaId;
     /**

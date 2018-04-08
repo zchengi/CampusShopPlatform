@@ -12,7 +12,7 @@ import java.util.List;
 public class Product {
 
     /**
-     * ID
+     * id
      */
     private Long productId;
     /**
