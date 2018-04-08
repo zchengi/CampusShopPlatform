@@ -3,7 +3,7 @@ CREATE TABLE `tb_product` (
   `product_name`        VARCHAR(100) NOT NULL,
   `product_desc`        VARCHAR(2000)          DEFAULT NULL,
   `img_addr`            VARCHAR(2000)          DEFAULT '',
-  `normal_proice`       VARCHAR(100)           DEFAULT NULL,
+  `normal_price`       VARCHAR(100)           DEFAULT NULL,
   `promotion_price`     VARCHAR(100)           DEFAULT NULL,
   `priority`            INT(2)       NOT NULL  DEFAULT 0,
   `create_time`         DATETIME               DEFAULT NULL,
