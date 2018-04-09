@@ -113,8 +113,8 @@
         var categoryListHtml = '';
         data.map(function (item) {
             categoryListHtml += '<div class="weui-cell now">'
-                + '<div class="weui-cell__bd">' +
-                '<label class="weui-textarea">' + item.productCategoryName + '</label>'
+                + '<div class="weui-cell__bd">'
+                + '<label class="weui-textarea">' + item.productCategoryName + '</label>'
                 + '</div>'
                 + '<div class="weui-cell__hd">'
                 + '<label class="weui-label">' + item.priority + '</label>'

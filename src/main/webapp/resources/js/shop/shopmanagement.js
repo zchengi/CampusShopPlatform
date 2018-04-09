@@ -17,7 +17,7 @@
                 shopId = data.shopId;
             }
             $('#shopInfo').attr('href', '/shopadmin/shopoperation?shopId=' + shopId);
-            // $('#productInfo').attr('href', '/shopadmin/productoperation');
+            $('#productInfo').attr('href', '/shopadmin/productmanagement');
             $('#productCategoryManagement').attr('href', '/shopadmin/productcategorymanagement');
         }
     });

@@ -191,6 +191,93 @@ public class ProductManagementController {
     }
 
     /**
+     * 通过商品id获取商品信息
+     *
+     * @param productId
+     * @return
+     */
+    @GetMapping("/getproductbyid")
+    @ResponseBody
+    private Map<String, Object> getProductById(@RequestParam Long productId) {
+        Map<String, Object> modelMap = new HashMap<>(10);
+        // 非空判断
+        if (productId > -1) {
+            // 获取商品信息
+            Product product = productService.getProductById(productId);
+            // 获取该店铺下的商品类别列表
+            List<ProductCategory> productCategoryList = productCategoryService
+                    .getProductCategory(product.getShop().getShopId());
+            modelMap.put("success", true);
+            modelMap.put("product", product);
+            modelMap.put("productCategoryList", productCategoryList);
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "Empty productId!");
+        }
+
+        return modelMap;
+    }
+
+    @GetMapping("/getproductlistbyshop")
+    @ResponseBody
+    private Map<String, Object> getProductList(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<>();
+        // 获取前端传过来的页码
+        int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+        // 获取前端传过来的每页要求返回的商品数上限
+        int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+        // 从当前session中获取店铺信息，主要是获取shopId
+        Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+        // 空值判断
+        if ((pageIndex > -1) && (pageSize > -1) && (currentShop != null) && (currentShop.getShopId() != null)) {
+            // 获取传入的需要检索的条件，包括是否需要从某个商品类别以及模糊查询商品名去筛选某个店铺下的商品列表
+            // 筛选的条件可以进行排列组合
+            long productCategoryId = HttpServletRequestUtil.getLong(request, "productCategoryId");
+            String productName = HttpServletRequestUtil.getString(request, "productName");
+            Product productCondition = compactProductCondition(currentShop.getShopId(), productCategoryId, productName);
+            // 传入查询条件以及分页信息进行查询，返回相应商品列表以及总数
+            ProductExecution pe = productService.getProductList(productCondition, pageIndex, pageSize);
+            modelMap.put("success", true);
+            modelMap.put("productList", pe.getProductList());
+            modelMap.put("count", pe.getCount());
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "Empty pageSize or pageIndex or shopId!");
+        }
+
+        return modelMap;
+    }
+
+    /**
+     * 封装商品查询条件到 product 实例中
+     *
+     * @param shopId
+     * @param productCategoryId
+     * @param productName
+     * @return
+     */
+    private Product compactProductCondition(Long shopId, long productCategoryId, String productName) {
+        Product productCondition = new Product();
+        Shop shop = new Shop();
+        shop.setShopId(shopId);
+        productCondition.setShop(shop);
+
+        // 如果有指定类别的要求则添加进去
+        if (productCategoryId != -1L) {
+            ProductCategory productCategory = new ProductCategory();
+            productCategory.setProductCategoryId(productCategoryId);
+            productCondition.setProductCategory(productCategory);
+        }
+
+        // 如果有商品名模糊查询的要求则添加进去
+        if (productName != null) {
+            productCondition.setProductName(productName);
+        }
+
+        return productCondition;
+    }
+
+    /**
      * 图片处理
      *
      * @param request
@@ -223,33 +310,5 @@ public class ProductManagementController {
             }
         }
         return thumbnail;
-    }
-
-    /**
-     * 通过商品id获取商品信息
-     *
-     * @param productId
-     * @return
-     */
-    @GetMapping("/getproductbyid")
-    @ResponseBody
-    private Map<String, Object> getProductById(@RequestParam Long productId) {
-        Map<String, Object> modelMap = new HashMap<>(10);
-        // 非空判断
-        if (productId > -1) {
-            // 获取商品信息
-            Product product = productService.getProductById(productId);
-            // 获取该店铺下的商品类别列表
-            List<ProductCategory> productCategoryList = productCategoryService
-                    .getProductCategory(product.getShop().getShopId());
-            modelMap.put("success", true);
-            modelMap.put("product", product);
-            modelMap.put("productCategoryList", productCategoryList);
-        } else {
-            modelMap.put("success", false);
-            modelMap.put("errMsg", "Empty productId!");
-        }
-
-        return modelMap;
     }
 }

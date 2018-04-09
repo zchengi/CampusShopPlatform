@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  * ProductDao Tester.
  *
  * @author cheng
- * @version 1.1
+ * @version 1.2
  * @since <pre>04/05/2018</pre>
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -104,6 +104,21 @@ public class ProductDaoTest extends BaseTest {
 
     @Test
     public void tesBtQueryProductList() {
+        Product productCondition = new Product();
+        // 分页查询，预期返回三条结果
+        List<Product> productList = productDao.queryProductList(productCondition, 0, 3);
+        assertEquals(3, productList.size());
+
+        // 查询名称为测试的商品总数
+        int count = productDao.queryProductCount(productCondition);
+        assertEquals(2, count);
+
+        productCondition.setProductName("测试");
+        // 使用商品名称模糊查询，预期返回两条结果
+        productList = productDao.queryProductList(productCondition, 0, 3);
+        assertEquals(2, productList.size());
+        count = productDao.queryProductCount(productCondition);
+        assertEquals(2, count);
     }
 
     @Test
@@ -139,4 +154,12 @@ public class ProductDaoTest extends BaseTest {
         effectedNum = productImgDao.deleteProductImgByProductId(productId);
         assertEquals(2, effectedNum);
     }
+
+    @Test
+    public void testUpdateProductCategoryToNull() {
+        // 将 productCategoryId 为 2 的商品类别下面的商品的商品类别置为空
+        int effectedNum = productDao.updateProductCategoryToNull(2L);
+        assertEquals(3, effectedNum);
+    }
+
 }

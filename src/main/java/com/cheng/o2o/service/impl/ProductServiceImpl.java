@@ -11,6 +11,7 @@ import com.cheng.o2o.exceptions.ProductOperationException;
 import com.cheng.o2o.service.ProductService;
 import com.cheng.o2o.util.FileUtil;
 import com.cheng.o2o.util.ImgUtil;
+import com.cheng.o2o.util.PageCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -123,6 +124,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProductById(long productId) {
         return productDao.queryProductByProductId(productId);
+    }
+
+    @Override
+    public ProductExecution getProductList(Product productCondition, int pageIndex, int pageSize) {
+        // 页码转换成数据库的行码，并调用dao层取回指定页码的商品列表
+        int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+        List<Product> productList = productDao.queryProductList(productCondition, rowIndex, pageSize);
+        // 基于同样的查询条件返回该查询条件下的商品总数
+        int count = productDao.queryProductCount(productCondition);
+
+        ProductExecution pe = new ProductExecution();
+        pe.setProductList(productList);
+        pe.setCount(count);
+        return pe;
     }
 
     /**

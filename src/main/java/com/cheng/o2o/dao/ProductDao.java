@@ -28,6 +28,14 @@ public interface ProductDao {
     int updateProduct(Product product);
 
     /**
+     * 删除商品类别之前，将商品类别id置为空
+     *
+     * @param productCategoryId
+     * @return
+     */
+    int updateProductCategoryToNull(long productCategoryId);
+
+    /**
      * 通过 productId 查询唯一的商品信息
      *
      * @param productId
