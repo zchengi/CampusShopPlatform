@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.cheng.o2o.dao.ShopCategoryDao">
+
     <select id="queryShopCategory" resultType="shopCategory">
         SELECT
         shop_category_id,
@@ -17,13 +18,14 @@
         FROM
         tb_shop_category
         <where>
-            <if test="shopCategoryCondition.shopCategoryId!=null">
+            <if test="shopCategoryCondition == null">
                 and parent_id is null
             </if>
-            <if test="shopCategoryCondition.shopCategoryDesc!=null">
+            <if test="shopCategoryCondition!= null">
                 and parent_id is not null
             </if>
-            <if test="shopCategoryCondition.parent!=null">
+            <if test="shopCategoryCondition!= null and shopCategoryCondition.parent != null
+            and shopCategoryCondition.parent.shopCategoryId != null">
                 and parent_id = #{shopCategoryCondition.parent.shopCategoryId}
             </if>
         </where>

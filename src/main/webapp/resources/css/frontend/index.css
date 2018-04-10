@@ -1,0 +1,33 @@
+
+.content {
+    margin-top: 25px;
+}
+
+.swiper-container {
+    width: 100%;
+}
+
+.swiper-container img {
+    display: block;
+    width: 100%;
+}
+
+.my-title {
+    color: #0894ec;
+    height: 1.2rem;
+}
+
+.my-title:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    width: 0.15rem;
+    background-color: #0894ec;
+    height: 35px;
+    margin-top: -9px;
+}
+
+.my-tabbar {
+    position: fixed;
+}
