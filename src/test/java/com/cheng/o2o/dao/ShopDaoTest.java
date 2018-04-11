@@ -17,7 +17,7 @@ import java.util.List;
  * ShopDao Tester.
  *
  * @author cheng
- * @version 1.0
+ * @version 1.1
  * @since <pre>03/29/2018</pre>
  */
 public class ShopDaoTest extends BaseTest {
@@ -79,23 +79,15 @@ public class ShopDaoTest extends BaseTest {
     @Test
     public void testQueryShopListAndCount() {
         Shop shopCondition = new Shop();
-        PersonInfo owner = new PersonInfo();
-        owner.setUserId(1L);
-        shopCondition.setOwner(owner);
+        ShopCategory childCategory = new ShopCategory();
+        ShopCategory parentCategory = new ShopCategory();
+        parentCategory.setShopCategoryId(3L);
+        childCategory.setParent(parentCategory);
+        shopCondition.setShopCategory(childCategory);
 
         List<Shop> shopList = shopDao.queryShopList(shopCondition, 0, 5);
         int count = shopDao.queryShopCount(shopCondition);
         System.out.println("店铺列表大小: " + shopList.size());
         System.out.println("店铺总数: " + count);
-
-        ShopCategory shopCategory = new ShopCategory();
-        shopCategory.setShopCategoryId(1L);
-        shopCondition.setShopCategory(shopCategory);
-
-        shopList = shopDao.queryShopList(shopCondition, 0, 5);
-        count = shopDao.queryShopCount(shopCondition);
-        System.out.println("新店铺列表大小: " + shopList.size());
-        System.out.println("新店铺总数: " + count);
-
     }
 }

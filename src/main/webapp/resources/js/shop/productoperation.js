@@ -5,6 +5,8 @@
 
 (function () {
 
+    'use strict';
+
     var
         // 从 URL 里获取 productId 参数的值
         productId = common.getQueryString('productId')

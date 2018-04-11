@@ -3,6 +3,9 @@
  */
 
 (function () {
+
+    'use strict';
+
     var
         // 获取此店铺下的商品列表的 URL
         listUrl = '/shopadmin/getproductlistbyshop?pageIndex=1&pageSize=999'

@@ -45,7 +45,7 @@ public class FileUtil {
      * 返回项目图片相对子路径
      */
     public static String getShopImagePath(long shopId) {
-        String imagePath = "upload/item/shop/" + shopId + "/";
+        String imagePath = "/upload/item/shop/" + shopId + "/";
         return imagePath.replace("/", separator);
     }
 

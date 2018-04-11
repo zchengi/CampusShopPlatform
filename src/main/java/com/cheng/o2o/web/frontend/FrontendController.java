@@ -12,8 +12,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/frontend")
 public class FrontendController {
 
+    /**
+     * 用户访问首页路由
+     */
     @GetMapping("/index")
-    public String index() {
+    private String index() {
         return "frontend/index";
+    }
+
+    /**
+     * 商品列表页路由
+     */
+    @GetMapping("/shoplist")
+    private String showShopList() {
+        return "frontend/shoplist";
+    }
+
+    /**
+     * 店铺详情页路由
+     */
+    @GetMapping("/shopdetail")
+    private String showShopDetail() {
+        return "frontend/shopdetail";
     }
 }

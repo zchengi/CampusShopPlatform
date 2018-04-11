@@ -16,37 +16,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ShopAdminController {
 
     @GetMapping("/shopoperation")
-    public String shopEdit() {
+    private String shopEdit() {
         // 转发至店铺注册编辑页面
         return "shop/shopoperation";
     }
 
     @GetMapping("/shoplist")
-    public String shopList() {
+    private String shopList() {
         // 转发至店铺列表页面
         return "shop/shoplist";
     }
 
     @GetMapping("/shopmanagement")
-    public String shopManagement() {
+    private String shopManagement() {
         // 转发至店铺管理页面
         return "shop/shopmanagement";
     }
 
     @GetMapping("/productcategorymanagement")
-    public String productCategoryManagement() {
+    private String productCategoryManagement() {
         // 转发至商品类别管理页面
         return "shop/productcategorymanagement";
     }
 
     @GetMapping("/productoperation")
-    public String productOperation() {
+    private String productOperation() {
         // 转发至商品添加/编辑页面
         return "shop/productoperation";
     }
 
     @GetMapping("/productmanagement")
-    public String productManagement() {
+    private String productManagement() {
         // 转发至商品管理页面
         return "shop/productmanagement";
     }

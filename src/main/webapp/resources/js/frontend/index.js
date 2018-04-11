@@ -4,6 +4,8 @@
 
 (function () {
 
+    'use strict';
+
     // 定义访问后台，获取头条列表以及一级类别列表的 URL
     var url = '/frontend/listmainpageinfo';
 

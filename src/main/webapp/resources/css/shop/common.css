@@ -23,3 +23,7 @@ body {
 .weui-flex__item {
     margin: 0 5px;
 }
+
+.my-tabbar {
+    position: fixed;
+}

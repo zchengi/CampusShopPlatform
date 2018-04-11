@@ -1,0 +1,77 @@
+
+.content {
+    margin-top: 100px;
+    margin-bottom: 65px;
+}
+
+.weui-cells {
+    border-radius: 4px;
+    margin: 11px 9px;
+}
+
+.weui-cell:before {
+    left: 0;
+}
+
+.my-cell {
+    padding: 10px 14px;
+}
+
+.my-cell_bd {
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+.my-cell_bd p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.my-btn_primary {
+    width: 30%;
+    border: 1px solid #0894ec;
+    color: #0894ec;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.my-flex {
+    margin-top: 8px;
+}
+
+.my-btn_primary:not(.weui-btn_disabled):active {
+    color: #0a8ddf;
+    border-color: #0a8ddf;
+}
+
+.my-btn_fill {
+    color: #fff;
+    background: #0894ec;
+}
+
+#area-search {
+    background-color: #efeff4;
+    border: 1px solid #0894ec;
+    color: #0894ec;
+    height: 30px;
+    line-height: 30px;
+    -webkit-appearance: menulist;
+}
+
+#searchText {
+    transform-origin: 0 0 0;
+    opacity: 1;
+    transform: scale(1, 1)
+}
+
+#searchResult {
+    transform-origin: 0 0 0;
+    opacity: 1;
+    transform: scale(1, 1);
+    display: block;
+}
+
+.weui-loadmore {
+    display: none;
+}
