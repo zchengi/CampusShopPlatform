@@ -34,7 +34,7 @@ public interface ProductCategoryDao {
      * 通过 shop id 查询店铺商品类别
      *
      * @param shopId
-     * @return List<ProductCategory>
+     * @return
      */
-    List<ProductCategory> queryProductCategoryList(Long shopId);
+    List<ProductCategory> queryProductCategoryList(long shopId);
 }

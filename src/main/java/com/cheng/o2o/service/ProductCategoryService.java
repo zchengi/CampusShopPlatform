@@ -32,10 +32,10 @@ public interface ProductCategoryService {
             throws ProductCategoryOperationException;
 
     /**
-     * 查询指定某个店铺下的所有商品类别信息
+     * 查询指定某个店铺下的所有商品类别信息`
      *
      * @param shopId
      * @return
      */
-    List<ProductCategory> getProductCategory(long shopId);
+    List<ProductCategory> getProductCategoryList(long shopId);
 }

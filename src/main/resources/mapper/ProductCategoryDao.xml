@@ -22,7 +22,7 @@
             product_category_id = #{productCategoryId} AND shop_id = #{shopId}
     </delete>
 
-    <select id="queryProductCategoryList" resultType="productCategory" parameterType="Long">
+    <select id="queryProductCategoryList" resultType="productCategory" parameterType="long">
         SELECT
             product_category_id,
             product_category_name,

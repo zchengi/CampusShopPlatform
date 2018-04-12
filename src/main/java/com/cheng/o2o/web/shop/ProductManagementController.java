@@ -4,7 +4,6 @@ import com.cheng.o2o.dto.ImageHolder;
 import com.cheng.o2o.dto.ProductExecution;
 import com.cheng.o2o.entity.Product;
 import com.cheng.o2o.entity.ProductCategory;
-import com.cheng.o2o.entity.ProductImg;
 import com.cheng.o2o.entity.Shop;
 import com.cheng.o2o.enums.ProductStateEnum;
 import com.cheng.o2o.exceptions.ProductOperationException;
@@ -15,7 +14,6 @@ import com.cheng.o2o.util.HttpServletRequestUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -206,7 +204,7 @@ public class ProductManagementController {
             Product product = productService.getProductById(productId);
             // 获取该店铺下的商品类别列表
             List<ProductCategory> productCategoryList = productCategoryService
-                    .getProductCategory(product.getShop().getShopId());
+                    .getProductCategoryList(product.getShop().getShopId());
             modelMap.put("success", true);
             modelMap.put("product", product);
             modelMap.put("productCategoryList", productCategoryList);
@@ -221,7 +219,7 @@ public class ProductManagementController {
     @GetMapping("/getproductlistbyshop")
     @ResponseBody
     private Map<String, Object> getProductList(HttpServletRequest request) {
-        Map<String, Object> modelMap = new HashMap<>();
+        Map<String, Object> modelMap = new HashMap<>(4);
         // 获取前端传过来的页码
         int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
         // 获取前端传过来的每页要求返回的商品数上限

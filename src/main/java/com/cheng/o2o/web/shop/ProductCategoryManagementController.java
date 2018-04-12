@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +32,12 @@ public class ProductCategoryManagementController {
     @ResponseBody
     private Map<String, Object> addProductCategories(@RequestBody List<ProductCategory> productCategoryList,
                                                      HttpServletRequest request) {
+        // TODO 在service层处理
         Map<String, Object> modelMap = new HashMap<>(4);
         Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
         for (ProductCategory pc : productCategoryList) {
             pc.setShopId(currentShop.getShopId());
+            pc.setCreateTime(new Date());
         }
 
         if (productCategoryList != null && productCategoryList.size() > 0) {
@@ -92,7 +95,7 @@ public class ProductCategoryManagementController {
 
         Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
         if (currentShop != null && currentShop.getShopId() > 0) {
-            List<ProductCategory> list = productCategoryService.getProductCategory(currentShop.getShopId());
+            List<ProductCategory> list = productCategoryService.getProductCategoryList(currentShop.getShopId());
             return new Result<>(true, list);
         } else {
             ProductCategoryStateEnum ps = ProductCategoryStateEnum.INNER_ERROR;

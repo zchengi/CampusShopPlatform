@@ -9,16 +9,16 @@ $(function () {
     var loading = false,
         // 分页允许返回的最大条数，超过此数则禁止访问后台
         maxItems = 999,
-        // 一页返回的最大条数
+        // 默认一页返回的最大条数
         pageSize = 2,
+        // 默认页码
+        pageNum = 1,
         // 获取店铺列表的 URL
         listUrl = '/frontend/listshops',
         // 获取店铺类别列表以及区域列表的 URL
         searchDivUrl = '/frontend/listshopspageinfo',
         // 店铺详情页拼接
         shopdetail = '/frontend/shopdetail?shopId=',
-        // 页码
-        pageNum = 1,
         // 从地址栏 URL 里尝试获取 parent shop category id
         parentId = common.getQueryString('parentId'),
         areaId = '',
@@ -34,7 +34,7 @@ $(function () {
 
     // 渲染出店铺类别列表以及区域列表以供搜索
     getSearchDivData();
-    // 预先加载5条店铺信息
+    // 预先加载2条店铺信息
     addItems(pageSize, pageNum);
 
     /**
@@ -96,8 +96,6 @@ $(function () {
 
         // 设定加载符，若还在后台取数据则不能再次访问后台，避免多次重复加载
         loading = true;
-        // 初始化下滑加载
-        initInfiniteLoading();
 
         $.getJSON(url, function (data) {
             if (data.success) {
@@ -129,11 +127,12 @@ $(function () {
 
                 // 若总数达到跟按照此查询条件列出来的总数一致，则停止后台的加载
                 if (total >= maxItems) {
-                    // 加载完毕，则注销无限加载事件，以防不必要的加载
-                    $(document.body).destroyInfinite();
                     // 隐藏加载提示符
                     $('.weui-loadmore').hide();
                     return;
+                }else {
+                    // 显示下滑加载控件
+                    $('.weui-loadmore').show();
                 }
 
                 // 否则页码加1，继续load出新的店铺
@@ -146,23 +145,18 @@ $(function () {
         });
     }
 
-    /**
-     * 下滑屏幕自动进行分页搜索
-     */
-    function initInfiniteLoading() {
-        $(document.body).infinite().on('infinite', function () {
-            $('.weui-loadmore').show();
-            if (loading) {
-                return;
-            }
-            addItems(pageSize, pageNum);
-        });
-    }
+    // 下滑屏幕自动进行分页搜索
+    $(document.body).infinite().on('infinite', function () {
+        if (loading) {
+            return;
+        }
+        addItems(pageSize, pageNum);
+    });
 
     // 点击店铺的 div 进入该店铺的详情页
     $searchResult.on('click', '.weui-cells', function (e) {
         var shopId = e.currentTarget.dataset.shopId;
-        // window.location.href = shopdetail + shopId;
+        window.location.href = shopdetail + shopId;
     });
 
     // 选择新的店铺类别后，重置页码，清空原来的店铺列表，按照新的类别去查询

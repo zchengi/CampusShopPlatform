@@ -1,6 +1,6 @@
 
 .content {
-    margin-top: 100px;
+    margin-top: 56px;
     margin-bottom: 65px;
 }
 
@@ -13,19 +13,8 @@
     left: 0;
 }
 
-.my-cell {
-    padding: 10px 14px;
-}
-
-.my-cell_bd {
-    margin-left: 10px;
-    overflow: hidden;
-}
-
-.my-cell_bd p {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+.my-img {
+    width: 100%;
 }
 
 .my-btn_primary {
@@ -48,15 +37,6 @@
 .my-btn_fill {
     color: #fff;
     background: #0894ec;
-}
-
-#area-search {
-    background-color: #efeff4;
-    border: 1px solid #0894ec;
-    color: #0894ec;
-    height: 30px;
-    line-height: 30px;
-    -webkit-appearance: menulist;
 }
 
 #searchText {

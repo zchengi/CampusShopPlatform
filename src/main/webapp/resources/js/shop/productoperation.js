@@ -20,7 +20,6 @@
         , productManagementUrl = '/shopadmin/productmanagement'
         // 由于商品添加和编辑使用的是同一个页面，该表示符用来表明本次是添加操作还是编辑操作
         , isEdit = !!productId
-        , $category_list = $('#category-list')
         , $picker_product_category = $('#picker-product-category')
         // 图片最大上传数
         , maxCount = 6
@@ -92,7 +91,7 @@
             success: function (data) {
                 if (data.success) {
                     weui.toast('提交成功!');
-                    // window.location.href = shopmanagementUrl;
+                    window.location.href = productManagementUrl;
                 } else {
                     weui.alert('提交失败,' + data.errMsg);
                 }
