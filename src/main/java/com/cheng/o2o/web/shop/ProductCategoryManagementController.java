@@ -31,7 +31,7 @@ public class ProductCategoryManagementController {
     @ResponseBody
     private Map<String, Object> addProductCategories(@RequestBody List<ProductCategory> productCategoryList,
                                                      HttpServletRequest request) {
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
         for (ProductCategory pc : productCategoryList) {
             pc.setShopId(currentShop.getShopId());
@@ -62,7 +62,7 @@ public class ProductCategoryManagementController {
     @PostMapping("/removeproductcategory")
     @ResponseBody
     private Map<String, Object> removeProductCategory(Long productCategoryId, HttpServletRequest request) {
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         if (productCategoryId != null && productCategoryId > 0) {
             try {
                 Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");

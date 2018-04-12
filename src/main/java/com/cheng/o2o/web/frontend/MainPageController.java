@@ -37,7 +37,7 @@ public class MainPageController {
     @ResponseBody
     public Map<String, Object> listMainPageInfo() {
 
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         List<ShopCategory> shopCategoryList;
         try {
             // 获取一级店铺类别列表(即parentId为空的ShopCategory)

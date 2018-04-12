@@ -51,7 +51,7 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> getShopInitInfo() {
 
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         List<ShopCategory> shopCategoryList;
         List<Area> areaList;
 
@@ -73,7 +73,7 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> registerShop(HttpServletRequest request) {
 
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
 
         // 校验验证码
         if (!CodeUtil.checkVerifyCode(request)) {
@@ -146,7 +146,7 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> modifyShop(HttpServletRequest request) {
 
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
 
         // 校验验证码
         if (!CodeUtil.checkVerifyCode(request)) {
@@ -209,7 +209,7 @@ public class ShopManagementController {
     @GetMapping("/getshopmanagementinfo")
     @ResponseBody
     private Map<String, Object> getShopManagementInfo(HttpServletRequest request) {
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         long shopId = HttpServletRequestUtil.getLong(request, "shopId");
         if (shopId <= 0) {
             Object currentShopObj = request.getSession().getAttribute("currentShop");
@@ -234,7 +234,7 @@ public class ShopManagementController {
     @GetMapping("/getshopbyid")
     @ResponseBody
     private Map<String, Object> getShopById(HttpServletRequest request) {
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         Long shopId = HttpServletRequestUtil.getLong(request, "shopId");
         if (shopId > -1) {
             try {
@@ -258,7 +258,7 @@ public class ShopManagementController {
     @GetMapping("/getshoplist")
     @ResponseBody
     private Map<String, Object> getShopList(HttpServletRequest request) {
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         PersonInfo user = new PersonInfo();
         user.setUserId(1L);
         user.setName("test");

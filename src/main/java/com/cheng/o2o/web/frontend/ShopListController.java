@@ -43,7 +43,7 @@ public class ShopListController {
     @GetMapping("/listshopspageinfo")
     @ResponseBody
     private Map<String, Object> listShopsPageInfo(HttpServletRequest request) {
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         // 从前端请求中获取 parentId
         long parentId = HttpServletRequestUtil.getLong(request, "parentId");
         List<ShopCategory> shopCategoryList;
@@ -95,7 +95,7 @@ public class ShopListController {
     @GetMapping("/listshops")
     @ResponseBody
     public Map<String, Object> listShops(HttpServletRequest request) {
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         // 获取页码
         int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
         // 获取一页需要显示的数据条数

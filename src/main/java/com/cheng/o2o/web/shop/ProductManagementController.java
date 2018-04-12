@@ -49,7 +49,7 @@ public class ProductManagementController {
     @PostMapping("/addproduct")
     @ResponseBody
     private Map<String, Object> addProduct(HttpServletRequest request) {
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         // 验证码校验
         if (!CodeUtil.checkVerifyCode(request)) {
             modelMap.put("success", false);
@@ -123,7 +123,7 @@ public class ProductManagementController {
     @PostMapping("/modifyproduct")
     @ResponseBody
     private Map<String, Object> modifyProduct(HttpServletRequest request) {
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         // 是商品编辑时候调用还是上下架操作的时候调用
         // 如果为前者则进行验证码判断，后者则跳过验证码判断
         boolean statusChange = HttpServletRequestUtil.getBoolean(request, "statusChange");
@@ -199,7 +199,7 @@ public class ProductManagementController {
     @GetMapping("/getproductbyid")
     @ResponseBody
     private Map<String, Object> getProductById(@RequestParam Long productId) {
-        Map<String, Object> modelMap = new HashMap<>(10);
+        Map<String, Object> modelMap = new HashMap<>(4);
         // 非空判断
         if (productId > -1) {
             // 获取商品信息
