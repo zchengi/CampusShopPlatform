@@ -34,12 +34,13 @@ public class WechatUtil {
     private static final String GET_REQUEST_METHOD = "GET";
     /**
      * 公众号的appId
+     * appId 与 appSecret 是测试号的，个人号没权限获取用用户信息
      */
-    private static final String APP_ID = "wx6e0e8bdbe4936a17";
+    private static final String APP_ID = "wx0db09a35eac8319e";
     /**
      * 公众号信息里的 appSecret
      */
-    private static final String APP_SECRET = "2dce14ecc708569e98a947e835e44a8d";
+    private static final String APP_SECRET = "a0c8a56d09c05034bb0791cf27503bfa";
 
     private static Logger logger = LoggerFactory.getLogger(WechatUtil.class);
 
@@ -59,8 +60,8 @@ public class WechatUtil {
         logger.debug("secret : " + APP_SECRET);
 
         // 根据传入的 code，拼接出访问微信定义好的接口的 URL
-        String url = "https://api.weixin.qq.com/cgi-bin/token?" +
-                "appid=" + APP_ID + "&secret=" + APP_SECRET + "&code=" + code + "&grant_type=authorization_code";
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + APP_ID
+                + "&secret=" + APP_SECRET + "&code=" + code + "&grant_type=authorization_code";
 
         // 向相应的 URL 发送请求获取 token json 字符串
         String tokenStr = httpsRequest(url, GET_REQUEST_METHOD, null);
@@ -92,13 +93,15 @@ public class WechatUtil {
      */
     public static WechatUser getUserInfo(String accessToken, String openId) {
         // 根据传入的 accessToken 以及 openId 拼接出访问微信定义的端口并获取用户的 URL
-        String url = "";
+        String url = "https://api.weixin.qq.com/sns/userinfo?access_token="
+                + accessToken + "&openid=" + openId + "&lang=zh_CN";
         // 访问该 URL 获取用户信息 json 字符串
         String userStr = httpsRequest(url, GET_REQUEST_METHOD, null);
         logger.debug("user info : " + userStr);
         WechatUser user = new WechatUser();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
+            // 将json字符串转换成相应对象
             user = objectMapper.readValue(userStr, WechatUser.class);
         } catch (IOException e) {
             logger.error("获取用户信息失败: " + e.getMessage());

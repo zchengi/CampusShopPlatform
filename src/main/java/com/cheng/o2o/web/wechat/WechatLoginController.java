@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 获取关注公众号之后的微信用户信息的接口，如果在微信浏览器里访问
- * https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd7f6c5b8899fba83
- * &redirect_uri=http://193.112.56.145/o2o/wechatlogin/logincheck&role_type=1
- * &response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect
+ * https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0db09a35eac8319e&
+ * redirect_uri=http://193.112.56.145/o2o/wechatlogin/logincheck&role_type=1&
+ * response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect
  * 则这里将会获取到code,之后再可以通过code获取到access_token 进而获取到用户信息
  *
  * @author cheng
@@ -36,7 +36,7 @@ public class WechatLoginController {
         // 获取微信公众号传过来的 code，通过code可获取access_token，进而获取用户信息
         String code = request.getParameter("code");
         // 这个state可以用来传我们自定义的信息，方便程序调用，这里也可以不用
-        // String roleType = request.getParameter("state");
+        String roleType = request.getParameter("state");
         logger.debug("wechat login code : " + code);
 
         WechatUser user = null;

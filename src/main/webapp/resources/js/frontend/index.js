@@ -37,7 +37,6 @@
 
             // 获取后台传递过来大类列表
             var shopCategoryList = data.shopCategoryList;
-            console.log(shopCategoryList);
             var categoryHtml = '';
             // 遍历大类列表，拼接出九宫格
             shopCategoryList.map(function (item) {

@@ -9,7 +9,7 @@ var common = window.common || {};
  * 验证码生成
  */
 common.changeVerifyCode = function (img) {
-    img.src = '/Kaptcha?' + Math.floor(Math.random() * 100);
+    img.src = '/o2o/Kaptcha?' + Math.floor(Math.random() * 100);
 };
 
 

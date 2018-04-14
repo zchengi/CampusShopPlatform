@@ -2,13 +2,16 @@ package com.cheng.o2o.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * 微信用户实体类
  *
  * @author cheng
  *         2018/4/13 19:55
  */
-public class WechatUser {
+public class WechatUser implements Serializable{
+
 
     /**
      * openId，标识该公众号下面的该用户的唯一id
@@ -134,5 +137,10 @@ public class WechatUser {
 
     public void setPrivilege(String[] privilege) {
         this.privilege = privilege;
+    }
+
+    @Override
+    public String toString() {
+        return "openId:" + this.getOpenId() + ",nikename:" + this.getNickName();
     }
 }
