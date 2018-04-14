@@ -7,7 +7,7 @@
     'use strict';
 
     var shopId = common.getQueryString('shopId'),
-        shopInfoUrl = '/shop/getshopmanagementinfo?shopId=' + shopId;
+        shopInfoUrl = '/o2o/shop/getshopmanagementinfo?shopId=' + shopId;
 
     $.getJSON(shopInfoUrl, function (data) {
         if (data.redirect) {
@@ -16,9 +16,9 @@
             if (data.shopId !== undefined && data.shopId != null) {
                 shopId = data.shopId;
             }
-            $('#shopInfo').attr('href', '/shopadmin/shopoperation?shopId=' + shopId);
-            $('#productInfo').attr('href', '/shopadmin/productmanagement');
-            $('#productCategoryManagement').attr('href', '/shopadmin/productcategorymanagement');
+            $('#shopInfo').attr('href', '/o2o/shopadmin/shopoperation?shopId=' + shopId);
+            $('#productInfo').attr('href', '/o2o/shopadmin/productmanagement');
+            $('#productCategoryManagement').attr('href', '/o2o/shopadmin/productcategorymanagement');
         }
     });
 })();

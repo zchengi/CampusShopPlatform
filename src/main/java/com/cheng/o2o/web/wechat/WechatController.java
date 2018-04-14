@@ -31,6 +31,8 @@ public class WechatController {
         String signature = request.getParameter("signature");
         // 时间戳
         String timestamp = request.getParameter("timestamp");
+        // 随机数
+        String nonce = request.getParameter("nonce");
         // 随机字符串
         String echostr = request.getParameter("echostr");
 
@@ -38,7 +40,7 @@ public class WechatController {
         PrintWriter out = null;
         try {
             out = response.getWriter();
-            if (SignUtil.checkSignature(signature, timestamp, echostr)) {
+            if (SignUtil.checkSignature(signature, timestamp, nonce)) {
                 logger.debug("wechat get success...");
                 out.print(echostr);
             }

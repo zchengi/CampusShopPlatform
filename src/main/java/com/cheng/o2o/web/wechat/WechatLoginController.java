@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * 获取关注公众号之后的微信用户信息的接口，如果在微信浏览器里访问
@@ -44,40 +43,35 @@ public class WechatLoginController {
         String openId;
         if (code != null) {
             UserAccessToken token;
-            try {
-                // 通过 code 获取 access_token
-                token = WechatUtil.getUserAccessToken(code);
-                logger.debug("wechat login token : " + token.toString());
+            // 通过 code 获取 access_token
+            token = WechatUtil.getUserAccessToken(code);
+            logger.debug("wechat login token : " + token.toString());
 
-                // 通过 token 获取 accessToken
-                String accessToken = token.getAccessToken();
+            // 通过 token 获取 accessToken
+            String accessToken = token.getAccessToken();
 
-                // 通过 token 获取 openId
-                openId = token.getOpenId();
+            // 通过 token 获取 openId
+            openId = token.getOpenId();
 
-                // 通过 access_token 和 openId 获取用户昵称等信息
-                user = WechatUtil.getUserInfo(accessToken, openId);
-                logger.debug("wechat login user : " + user.toString());
-                request.getSession().setAttribute("openId", openId);
-            } catch (IOException e) {
-                logger.error("error in getUserAccessToken or getUserInfo or findByOpenId : " + e.toString());
-                e.printStackTrace();
-            }
-
-            /*
-             *
-             *      TODO
-             * 获取到openId后，可以通过它去数据库判断该微信帐号是否在网站上有对应的帐号，
-             * 如果没有这里可以自动创建上，实现微信与网站的无缝对接
-             *
-             */
-            if (user != null) {
-                // 获取到微信验证的信息后返回到指定的路由
-                return "frontend/index";
-            } else {
-                return null;
-            }
+            // 通过 access_token 和 openId 获取用户昵称等信息
+            user = WechatUtil.getUserInfo(accessToken, openId);
+            logger.debug("wechat login user : " + user.toString());
+            request.getSession().setAttribute("openId", openId);
         }
-        return null;
+
+        /*
+         *
+         *      TODO
+         * 获取到openId后，可以通过它去数据库判断该微信帐号是否在网站上有对应的帐号，
+         * 如果没有这里可以自动创建上，实现微信与网站的无缝对接
+         *
+         */
+
+        if (user != null) {
+            // 获取到微信验证的信息后返回到指定的路由
+            return "frontend/index";
+        } else {
+            return null;
+        }
     }
 }

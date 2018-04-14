@@ -11,13 +11,13 @@
         // 从 URL 里获取 productId 参数的值
         productId = common.getQueryString('productId')
         // 通过 productId 获取商品信息的 URL
-        , infoUrl = '/shopadmin/getproductbyid?productId=' + productId
+        , infoUrl = '/o2o/shopadmin/getproductbyid?productId=' + productId
         // 获取当前店铺设定的商品类别列表的 URL
-        , categoryUrl = '/shopadmin/getproductcategorylist'
+        , categoryUrl = '/o2o/shopadmin/getproductcategorylist'
         // 更新商品信息的 URL
-        , productPostUrl = '/shopadmin/addproduct'
+        , productPostUrl = '/o2o/shopadmin/addproduct'
         // 店铺管理页面
-        , productManagementUrl = '/shopadmin/productmanagement'
+        , productManagementUrl = '/o2o/shopadmin/productmanagement'
         // 由于商品添加和编辑使用的是同一个页面，该表示符用来表明本次是添加操作还是编辑操作
         , isEdit = !!productId
         , $picker_product_category = $('#picker-product-category')
@@ -31,7 +31,7 @@
     if (isEdit) {
         // 如果 productId 存在则为编辑操作
         getInfo(productId);
-        productPostUrl = '/shopadmin/modifyproduct';
+        productPostUrl = '/o2o/shopadmin/modifyproduct';
     } else {
         getCategory();
     }

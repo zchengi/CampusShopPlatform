@@ -7,7 +7,7 @@
     'use strict';
 
     // 定义访问后台，获取头条列表以及一级类别列表的 URL
-    var url = '/frontend/listmainpageinfo';
+    var url = '/o2o/frontend/listmainpageinfo';
 
     // 访问后台，获取头条列表以及一级类别列表
     $.getJSON(url, function (data) {
@@ -60,8 +60,7 @@
     // 给每个类别绑定 click 事件
     $('.weui-grid').on('click', '.shop-classify', function (e) {
         var shopCategoryId = e.currentTarget.dataset.category;
-        var newUrl = '/fronted/shoplist?parentId=' + shopCategoryId;
-        window.location.href = newUrl;
+        window.location.href = '/o2o/fronted/shoplist?parentId=' + shopCategoryId;
     });
 
 })();

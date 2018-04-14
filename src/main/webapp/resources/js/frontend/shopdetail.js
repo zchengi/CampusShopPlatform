@@ -14,12 +14,12 @@ $(function () {
         // 默认页码
         pageNum = 1,
         // 获取商品列表的 URL
-        listUrl = '/frontend/listproductsbyshop',
+        listUrl = '/o2o/frontend/listproductsbyshop',
         shopId = common.getQueryString('shopId'),
         productCategoryId = '',
         productName = '',
         // 获取本店铺信息以及商品类别信息列表的 URL
-        searchDivUrl = '/frontend/listshopdetailpageinfo?shopId=' + shopId,
+        searchDivUrl = '/o2o/frontend/listshopdetailpageinfo?shopId=' + shopId,
         $searchBar = $('#searchBar'),
         $searchResult = $('#searchResult'),
         $searchText = $('#searchText'),

@@ -28,30 +28,42 @@ import java.security.SecureRandom;
  */
 public class WechatUtil {
 
+    /**
+     * get 请求
+     */
+    private static final String GET_REQUEST_METHOD = "GET";
+    /**
+     * 公众号的appId
+     */
+    private static final String APP_ID = "wx6e0e8bdbe4936a17";
+    /**
+     * 公众号信息里的 appSecret
+     */
+    private static final String APP_SECRET = "2dce14ecc708569e98a947e835e44a8d";
+
     private static Logger logger = LoggerFactory.getLogger(WechatUtil.class);
+
 
     /**
      * 获取 UserAccessToken 实体类
      *
      * @param code
      * @return
-     * @throws IOException
      */
-    public static UserAccessToken getUserAccessToken(String code) throws IOException {
+    public static UserAccessToken getUserAccessToken(String code) {
 
         // 公众号信息里的 appId
-        String appId = "";
-        logger.debug("appId : " + appId);
+        logger.debug("appId : " + APP_ID);
 
         // 公众号信息里的 appSecret
-        String appSecret = "";
-        logger.debug("secret : " + appSecret);
+        logger.debug("secret : " + APP_SECRET);
 
         // 根据传入的 code，拼接出访问微信定义好的接口的 URL
-        String url = "";
+        String url = "https://api.weixin.qq.com/cgi-bin/token?" +
+                "appid=" + APP_ID + "&secret=" + APP_SECRET + "&code=" + code + "&grant_type=authorization_code";
 
         // 向相应的 URL 发送请求获取 token json 字符串
-        String tokenStr = httpsRequest(url, "GET", null);
+        String tokenStr = httpsRequest(url, GET_REQUEST_METHOD, null);
         logger.debug("userAccessToken : " + tokenStr);
 
         UserAccessToken token = new UserAccessToken();
@@ -82,7 +94,7 @@ public class WechatUtil {
         // 根据传入的 accessToken 以及 openId 拼接出访问微信定义的端口并获取用户的 URL
         String url = "";
         // 访问该 URL 获取用户信息 json 字符串
-        String userStr = httpsRequest(url, "GET", null);
+        String userStr = httpsRequest(url, GET_REQUEST_METHOD, null);
         logger.debug("user info : " + userStr);
         WechatUser user = new WechatUser();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -129,8 +141,7 @@ public class WechatUtil {
             httpUrlConn.setUseCaches(false);
             // 设置请求方式（GET/POST）
             httpUrlConn.setRequestMethod(requestMethod);
-
-            if ("GET".equalsIgnoreCase(requestMethod)) {
+            if (GET_REQUEST_METHOD.equalsIgnoreCase(requestMethod)) {
                 httpUrlConn.connect();
             }
 
@@ -180,6 +191,4 @@ public class WechatUtil {
         personInfo.setEnableStatus(1);
         return personInfo;
     }
-
-
 }

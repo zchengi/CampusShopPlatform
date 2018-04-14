@@ -9,14 +9,14 @@
     /* var initUrl = '/o2o/shop/getshopinitinfo'
          , registerShopUrl = '/o2o/shop/registershop'*/
 
-    var initUrl = '/shop/getshopinitinfo'
+    var initUrl = '/o2o/shop/getshopinitinfo'
         , registerShopUrl = '/shop/registershop'
         , shopId = common.getQueryString('shopId')
         // var isEdit = shopId ? true : false;
         , isEdit = !!shopId
-        , shopInfoUrl = '/shop/getshopbyid?shopId=' + shopId
-        , editShopUrl = '/shop/modifyshop'
-        , shoplistUrl = '/shopadmin/shoplist'
+        , shopInfoUrl = '/o2o/shop/getshopbyid?shopId=' + shopId
+        , editShopUrl = '/o2o/shop/modifyshop'
+        , shoplistUrl = '/o2o/shopadmin/shoplist'
         , $picker_shop_category = $('#picker-shop-category')
         , $picker_area = $('#picker-area')
         // 图片最大上传数
@@ -137,8 +137,8 @@
         $.getJSON(shopInfoUrl, function (data) {
             if (data.success) {
                 var shop = data.shop
-                    , defaultAreaName
-                    , defaultAreaId;
+                    , defaultAreaName = ""
+                    , defaultAreaId = "";
                 $('#shop-name').val(shop.shopName);
                 $('#shop-addr').val(shop.shopAddr);
                 $('#shop-phone').val(shop.phone);

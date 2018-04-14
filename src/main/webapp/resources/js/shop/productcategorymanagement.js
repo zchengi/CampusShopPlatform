@@ -6,9 +6,9 @@
 
     'use strict';
 
-    var listUrl = '/shopadmin/getproductcategorylist',
-        addUrl = '/shopadmin/addproductcategories',
-        deleteUrl = '/shopadmin/removeproductcategory',
+    var listUrl = '/o2o/shopadmin/getproductcategorylist',
+        addUrl = '/o2o/shopadmin/addproductcategories',
+        deleteUrl = '/o2o/shopadmin/removeproductcategory',
         $category_list = $('#category-list');
 
     // 初始化商品分类管理列表

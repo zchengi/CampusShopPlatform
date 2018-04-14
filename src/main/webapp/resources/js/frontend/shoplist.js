@@ -14,11 +14,11 @@ $(function () {
         // 默认页码
         pageNum = 1,
         // 获取店铺列表的 URL
-        listUrl = '/frontend/listshops',
+        listUrl = '/o2o/frontend/listshops',
         // 获取店铺类别列表以及区域列表的 URL
-        searchDivUrl = '/frontend/listshopspageinfo',
+        searchDivUrl = '/o2o/frontend/listshopspageinfo',
         // 店铺详情页拼接
-        shopdetail = '/frontend/shopdetail?shopId=',
+        shopdetail = '/o2o/frontend/shopdetail?shopId=',
         // 从地址栏 URL 里尝试获取 parent shop category id
         parentId = common.getQueryString('parentId'),
         areaId = '',

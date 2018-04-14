@@ -6,7 +6,7 @@
 
     'use strict';
 
-    var shoplistUrl = '/shop/getshoplist';
+    var shoplistUrl = '/o2o/shop/getshoplist';
 
     // 初始化店铺信息
     getShopList();
@@ -45,7 +45,7 @@
 
     function goShop(status, id) {
         if (status === 1) {
-            return '<a class="weui-cell weui-cell_access" href="/shopadmin/shopmanagement?shopId=' + id + '">';
+            return '<a class="weui-cell weui-cell_access" href="/o2o/shopadmin/shopmanagement?shopId=' + id + '">';
         } else {
             return '<a class="weui-cell">';
         }
