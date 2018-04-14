@@ -3,7 +3,6 @@ package com.cheng.o2o.util.wechat;
 import com.cheng.o2o.dto.UserAccessToken;
 import com.cheng.o2o.dto.WechatUser;
 import com.cheng.o2o.entity.PersonInfo;
-import com.cheng.o2o.web.wechat.MyX509TrustManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;

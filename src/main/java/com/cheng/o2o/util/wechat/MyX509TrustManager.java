@@ -1,4 +1,4 @@
-package com.cheng.o2o.web.wechat;
+package com.cheng.o2o.util.wechat;
 
 import javax.net.ssl.X509TrustManager;
 import java.security.cert.X509Certificate;
