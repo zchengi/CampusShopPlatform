@@ -1,10 +1,17 @@
 package com.cheng.o2o.web.wechat;
 
 import com.cheng.o2o.dto.UserAccessToken;
+import com.cheng.o2o.dto.WechatAuthExecution;
 import com.cheng.o2o.dto.WechatUser;
+import com.cheng.o2o.entity.PersonInfo;
+import com.cheng.o2o.entity.WeChatAuth;
+import com.cheng.o2o.enums.WechatAuthStateEnum;
+import com.cheng.o2o.service.PersonInfoService;
+import com.cheng.o2o.service.WechatAuthService;
 import com.cheng.o2o.util.wechat.WechatUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +34,17 @@ import javax.servlet.http.HttpServletResponse;
 public class WechatLoginController {
 
     private static Logger logger = LoggerFactory.getLogger(WechatLoginController.class);
+    private static final String FRONT_END = "1";
+    private static final String SHOP_END = "1";
 
+    @Autowired
+    private PersonInfoService personInfoService;
+    @Autowired
+    private WechatAuthService wechatAuthService;
 
     @GetMapping("/logincheck")
     public String doGet(HttpServletRequest request, HttpServletResponse response) {
+
         logger.debug("wechat login get...");
 
         // 获取微信公众号传过来的 code，通过code可获取access_token，进而获取用户信息
@@ -39,8 +53,9 @@ public class WechatLoginController {
         String roleType = request.getParameter("state");
         logger.debug("wechat login code : " + code);
 
-        WechatUser user = null;
+        WechatUser user;
         String openId;
+        WeChatAuth weChatAuth;
         if (code != null) {
             UserAccessToken token;
             // 通过 code 获取 access_token
@@ -57,21 +72,35 @@ public class WechatLoginController {
             user = WechatUtil.getUserInfo(accessToken, openId);
             logger.debug("wechat login user : " + user.toString());
             request.getSession().setAttribute("openId", openId);
+
+            weChatAuth = wechatAuthService.getWechatAuthByOpenId(openId);
+        } else {
+            throw new IllegalArgumentException("code cannot be null");
         }
 
-        /*
-         *
-         *      TODO
-         * 获取到openId后，可以通过它去数据库判断该微信帐号是否在网站上有对应的帐号，
-         * 如果没有这里可以自动创建上，实现微信与网站的无缝对接
-         *
-         */
+        if (weChatAuth == null) {
+            PersonInfo personInfo = WechatUtil.getPersonInfoFromRequest(user);
+            weChatAuth = new WeChatAuth();
+            weChatAuth.setOpenId(openId);
+            personInfo.setUserType(FRONT_END.equals(roleType) ? 1 : 2);
+            weChatAuth.setPersonInfo(personInfo);
 
-        if (user != null) {
-            // 获取到微信验证的信息后返回到指定的路由
+            // 用户注册
+            WechatAuthExecution we = wechatAuthService.register(weChatAuth);
+            if (we.getState() == WechatAuthStateEnum.SUCCESS.getState()) {
+                //  获取用户信息
+                personInfo = personInfoService.getPersonInfoById(weChatAuth.getPersonInfo().getUserId());
+                request.getSession().setAttribute("user", personInfo);
+            } else {
+                return null;
+            }
+        }
+
+        if (FRONT_END.equals(roleType)) {
+            // 若用户点击的是前端展示系统按钮则进入前端展示系统
             return "frontend/index";
         } else {
-            return null;
+            return "shopadmin/shoplist";
         }
     }
 }
