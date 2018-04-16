@@ -11,10 +11,14 @@ import java.util.List;
 public interface AreaService {
 
     /**
+     * 当前类在 redis 中存储的 key
+     */
+    String AREA_LIST_KEY = "areaList";
+
+    /**
      * 获取区域列表
      *
      * @return areaList
      */
     List<Area> getAreaList();
-
 }

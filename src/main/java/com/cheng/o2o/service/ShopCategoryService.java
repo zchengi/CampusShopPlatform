@@ -11,6 +11,11 @@ import java.util.List;
 public interface ShopCategoryService {
 
     /**
+     * 当前类在 redis 中存储的 key
+     */
+    String SHOP_CATEGORY_LIST_KEY = "shopCategoryList";
+
+    /**
      * 根据查询条件获取 shopCategory 列表
      *
      * @param shopCategoryCondition
