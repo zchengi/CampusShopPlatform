@@ -34,6 +34,32 @@
         <property name="maxInMemorySize" value="20971520"/>
     </bean>
 
-    <!-- 4.扫描web相关的bean -->
+    <!-- 5.扫描web相关的bean -->
     <context:component-scan base-package="com.cheng.o2o.web"/>
+
+    <!-- 6.权限拦截器 -->
+    <mvc:interceptors>
+        <!-- 校验是否已登录了店家管理系统 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/shopadmin/**"/>
+            <bean id="shopInterceptor" class="com.cheng.o2o.interceptor.controller.ShopLoginInterceptor"/>
+        </mvc:interceptor>
+        <!-- 校验是否对该店铺有操作权限的拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/shop/**"/>
+            <!-- shoplist page -->
+            <mvc:exclude-mapping path="/shop/shoplist"/>
+            <mvc:exclude-mapping path="/shop/getshoplist"/>
+            <!-- shopregister page -->
+            <mvc:exclude-mapping path="/shop/getshopinitinfo"/>
+            <mvc:exclude-mapping path="/shop/registershop"/>
+            <mvc:exclude-mapping path="/shop/shopoperation"/>
+            <!-- shopmanage page -->
+            <mvc:exclude-mapping path="/shop/shopmanagement"/>
+            <mvc:exclude-mapping path="/shop/getshopmanagementinfo"/>
+
+            <bean id="shopPermissionInterceptor"
+                  class="com.cheng.o2o.interceptor.controller.ShopPermissionInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
