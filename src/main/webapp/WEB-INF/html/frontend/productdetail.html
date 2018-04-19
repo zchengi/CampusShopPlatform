@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <title>商品详情</title>
+
+    <link rel="stylesheet" href="../resources/css/common/weui.css">
+    <link rel="stylesheet" href="../resources/css/common/common.css">
+    <link rel="stylesheet" href="../resources/css/frontend/productdetail.css">
+</head>
+<body class="container">
+<!-- 导航层 -->
+<div class="bar" id="title">
+    <div id="shop-name" class="weui-media-box">商品详情</div>
+</div>
+
+<!-- 内容层 -->
+<div class="content">
+    <!-- 商品详情 -->
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <img class="my-img" id="product-img" src="" alt="">
+        </div>
+        <!-- 发布时间 -->
+        <div id="product-time" class="weui-cells__title"></div>
+        <!-- 价格 -->
+        <div id="price" class="weui-cell">
+            <div class="weui-cell__bd">
+                <label id="normal-price"></label>
+                <label id="promotion-price"></label>
+            </div>
+        </div>
+        <!-- 商品描述 -->
+        <div id="product-desc" class="weui-cell"></div>
+        <!-- 商品详情图 -->
+        <!--<div class="weui-cell"><img class="my-img" src=""></div>-->
+    </div>
+
+<!-- Tabbar -->
+<div class="weui-tabbar my-tabbar">
+    <a href="javascript:;" class="weui-tabbar__item">
+        <img src="https://weui.io/images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="javascript:;" class="weui-tabbar__item">
+        <img src="https://weui.io/images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+        <p class="weui-tabbar__label">我的</p>
+    </a>
+</div>
+
+<script type="text/javascript" src="../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../resources/js/common/weui.js"></script>
+<script type="text/javascript" src="../resources/js/common/common.js"></script>
+<script type="text/javascript" src="../resources/js/frontend/productdetail.js"></script>
+</body>
+</html>

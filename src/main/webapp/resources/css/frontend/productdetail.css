@@ -1,0 +1,27 @@
+
+.content {
+    margin-top: 56px;
+    margin-bottom: 65px;
+}
+
+.weui-cells {
+    border-radius: 4px;
+    margin: 11px 9px;
+}
+
+.weui-cell:before {
+    left: 0;
+}
+
+.my-img {
+    width: 100%;
+}
+
+#normal-price {
+    color: #999;
+}
+
+#promotion-price {
+    color: red;
+    font-size: large;
+}

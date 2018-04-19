@@ -1,10 +1,10 @@
+/**
+ * Created by cheng on 2018/4/12.
+ */
+
 $(function () {
 
     'use strict';
-
-    /**
-     * Created by cheng on 2018/4/12.
-     */
 
     var loading = false,
         // 分页允许返回的最大条数，超过此数则禁止访问后台
@@ -20,6 +20,8 @@ $(function () {
         productName = '',
         // 获取本店铺信息以及商品类别信息列表的 URL
         searchDivUrl = '/o2o/frontend/listshopdetailpageinfo?shopId=' + shopId,
+        // 商品详情页 url
+        productdetailUrl = '/o2o/frontend/productdetail?productId=',
         $searchBar = $('#searchBar'),
         $searchResult = $('#searchResult'),
         $searchText = $('#searchText'),
@@ -146,7 +148,7 @@ $(function () {
     // 点击商品的 div 进入该商品的详情页
     $searchResult.on('click', '.weui-cells', function (e) {
         var productId = e.currentTarget.dataset.productId;
-        // window.location.href = productdetail + productId;
+        window.location.href = productdetailUrl + productId;
     });
 
     // 选择新的商品类别后，重置页码，清空原来的商品列表，按照新的类别去查询
