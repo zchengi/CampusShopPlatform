@@ -1,5 +1,8 @@
 package com.cheng.o2o.util;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
@@ -10,9 +13,16 @@ import java.util.Random;
  * @author cheng
  *         2018/3/29 12:37
  */
+@Configuration
 public class FileUtil {
 
     private static String separator = System.getProperty("file.separator");
+
+    private static String winPath;
+
+    private static String linuxPath;
+
+    private static String shopPath;
 
     /**
      * 使用 DateTimeFormatter(java8) 代替 SimpleDateFormat (因为后者是线程不安全的)
@@ -32,9 +42,9 @@ public class FileUtil {
         String basePath;
 
         if (os.toLowerCase().startsWith(WIN)) {
-            basePath = "D:/IntelliJProject/image/";
+            basePath = winPath;
         } else {
-            basePath = "/home/cheng/image/";
+            basePath = linuxPath;
         }
         basePath = basePath.replace("/", separator);
 
@@ -45,7 +55,7 @@ public class FileUtil {
      * 返回项目图片相对子路径
      */
     public static String getShopImagePath(long shopId) {
-        String imagePath = "/upload/item/shop/" + shopId + "/";
+        String imagePath = shopPath + shopId + separator;
         return imagePath.replace("/", separator);
     }
 
@@ -60,5 +70,20 @@ public class FileUtil {
         int randNum = RANDOM.nextInt(89999) + 10000;
         String nowTimeStr = DATE_TIME_FORMATTER.format(LocalDateTime.now());
         return nowTimeStr + randNum;
+    }
+
+    @Value("${win.base.path}")
+    public void setWinPath(String winPath) {
+        FileUtil.winPath = winPath;
+    }
+
+    @Value("${linux.base.path}")
+    public void setLinuxPath(String linuxPath) {
+        FileUtil.linuxPath = linuxPath;
+    }
+
+    @Value("${shop.relevant.path}")
+    public void setShopPath(String shopPath) {
+        FileUtil.shopPath = shopPath;
     }
 }

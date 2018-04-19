@@ -1,0 +1,29 @@
+
+body {
+    background-color: #eee;
+}
+
+.bar {
+    background: #f8f8f8;
+    text-align: center;
+    z-index: 10;
+    width: 100%;
+    position: fixed;
+    top: 0;
+}
+
+.weui-media-box {
+    padding: 10px;
+}
+
+.content {
+    margin-top: 80px;
+}
+
+.weui-flex__item {
+    margin: 0 5px;
+}
+
+.my-tabbar {
+    position: fixed;
+}

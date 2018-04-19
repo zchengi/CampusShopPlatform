@@ -1,0 +1,8 @@
+
+.weui-btn_primary {
+    background-color: #0894ec;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+    background-color: #0a89d9;
+}

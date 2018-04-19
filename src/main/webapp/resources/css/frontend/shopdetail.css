@@ -1,0 +1,53 @@
+
+.content {
+    margin-top: 56px;
+    margin-bottom: 65px;
+}
+
+.weui-cells {
+    border-radius: 4px;
+    margin: 11px 9px;
+}
+
+.weui-cell:before {
+    left: 0;
+}
+
+.my-img {
+    width: 100%;
+}
+
+.my-btn_primary {
+    width: 30%;
+    border: 1px solid #0894ec;
+    color: #0894ec;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.my-flex {
+    margin-top: 8px;
+}
+
+.my-btn_primary:not(.weui-btn_disabled):active {
+    color: #0a8ddf;
+    border-color: #0a8ddf;
+}
+
+.my-btn_fill {
+    color: #fff;
+    background: #0894ec;
+}
+
+#searchText {
+    transform-origin: 0 0 0;
+    opacity: 1;
+    transform: scale(1, 1)
+}
+
+#searchResult {
+    transform-origin: 0 0 0;
+    opacity: 1;
+    transform: scale(1, 1);
+    display: block;
+}

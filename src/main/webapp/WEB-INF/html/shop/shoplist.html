@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <title>店铺列表</title>
+
+    <link rel="stylesheet" href="../resources/css/common/weui.css">
+    <link rel="stylesheet" href="../resources/css/common/common.css">
+</head>
+<body class="container">
+<!-- 导航层 -->
+<div class="bar" id="title">
+    <div class="weui-media-box">店铺列表</div>
+</div>
+
+<!-- 内容层 -->
+<div class="weui-cells content">
+    <!-- 店铺管理员 -->
+    <div class="weui-cell weui-cells__title">
+        <div class="weui-cell__bd">
+            <label id="user-name" class="weui-label"></label>
+        </div>
+        <div class="weui-cell__ft">
+            <a href="/o2o/shopadmin/shopoperation" class="weui-cell_link">增加店铺</a>
+        </div>
+    </div>
+
+    <!-- 店铺列表 -->
+    <div id="shop-list" class="weui-cells"></div>
+</div>
+
+<div class="weui-btn-area weui-flex">
+    <div class="weui-flex__item">
+        <a href="/o2o/local/accountbind?usertype=2" class="weui-btn weui-btn_primary">帐号绑定</a>
+    </div>
+    <div class="weui-flex__item">
+        <a href="javascript:;" id="log-out" userType="2" class="weui-btn weui-btn_warn">退出系统</a>
+    </div>
+    <div class="weui-flex__item">
+        <a href="/o2o/local/changepwd?usertype=2" id="bindOrChange" class="weui-btn weui-btn_primary">修改密码</a>
+    </div>
+</div>
+<script type="text/javascript" src="../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../resources/js/local/logout.js"></script>
+<script type="text/javascript" src="../resources/js/shop/shoplist.js"></script>
+</body>
+</html>
