@@ -3,7 +3,7 @@ package com.cheng.o2o.entity;
 import java.util.Date;
 
 /**
- * 店铺类别
+ * 店铺类别实体类
  *
  * @author cheng
  *         2018/3/26 22:37

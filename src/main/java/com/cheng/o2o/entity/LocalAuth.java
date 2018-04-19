@@ -3,7 +3,7 @@ package com.cheng.o2o.entity;
 import java.util.Date;
 
 /**
- * 本地帐号
+ * 本地验证实体类，主要用来做帐号密码的登录
  *
  * @author cheng
  *         2018/3/26 21:03

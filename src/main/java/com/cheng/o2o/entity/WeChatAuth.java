@@ -3,7 +3,7 @@ package com.cheng.o2o.entity;
 import java.util.Date;
 
 /**
- * 微信帐号
+ * 微信登录实体类
  *
  * @author cheng
  *         2018/3/26 21:01

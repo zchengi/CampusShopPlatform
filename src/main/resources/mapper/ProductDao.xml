@@ -12,6 +12,7 @@
         <result column="normal_price" property="normalPrice"/>
         <result column="promotion_price" property="promotionPrice"/>
         <result column="priority" property="priority"/>
+        <result column="point" property="point"/>
         <result column="create_time" property="createTime"/>
         <result column="last_edit_time" property="lastEditTime"/>
         <result column="enable_status" property="enableStatus"/>
@@ -28,7 +29,7 @@
         </association>
         <collection property="productImgList" column="product_id" ofType="productImg">
             <id column="product_img_id" property="productImgId"/>
-            <result column="img_addr" property="imgAddr"/>
+            <result column="detail_img" property="imgAddr"/>
             <result column="img_desc" property="imgDesc"/>
             <result column="priority" property="priority"/>
             <result column="create_time" property="createTime"/>
@@ -40,11 +41,11 @@
             keyProperty="productId" keyColumn="product_id">
         INSERT INTO
             tb_product (product_name, product_desc, img_addr, normal_price,
-                        promotion_price, priority, create_time, last_edit_time,
+                        promotion_price, priority, point, create_time, last_edit_time,
                         enable_status, product_category_id, shop_id)
         VALUES
             (#{productName}, #{productDesc}, #{imgAddr}, #{normalPrice},
-                             #{promotionPrice}, #{priority}, #{createTime}, #{lastEditTime},
+                             #{promotionPrice}, #{priority}, #{point}, #{createTime}, #{lastEditTime},
                              #{enableStatus}, #{productCategory.productCategoryId}, #{shop.shopId})
     </insert>
 
@@ -57,6 +58,7 @@
             <if test="normalPrice != null">normal_price = #{normalPrice},</if>
             <if test="promotionPrice != null">promotion_price = #{promotionPrice},</if>
             <if test="priority != null">priority = #{priority},</if>
+            <if test="point != null">point = #{point},</if>
             <if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
             <if test="enableStatus != null">enable_status = #{enableStatus},</if>
             <if test="productCategory != null and productCategory.productCategoryId != null">
@@ -87,6 +89,7 @@
             p.normal_price,
             p.promotion_price,
             p.priority,
+            p.point,
             p.create_time,
             p.last_edit_time,
             p.enable_status,
@@ -118,6 +121,7 @@
         normal_price,
         promotion_price,
         priority,
+        point,
         create_time,
         last_edit_time,
         enable_status,
