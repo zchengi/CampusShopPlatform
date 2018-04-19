@@ -18,3 +18,6 @@ CREATE TABLE `tb_product` (
   ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8;
+
+# 新增字段 point
+# `point` INT(10) DEFAULT '0'

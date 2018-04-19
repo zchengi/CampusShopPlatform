@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 商品
+ * 商品实体类
  *
  * @author cheng
  *         2018/3/26 23:18
@@ -40,6 +40,10 @@ public class Product {
      */
     private Integer priority;
     /**
+     * 商品积分
+     */
+    private Integer point;
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -53,15 +57,15 @@ public class Product {
      */
     private Integer enableStatus;
     /**
-     * 商品详情图片列表
+     * 商品详情图片列表,跟商品是多对一的关系
      */
     private List<ProductImg> productImgList;
     /**
-     * 商品所属类别
+     * 商品所属类别，一件商品仅属于一个商品类别
      */
     private ProductCategory productCategory;
     /**
-     * 商品所属店铺
+     * 商品所属店铺，标明商品属于哪个店铺
      */
     private Shop shop;
 
@@ -143,6 +147,14 @@ public class Product {
 
     public void setEnableStatus(Integer enableStatus) {
         this.enableStatus = enableStatus;
+    }
+
+    public Integer getPoint() {
+        return point;
+    }
+
+    public void setPoint(Integer point) {
+        this.point = point;
     }
 
     public List<ProductImg> getProductImgList() {

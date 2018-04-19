@@ -3,7 +3,7 @@ package com.cheng.o2o.entity;
 import java.util.Date;
 
 /**
- * 商品类别
+ * 商品类别实体类
  *
  * @author cheng
  *         2018/3/26 23:05
