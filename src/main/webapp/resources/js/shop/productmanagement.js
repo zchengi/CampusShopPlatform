@@ -32,7 +32,7 @@
     function handleList(data) {
         var productListHtml = '';
         // 遍历每条商品信息，拼接成一行显示，列信息包括：
-        // 商品名称，优先级，上架\下架(含productId)，编辑按钮(含productId)
+        // 商品名称，积分，上架\下架(含productId)，编辑按钮(含productId)
         // 预览(含productId)
         data.map(function (item) {
             var textOp = '下架';
@@ -51,7 +51,7 @@
                 + '<label class="weui-textarea">' + item.productName + '</label>'
                 + '</div>'
                 + '<div class="weui-cell__hd">'
-                + '<label class="weui-label">' + item.priority + '</label>'
+                + '<label class="weui-label">' + item.point + '</label>'
                 + '</div>'
                 + '<div class="weui-cell__ft">'
                 + '<a href="javascript:;" data-id="' + item.productId + '" class="weui-cell_link my-link edit">编辑</a> '
