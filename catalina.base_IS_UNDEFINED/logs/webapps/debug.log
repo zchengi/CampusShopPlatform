@@ -1,0 +1,125 @@
+2018-04-14 15:36:58.854 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.PersonInfoDao.insertPersonInfo] use [master] Strategy,SqlCommandType[INSERT]..
+2018-04-14 15:36:58.864 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:master
+2018-04-14 15:36:58.884 [main] DEBUG com.cheng.o2o.dao.PersonInfoDao.insertPersonInfo -==>  Preparing: INSERT tb_person_info (name, gender, email, profile_img, user_type, create_time, last_edit_time, enable_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?) 
+2018-04-14 15:36:58.924 [main] DEBUG com.cheng.o2o.dao.PersonInfoDao.insertPersonInfo -==> Parameters: cheng(String), zz(String), null, null, 1(Integer), 2018-04-14 15:36:58.831(Timestamp), 2018-04-14 15:36:58.831(Timestamp), 1(Integer)
+2018-04-14 15:36:59.164 [main] DEBUG com.cheng.o2o.dao.PersonInfoDao.insertPersonInfo -<==    Updates: 1
+2018-04-14 15:36:59.174 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.PersonInfoDao.queryPersonInfoById] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 15:36:59.174 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 15:36:59.174 [main] DEBUG c.cheng.o2o.dao.PersonInfoDao.queryPersonInfoById -==>  Preparing: SELECT user_id, name, gender, email, profile_img, user_type, create_time, last_edit_time, enable_status FROM tb_person_info WHERE user_id = ? 
+2018-04-14 15:36:59.784 [main] DEBUG c.cheng.o2o.dao.PersonInfoDao.queryPersonInfoById -==> Parameters: 1(Long)
+2018-04-14 15:36:59.854 [main] DEBUG c.cheng.o2o.dao.PersonInfoDao.queryPersonInfoById -<==      Total: 1
+2018-04-14 15:42:22.275 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth] use [master] Strategy,SqlCommandType[INSERT]..
+2018-04-14 15:42:22.285 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:master
+2018-04-14 15:42:22.305 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==>  Preparing: INSERT INTO tb_wechat_auth (user_id, open_id, create_time) VALUES (?, ?, ?) 
+2018-04-14 15:42:22.365 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 15:42:22.365 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 15:42:22.365 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_type WHERE open_id = ? 
+2018-04-14 15:42:22.975 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: zzz(String)
+2018-04-14 15:42:23.075 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 0
+2018-04-14 15:43:29.146 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth] use [master] Strategy,SqlCommandType[INSERT]..
+2018-04-14 15:43:29.156 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:master
+2018-04-14 15:43:29.176 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==>  Preparing: INSERT INTO tb_wechat_auth (user_id, open_id, create_time) VALUES (?, ?, ?) 
+2018-04-14 15:43:29.246 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 15:43:29.246 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 15:43:29.246 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_type WHERE open_id = ? 
+2018-04-14 15:43:29.848 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: zzz(String)
+2018-04-14 15:43:29.928 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 0
+2018-04-14 15:44:15.446 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth] use [master] Strategy,SqlCommandType[INSERT]..
+2018-04-14 15:44:15.446 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:master
+2018-04-14 15:44:15.466 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==>  Preparing: INSERT INTO tb_wechat_auth (user_id, open_id, create_time) VALUES (?, ?, ?) 
+2018-04-14 15:44:15.516 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 15:44:15.516 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 15:44:15.516 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_type WHERE open_id = ? 
+2018-04-14 15:44:16.096 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: zzz(String)
+2018-04-14 15:44:16.176 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 0
+2018-04-14 15:47:27.043 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth] use [master] Strategy,SqlCommandType[INSERT]..
+2018-04-14 15:47:27.053 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:master
+2018-04-14 15:47:27.073 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==>  Preparing: INSERT INTO tb_wechat_auth (user_id, open_id, create_time) VALUES (?, ?, ?) 
+2018-04-14 15:47:27.103 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==> Parameters: 1(Long), zzz(String), 2018-04-14 15:47:27.013(Timestamp)
+2018-04-14 15:47:27.233 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -<==    Updates: 1
+2018-04-14 15:47:27.253 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 15:47:27.253 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 15:47:27.253 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_type WHERE open_id = ? 
+2018-04-14 15:47:27.843 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: zzz(String)
+2018-04-14 15:47:27.923 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 1
+2018-04-14 15:48:02.144 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 15:48:02.144 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 15:48:02.164 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_type WHERE open_id = ? 
+2018-04-14 15:48:02.774 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: zzz(String)
+2018-04-14 15:48:02.844 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 1
+2018-04-14 15:48:39.299 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 15:48:39.299 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 15:48:39.319 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_id WHERE open_id = ? 
+2018-04-14 15:48:39.929 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: zzz(String)
+2018-04-14 15:48:39.999 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 1
+2018-04-14 15:48:54.825 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 15:48:54.835 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 15:48:54.855 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_id WHERE open_id = ? 
+2018-04-14 15:48:55.485 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: zzz(String)
+2018-04-14 15:48:55.555 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 1
+2018-04-14 15:50:06.966 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 15:50:06.966 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 15:50:06.986 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_id WHERE open_id = ? 
+2018-04-14 15:50:07.616 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: zzz(String)
+2018-04-14 15:50:07.696 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 1
+2018-04-14 16:13:43.418 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 16:13:43.428 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 16:13:43.438 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_id WHERE open_id = ? 
+2018-04-14 16:13:44.078 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: qwer(String)
+2018-04-14 16:13:44.158 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 0
+2018-04-14 16:13:55.871 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth] use [master] Strategy,SqlCommandType[INSERT]..
+2018-04-14 16:13:55.881 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:master
+2018-04-14 16:13:55.901 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==>  Preparing: INSERT INTO tb_wechat_auth (user_id, open_id, create_time) VALUES (?, ?, ?) 
+2018-04-14 16:13:56.001 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==> Parameters: null, qwer(String), 2018-04-14 16:13:55.851(Timestamp)
+2018-04-14 16:13:56.351 [main] ERROR com.cheng.o2o.service.impl.WechatAuthServiceImpl -insertWechatAuth error : org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'user_id' cannot be null
+### The error may involve com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO             tb_wechat_auth (user_id, open_id, create_time)         VALUES             (?, ?, ?)
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'user_id' cannot be null
+; SQL []; Column 'user_id' cannot be null; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'user_id' cannot be null
+2018-04-14 16:13:56.581 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 16:13:56.581 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 16:13:56.581 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_id WHERE open_id = ? 
+2018-04-14 16:13:57.181 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: qwer(String)
+2018-04-14 16:13:57.251 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 0
+2018-04-14 16:14:50.975 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth] use [master] Strategy,SqlCommandType[INSERT]..
+2018-04-14 16:14:50.985 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:master
+2018-04-14 16:14:50.995 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==>  Preparing: INSERT INTO tb_wechat_auth (user_id, open_id, create_time) VALUES (?, ?, ?) 
+2018-04-14 16:14:51.085 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==> Parameters: null, qwer(String), 2018-04-14 16:14:50.955(Timestamp)
+2018-04-14 16:14:51.325 [main] ERROR com.cheng.o2o.service.impl.WechatAuthServiceImpl -insertWechatAuth error : org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'user_id' cannot be null
+### The error may involve com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO             tb_wechat_auth (user_id, open_id, create_time)         VALUES             (?, ?, ?)
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'user_id' cannot be null
+; SQL []; Column 'user_id' cannot be null; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'user_id' cannot be null
+2018-04-14 16:14:51.515 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 16:14:51.515 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 16:14:51.515 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_id WHERE open_id = ? 
+2018-04-14 16:14:52.115 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: qwer(String)
+2018-04-14 16:14:52.185 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 0
+2018-04-14 16:16:41.046 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth] use [master] Strategy,SqlCommandType[INSERT]..
+2018-04-14 16:16:41.046 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:master
+2018-04-14 16:16:41.066 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==>  Preparing: INSERT INTO tb_wechat_auth (user_id, open_id, create_time) VALUES (?, ?, ?) 
+2018-04-14 16:16:41.166 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==> Parameters: null, qwer(String), 2018-04-14 16:16:41.016(Timestamp)
+2018-04-14 16:16:53.456 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.PersonInfoDao.insertPersonInfo] use [master] Strategy,SqlCommandType[INSERT]..
+2018-04-14 16:16:53.456 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:master
+2018-04-14 16:16:53.466 [main] DEBUG com.cheng.o2o.dao.PersonInfoDao.insertPersonInfo -==>  Preparing: INSERT tb_person_info (name, gender, email, profile_img, user_type, create_time, last_edit_time, enable_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?) 
+2018-04-14 16:16:53.566 [main] DEBUG com.cheng.o2o.dao.PersonInfoDao.insertPersonInfo -==> Parameters: test(String), null, null, null, 1(Integer), 2018-04-14 16:16:53.435(Timestamp), null, 1(Integer)
+2018-04-14 16:16:53.706 [main] DEBUG com.cheng.o2o.dao.PersonInfoDao.insertPersonInfo -<==    Updates: 1
+2018-04-14 16:16:53.716 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth] use [master] Strategy,SqlCommandType[INSERT]..
+2018-04-14 16:16:53.716 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:master
+2018-04-14 16:16:53.716 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==>  Preparing: INSERT INTO tb_wechat_auth (user_id, open_id, create_time) VALUES (?, ?, ?) 
+2018-04-14 16:16:53.716 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -==> Parameters: 3(Long), qwer(String), 2018-04-14 16:16:53.435(Timestamp)
+2018-04-14 16:16:53.856 [main] DEBUG com.cheng.o2o.dao.WechatAuthDao.insertWechatAuth -<==    Updates: 1
+2018-04-14 16:16:54.086 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 16:16:54.086 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 16:16:54.086 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_id WHERE open_id = ? 
+2018-04-14 16:16:54.676 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: qwer(String)
+2018-04-14 16:16:54.746 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 1
+2018-04-14 16:17:49.448 [main] DEBUG c.c.o.interceptor.dao.DynamicDataSourceInterceptor -设置方法[com.cheng.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId] use [slave] Strategy,SqlCommandType[SELECT]..
+2018-04-14 16:17:49.448 [main] DEBUG c.c.o2o.interceptor.dao.DynamicDataSourceHolder -使用的数据源为:slave
+2018-04-14 16:17:49.468 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==>  Preparing: SELECT w.wechat_auth_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_id WHERE open_id = ? 
+2018-04-14 16:17:50.098 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -==> Parameters: qwer(String)
+2018-04-14 16:17:50.178 [main] DEBUG c.c.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId -<==      Total: 1
