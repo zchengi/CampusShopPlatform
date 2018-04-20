@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cheng.o2o.dao.ShopAuthMapDao">
+
+    <resultMap id="shopAuthResultMap" type="com.cheng.o2o.entity.ShopAuthMap">
+        <id column="shop_auth_id" property="shopAuthId"/>
+        <result column="title" property="title"/>
+        <result column="title_flag" property="titleFlag"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_edit_time" property="lastEditTime"/>
+        <result column="enable_status" property="enableStatus"/>
+        <association property="employee" column="employee_id" javaType="com.cheng.o2o.entity.PersonInfo">
+            <id column="user_id" property="userId"/>
+            <result column="name" property="name"/>
+        </association>
+        <association property="shop" column="shop_id" javaType="com.cheng.o2o.entity.Shop">
+            <id column="shop_id" property="shopId"/>
+            <result column="shop_name" property="shopName"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertShopAuthMap" parameterType="com.cheng.o2o.entity.ShopAuthMap">
+        INSERT INTO
+            tb_shop_auth_map (employee_id, shop_id, title, title_flag,
+                              create_time, last_edit_time, enable_status)
+        VALUES
+            (#{employee.userId}, #{shop.shopId}, #{title}, #{titleFlag},
+             #{createTime}, #{lastEditTime}, #{enableStatus})
+    </insert>
+
+    <delete id="deleteShopAuthMap">
+        DELETE FROM
+            tb_shop_auth_map
+        WHERE shop_auth_id = #{shopAuthId}
+    </delete>
+
+    <update id="updateShopAuthMap" parameterType="com.cheng.o2o.entity.ShopAuthMap"
+            useGeneratedKeys="true" keyColumn="shop_auth_id" keyProperty="shopAuthId">
+        UPDATE tb_shop_auth_map
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="titleFlag != null">title_flag = #{titleFlag},</if>
+            <if test="enableStatus != null">enable_status = #{enableStatus},</if>
+            <if test="lastEditTime != null">last_edit_time = #{lastEditTime}</if>
+        </set>
+        WHERE shop_auth_id = #{shopAuthId}
+    </update>
+
+    <select id="queryShopAuthMapListByShopId" resultMap="shopAuthResultMap">
+        SELECT
+            smap.shop_auth_id,
+            smap.title,
+            smap.title_flag,
+            smap.create_time,
+            smap.last_edit_time,
+            smap.enable_status,
+            p.user_id,
+            p.name,
+            s.shop_id,
+            s.shop_name
+        FROM
+            tb_shop_auth_map smap,
+            tb_person_info p,
+            tb_shop s
+        WHERE
+            smap.employee_id = p.user_id AND smap.shop_id = s.shop_id AND smap.shop_id = #{shopId}
+        LIMIT
+            #{rowIndex}, #{pageSize};
+    </select>
+
+    <select id="queryShopAuthCountByShopId" resultType="int">
+        SELECT count(1)
+        FROM
+            tb_shop_auth_map smap,
+            tb_person_info p,
+            tb_shop s
+        WHERE
+            smap.employee_id = p.user_id AND smap.shop_id = s.shop_id AND smap.shop_id = #{shopId}
+    </select>
+
+    <select id="queryShopAuthMapById" resultMap="shopAuthResultMap">
+        SELECT
+            smap.shop_auth_id,
+            smap.title,
+            smap.title_flag,
+            smap.create_time,
+            smap.last_edit_time,
+            smap.enable_status,
+            p.user_id,
+            p.name,
+            s.shop_id,
+            s.shop_name
+        FROM
+            tb_shop_auth_map smap,
+            tb_person_info p,
+            tb_shop s
+        WHERE
+            smap.employee_id = p.user_id AND smap.shop_id = s.shop_id AND smap.shop_auth_id = #{shopAuthId};
+    </select>
+
+</mapper>

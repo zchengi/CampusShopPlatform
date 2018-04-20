@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cheng.o2o.dao.ProductSellDailyDao">
+
+    <resultMap id="productSellDailyResultMap" type="com.cheng.o2o.entity.ProductSellDaily">
+        <result column="create_time" property="createTime"/>
+        <result column="total" property="total"/>
+        <association property="product" column="product_id" javaType="com.cheng.o2o.entity.Product">
+            <id column="product_id" property="productId"/>
+            <result column="product_name" property="productName"/>
+        </association>
+        <association property="shop" column="shop_id" javaType="com.cheng.o2o.entity.Shop">
+            <id column="shop_id" property="shopId"/>
+            <result column="shop_name" property="shopName"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertProductSellDaily">
+
+        INSERT INTO
+            tb_product_sell_daily (SELECT
+                                       product_id,
+                                       shop_id,
+                                       create_time,
+                                       count(product_id) AS total
+                                   FROM tb_user_product_map
+                                   /* 统计每个店铺的每件商品的日销量是多少(不统计当天) */
+                                   WHERE date_format(tb_user_product_map.create_time, '%Y-%m-%d') =
+                                         date_sub(curdate(), INTERVAL 1 DAY)
+                                   GROUP BY tb_user_product_map.product_id)
+    </insert>
+
+    <select id="queryProductSellDailyList" resultMap="productSellDailyResultMap">
+        SELECT
+        psd.create_time,
+        psd.total,
+        s.shop_id,
+        s.shop_name,
+        p.product_id,
+        p.product_name
+        FROM
+        tb_product_sell_daily psd,
+        tb_shop s,
+        tb_product p
+        <where>
+            psd.shop_id = s.shop_id and psd.product_id = p.product_id
+            <!-- 按店铺查询 -->
+            <if test="productSellDailyCondition.shop != null and productSellDailyCondition.shop.shopId != null">
+                and psd.shop_id = #{productSellDailyCondition.shop.shopId}
+            </if>
+            <!-- 按商品名模糊查询 -->
+            <if test="productSellDailyCondition.product != null
+            and productSellDailyCondition.product.productName != null">
+                and p.product_name like '%${productSellDailyCondition.product.productName}%'
+            </if>
+            <if test="beginTime != null and endTime != null">
+                and psd.create_time between #{beginTime} and #{endTime};
+            </if>
+            <if test="beginTime != null and endTime == null">
+                and psd.create_time &gt;= #{beginTime};
+            </if>
+            <if test="beginTime == null and endTime != null">
+                and psd.end_time $lt;= #{endTime};
+            </if>
+        </where>
+    </select>
+</mapper>

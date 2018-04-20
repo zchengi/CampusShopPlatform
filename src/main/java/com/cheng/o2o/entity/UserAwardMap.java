@@ -17,7 +17,7 @@ public class UserAwardMap {
     /**
      * 创建时间
      */
-    private Date crateTime;
+    private Date createTime;
     /**
      * 使用状态，0:未兑换，1:已兑换
      */
@@ -51,12 +51,12 @@ public class UserAwardMap {
         this.userAwardId = userAwardId;
     }
 
-    public Date getCrateTime() {
-        return crateTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCrateTime(Date crateTime) {
-        this.crateTime = crateTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Integer getUserStatus() {

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cheng.o2o.dao.UserAwardMapDao">
+
+    <resultMap id="userAwardResultMap" type="com.cheng.o2o.entity.UserAwardMap">
+        <id column="user_award_id" property="userAwardId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="user_status" property="userStatus"/>
+        <result column="point" property="point"/>
+        <association property="user" column="user_id" javaType="com.cheng.o2o.entity.PersonInfo">
+            <id column="user_id" property="userId"/>
+            <result column="name" property="name"/>
+        </association>
+        <association property="award" column="award_id" javaType="com.cheng.o2o.entity.Award">
+            <id column="award_id" property="awardId"/>
+            <result column="award_name" property="awardName"/>
+        </association>
+        <association property="shop" column="shop_id" javaType="com.cheng.o2o.entity.Shop">
+            <id column="shop_id" property="shopId"/>
+            <result column="shop_name" property="shopName"/>
+        </association>
+        <association property="operator" column="operator_id" javaType="com.cheng.o2o.entity.PersonInfo">
+            <id column="user_id" property="userId"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertUserAwardMap" parameterType="com.cheng.o2o.entity.UserAwardMap"
+            useGeneratedKeys="true" keyProperty="userAwardId" keyColumn="user_award_id">
+        INSERT INTO
+            tb_user_award_map (user_id, award_id, shop_id, operator_id,
+                               create_time, user_status, point)
+        VALUES
+            (#{user.userId}, #{award.awardId}, #{shop.shopId}, #{operator.userId},
+             #{createTime}, #{userStatus}, #{point})
+    </insert>
+
+    <update id="updateUserAwardMap" parameterType="com.cheng.o2o.entity.UserAwardMap"
+            useGeneratedKeys="true" keyProperty="userAwardId" keyColumn="user_award_id">
+        UPDATE
+            tb_user_award_map
+        SET
+            user_status = #{userStatus}
+        WHERE
+            user_award_id = #{userAwardId} AND user_id = #{user.userId}
+    </update>
+
+    <select id="queryUserAwardMapList" resultMap="userAwardResultMap">
+        SELECT
+        uam.user_award_id,
+        uam.create_time,
+        uam.user_status,
+        uam.point,
+        buyer.user_id,
+        buyer.name,
+        s.shop_id,
+        s.shop_name,
+        a.award_id,
+        a.award_name,
+        operator.user_id AS operator_id,
+        operator.name
+        FROM
+        tb_user_award_map uam,
+        tb_person_info buyer,
+        tb_shop s,
+        tb_award a,
+        tb_person_info operator
+        <where>
+            uam.user_id = buyer.user_id AND uam.shop_id = s.shop_id
+            AND uam.award_id = a.award_id AND uam.operator_id = operator.user_id
+            <!-- 按顾客信息精确查询 -->
+            <if test="userAwardMapCondition.user != null and userAwardMapCondition.user.userId != null">
+                and uam.user_id = #{userAwardMapCondition.userId}
+            </if>
+            <!-- 按某个店铺精确查询 -->
+            <if test="userAwardMapCondition.shop != null and userAwardMapCondition.shop.shopId != null">
+                and uam.shop_id = #{userAwardMapCondition.shop.shopId}
+            </if>
+            <!-- 按顾客名字模糊查询 -->
+            <if test="userAwardMapCondition.user!= null and userAwardMapCondition.user.name != null">
+                and buyer.name like '%${userAwardMapCondition.user.name}%'
+            </if>
+            <!-- 按奖品名模糊查询 -->
+            <if test="userAwardMapCondition.award != null and userAwardMapCondition.award.awardName != null">
+                and a.award_name like '%${userAwardMapCondition.award.awardName}%'
+            </if>
+            <!-- 按奖品可用状态查询 -->
+            <if test="userAwardMapCondition.userStatus != null">
+                and uam.user_status = #{userAwardMapCondition.userStatus};
+            </if>
+        </where>
+        ORDER BY uam.create_time DESC
+        LIMIT #{rowIndex},#{pageSize};
+    </select>
+
+    <select id="queryUserAwardMapCount" resultType="int">
+        SELECT count(1)
+        FROM
+        tb_user_award_map uam,
+        tb_person_info buyer,
+        tb_shop s,
+        tb_award a,
+        tb_person_info operator
+        <where>
+            uam.user_id = buyer.user_id AND uam.shop_id = s.shop_id
+            AND uam.award_id = a.award_id AND uam.operator_id = operator.user_id
+            <!-- 按顾客信息精确查询 -->
+            <if test="userAwardMapCondition.user != null and userAwardMapCondition.user.userId != null">
+                and uam.user_id = #{userAwardMapCondition.userId}
+            </if>
+            <!-- 按某个店铺精确查询 -->
+            <if test="userAwardMapCondition.shop != null and userAwardMapCondition.shop.shopId != null">
+                and uam.shop_id = #{userAwardMapCondition.shop.shopId}
+            </if>
+            <!-- 按顾客名字模糊查询 -->
+            <if test="userAwardMapCondition.user!= null and userAwardMapCondition.user.name != null">
+                and buyer.name like '%${userAwardMapCondition.user.name}%'
+            </if>
+            <!-- 按奖品名模糊查询 -->
+            <if test="userAwardMapCondition.award != null and userAwardMapCondition.award.awardName != null">
+                and a.award_name like '%${userAwardMapCondition.award.awardName}%'
+            </if>
+            <!-- 按奖品可用状态查询 -->
+            <if test="userAwardMapCondition.userStatus != null">
+                and uam.user_status = #{userAwardMapCondition.userStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryUserAwardMapById" resultMap="userAwardResultMap">
+        SELECT
+            uam.user_award_id,
+            uam.create_time,
+            uam.user_status,
+            uam.point,
+            buyer.user_id,
+            buyer.name,
+            s.shop_id,
+            s.shop_name,
+            a.award_id,
+            a.award_name,
+            operator.user_id AS operator_id,
+            operator.name
+        FROM
+            tb_user_award_map uam,
+            tb_person_info buyer,
+            tb_shop s,
+            tb_award a,
+            tb_person_info operator
+        WHERE
+            uam.user_id = buyer.user_id AND uam.shop_id = s.shop_id AND uam.award_id = a.award_id
+            AND uam.operator_id = operator.user_id AND user_award_id = #{userAwardId}
+    </select>
+</mapper>
