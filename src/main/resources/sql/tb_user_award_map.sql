@@ -5,7 +5,6 @@ CREATE TABLE `tb_user_award_map` (
   `shop_id`       INT(10) NOT NULL,
   `operator_id`   INT(10) NOT NULL,
   `create_time`   DATETIME          DEFAULT NULL,
-  `expire_time`   DATETIME          DEFAULT NULL,
   `user_status`   INT(2)  NOT NULL  DEFAULT '0',
   `point`         INT(10)           DEFAULT NULL,
   PRIMARY KEY (`user_award_id`),

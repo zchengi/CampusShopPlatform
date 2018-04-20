@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cheng.o2o.dao.AwardDao">
+
+    <insert id="insertAward" parameterType="com.cheng.o2o.entity.Award"
+            useGeneratedKeys="true" keyProperty="awardId" keyColumn="award_id">
+        INSERT INTO
+            tb_award (award_name, award_desc, award_img, POINT, priority,
+                      create_time, last_edit_time, enable_status, shop_id)
+        VALUES
+            (#{awardName}, #{awardDesc}, #{awardImg}, #{point}, #{priority},
+             #{createTime}, #{lastEditTime}, #{enableStatus}, #{shopId})
+    </insert>
+
+    <delete id="deleteAward">
+        DELETE FROM
+            tb_award
+        WHERE
+            award_id = #{awardId} AND shop_id = #{shopId}
+    </delete>
+
+    <update id="updateAward" parameterType="com.cheng.o2o.entity.Award"
+            keyProperty="awardId" useGeneratedKeys="true">
+        UPDATE
+        tb_award
+        <set>
+            <if test="awardName != null">award_name = #{awardName},</if>
+            <if test="awardDesc != null">award_desc = #{awardDesc},</if>
+            <if test="awardImg != null">award_img = #{awardImg},</if>
+            <if test="point != null">point = #{point},</if>
+            <if test="priority != null">priority = #{priority},</if>
+            <if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
+            <if test="enableStatus != null">enable_status = #{enableStatus}</if>
+        </set>
+        WHERE
+        award_id = #{awardId} AND shop_id = #{shopId}
+    </update>
+
+    <select id="queryAwardList" resultType="com.cheng.o2o.entity.Award">
+        SELECT
+        award_id,
+        award_name,
+        award_desc,
+        award_img,
+        point,
+        priority,
+        create_time,
+        last_edit_time,
+        enable_status,
+        shop_id
+        FROM
+        tb_award
+        <where>
+            <!-- 按奖品名模糊查询 -->
+            <if test="awardCondition.awardName != null">
+                AND award_name LIKE '%${awardCondition.awardName}%'
+            </if>
+            <!-- 按店铺查询 -->
+            <if test="awardCondition.shopId != null">
+                AND shop_id = #{awardCondition.shopId}
+            </if>
+            <!-- 按可用状态查询 -->
+            <if test="awardCondition.enableStatus != null">
+                AND enable_status = #{awardCondition.enableStatus}
+            </if>
+        </where>
+        ORDER BY
+        priority DESC
+        LIMIT #{rowIndex},#{pageSize};
+    </select>
+
+    <select id="queryAwardCount" resultType="int">
+        SELECT count(1) FROM tb_award
+        <where>
+            <!-- 按奖品名模糊查询 -->
+            <if test="awardCondition.awardName != null">
+                AND award_name LIKE '%${awardCondition.awardName}%'
+            </if>
+            <!-- 按店铺查询 -->
+            <if test="awardCondition.shopId != null">
+                AND shop_id = #{awardCondition.shopId}
+            </if>
+            <!-- 按可用状态查询 -->
+            <if test="awardCondition.enableStatus != null">
+                AND enable_status = #{awardCondition.enableStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryAwardByAwardId" resultType="com.cheng.o2o.entity.Award">
+        SELECT
+            award_id,
+            award_name,
+            award_desc,
+            award_img,
+            point,
+            priority,
+            create_time,
+            last_edit_time,
+            enable_status,
+            shop_id
+        FROM
+            tb_award
+        WHERE
+            award_id = #{awardId}
+    </select>
+</mapper>

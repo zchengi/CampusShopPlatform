@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cheng.o2o.dao.UserProductMapDao">
+
+    <resultMap id="userProductResultMap" type="com.cheng.o2o.entity.UserProductMap">
+        <id column="user_product_id" property="userProductId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="point" property="point"/>
+        <association property="user" column="user_id" javaType="com.cheng.o2o.entity.PersonInfo">
+            <id column="user_id" property="userId"/>
+            <result column="name" property="name"/>
+        </association>
+        <association property="product" column="product_id" javaType="com.cheng.o2o.entity.Product">
+            <id column="product_id" property="productId"/>
+            <result column="product_name" property="productName"/>
+        </association>
+        <association property="shop" column="shop_id" javaType="com.cheng.o2o.entity.Shop">
+            <id column="shop_id" property="shopId"/>
+            <result column="shop_name" property="shopName"/>
+        </association>
+        <association property="operator" column="operator_id" javaType="com.cheng.o2o.entity.PersonInfo">
+            <id column="user_id" property="userId"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertProductMap" parameterType="com.cheng.o2o.entity.UserProductMap"
+            useGeneratedKeys="true" keyProperty="userProductId" keyColumn="user_product_id">
+        INSERT INTO
+            tb_user_product_map (user_id, product_id, shop_id, operator_id, create_time, point)
+        VALUES
+            (#{user.userId}, #{product.productId}, #{shop.shopId},
+             #{operator.userId}, #{createTime}, #{point})
+    </insert>
+
+    <select id="queryUserProductMapList" resultMap="userProductResultMap">
+        SELECT
+        upm.user_product_id,
+        upm.create_time,
+        upm.point,
+        buyer.user_id,
+        buyer.name,
+        s.shop_id,
+        s.shop_name,
+        p.product_id,
+        p.product_name,
+        operator.user_id AS operator_id,
+        operator.name
+        FROM
+        tb_user_product_map upm,
+        tb_person_info buyer,
+        tb_shop s,
+        tb_product p,
+        tb_person_info operator
+        <where>
+            upm.user_id = buyer.user_id and upm.shop_id = s.shop_id
+            and upm.product_id = p.product_id and upm.operator_id = operator.user_id
+            <!-- 按顾客信息精确查询 -->
+            <if test="userProductMapCondition.user != null and userProductMapCondition.user.userId != null">
+                and upm.user_id = #{userProductMapCondition.user.userId}
+            </if>
+            <!-- 按店铺信息精确查询 -->
+            <if test="userProductMapCondition.shop!= null and userProductMapCondition.shop.shopId != null">
+                and upm.shop_id = #{userProductMapCondition.shop.shopId}
+            </if>
+            <!-- 按顾客名字模糊查询 -->
+            <if test="userProductMapCondition.user != null and userProductMapCondition.user.name != null">
+                and buyer.name like '%${userProductMapCondition.user.name}%'
+            </if>
+            <!-- 按商品名字模糊查询 -->
+            <if test="userProductMapCondition.product != null and userProductMapCondition.product.productName != null">
+                and p.product_name like '%${userProductMapCondition.product.productName}%'
+            </if>
+            <!-- 按消费日期范围查询 -->
+            <if test="userProductMapCondition.createTime != null">
+                and upm.create_time > #{userProductMapCondition.createTime}
+            </if>
+        </where>
+        ORDER BY upm.create_time DESC
+        LIMIT #{rowIndex},#{pageSize};
+    </select>
+
+    <select id="queryUserProductMapCount" resultType="int">
+        SELECT count(1)
+        FROM
+        tb_user_product_map upm,
+        tb_person_info buyer,
+        tb_shop s,
+        tb_product p,
+        tb_person_info operator
+        <where>
+            upm.user_id = buyer.user_id and upm.shop_id = s.shop_id
+            and upm.product_id = p.product_id and upm.operator_id = operator.user_id
+            <!-- 按顾客信息精确查询 -->
+            <if test="userProductMapCondition.user != null and userProductMapCondition.user.userId != null">
+                and upm.user_id = #{userProductMapCondition.user.userId}
+            </if>
+            <!-- 按店铺信息精确查询 -->
+            <if test="userProductMapCondition.shop!= null and userProductMapCondition.shop.shopId != null">
+                and upm.shop_id = #{userProductMapCondition.shop.shopId}
+            </if>
+            <!-- 按顾客名字模糊查询 -->
+            <if test="userProductMapCondition.user != null and userProductMapCondition.user.name != null">
+                and buyer.name like '%${userProductMapCondition.user.name}%'
+            </if>
+            <!-- 按商品名字模糊查询 -->
+            <if test="userProductMapCondition.product != null and userProductMapCondition.product.productName != null">
+                and p.product_name like '%${userProductMapCondition.product.productName}%'
+            </if>
+            <!-- 按消费日期范围查询 -->
+            <if test="userProductMapCondition.createTime != null">
+                and upm.create_time > #{userProductMapCondition.createTime}
+            </if>
+        </where>
+    </select>
+</mapper>

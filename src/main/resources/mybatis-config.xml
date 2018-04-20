@@ -18,6 +18,9 @@
         <!-- 开启懒加载 -->
         <setting name="lazyLoadingEnabled" value="true"/>
         <setting name="aggressiveLazyLoading" value="false"/>
+
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
     <plugins>
         <plugin interceptor="com.cheng.o2o.interceptor.dao.DynamicDataSourceInterceptor"/>
