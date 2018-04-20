@@ -19,6 +19,7 @@
             $('#shopInfo').attr('href', '/o2o/shopadmin/shopoperation?shopId=' + shopId);
             $('#productInfo').attr('href', '/o2o/shopadmin/productmanagement');
             $('#productCategoryManagement').attr('href', '/o2o/shopadmin/productcategorymanagement');
+            $('#shopAuthManagement').attr('href', '/o2o/shopadmin/shopauthmanagement');
         }
     });
 })();
