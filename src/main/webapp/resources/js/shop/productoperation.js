@@ -63,7 +63,7 @@
         // 获取验证码
         var verifyCodeActual = $('#j_captcha').val();
         if (!verifyCodeActual) {
-            weui.alert('请输入验证码!');
+            weui.topTips('请输入验证码!');
             return;
         }
 
@@ -95,8 +95,8 @@
                     window.location.href = productManagementUrl;
                 } else {
                     weui.alert('提交失败,' + data.errMsg);
+                    $('#img-verification-code').click();
                 }
-                $('#img-verification-code').click();
             }
         });
     });

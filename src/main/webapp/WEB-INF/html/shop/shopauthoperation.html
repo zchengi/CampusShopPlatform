@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
     <meta name="format-detection" content="telephone=no">
-    <title>帐号登录</title>
+    <title>权限编辑</title>
 
     <link rel="stylesheet" href="../resources/css/common/weui.css">
     <link rel="stylesheet" href="../resources/css/common/common.css">
@@ -13,31 +13,31 @@
 <body>
 <!-- 导航层 -->
 <div class="bar" id="title">
-    <div class="weui-media-box">帐号登录</div>
+    <div class="weui-media-box">权限编辑</div>
 </div>
 
 <!-- 内容层 -->
 <div class="weui-cells content">
     <div class="weui-cell">
         <div class="weui-cell__hd">
-            <label class="weui-label">用户名</label>
+            <label class="weui-label">雇员</label>
         </div>
         <div class="weui-cell__bd">
-            <input id="username" class="weui-input" type="text" required placeholder="请输入用户名">
+            <input id="shop-auth-name" class="weui-input" type="text" placeholder="请输入姓名">
         </div>
     </div>
 
     <div class="weui-cell">
         <div class="weui-cell__hd">
-            <label class="weui-label">密码</label>
+            <label class="weui-label">职位</label>
         </div>
         <div class="weui-cell__bd">
-            <input id="password" class="weui-input" type="password" required placeholder="请输入密码">
+            <input id="shop-auth-title" class="weui-input" type="text" placeholder="请输入职位">
         </div>
     </div>
 
     <!-- 验证码 -->
-    <div id="verifyPart" class="weui-cell weui-cell_vcode" style="display: none;">
+    <div class="weui-cell weui-cell_vcode">
         <div class="weui-cell__hd">
             <label class="weui-label">验证码</label>
         </div>
@@ -53,15 +53,15 @@
 
 <div class="weui-btn-area weui-flex">
     <div class="weui-flex__item">
-        <a href="javascript:;" class="weui-btn weui-btn_warn my-warn">注册</a>
+        <a href="/o2o/shopadmin/shopauthmanagement" class="weui-btn weui-btn_warn my-warn">返回</a>
     </div>
     <div class="weui-flex__item">
-        <a href="javascript:;" id="submit" class="weui-btn weui-btn_primary">登录</a>
+        <a href="javascript:;" id="submit" class="weui-btn weui-btn_primary">提交</a>
     </div>
 </div>
 <script type="text/javascript" src="../resources/js/common/jquery.js"></script>
 <script type="text/javascript" src="../resources/js/common/weui.js"></script>
 <script type="text/javascript" src="../resources/js/common/common.js"></script>
-<script type="text/javascript" src="../resources/js/local/login.js"></script>
+<script type="text/javascript" src="../resources/js/shop/shopauthoperation.js"></script>
 </body>
 </html>

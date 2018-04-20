@@ -50,4 +50,16 @@ public class ShopAdminController {
         // 转发至商品管理页面
         return "shop/productmanagement";
     }
+
+    @GetMapping("/shopauthmanagement")
+    private String shopAuthManagement() {
+        // 转发至店铺授权页面
+        return "shop/shopauthmanagement";
+    }
+
+    @GetMapping("/shopauthoperation")
+    private String shopAuthOperation() {
+        // 转发至店铺授权信息修改页面
+        return "shop/shopauthoperation";
+    }
 }

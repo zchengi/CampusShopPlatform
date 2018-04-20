@@ -6,9 +6,6 @@
 
     'use strict';
 
-    /* var initUrl = '/o2o/shop/getshopinitinfo'
-         , registerShopUrl = '/o2o/shop/registershop'*/
-
     var initUrl = '/o2o/shop/getshopinitinfo'
         , registerShopUrl = '/shop/registershop'
         , shopId = common.getQueryString('shopId')
@@ -62,7 +59,7 @@
         var verifyCodeActual = $('#j_captcha').val();
 
         if (!verifyCodeActual) {
-            weui.alert('请输入验证码!');
+            weui.topTips('请输入验证码!');
             return;
         }
 
@@ -83,8 +80,8 @@
                     window.location.href = shoplistUrl;
                 } else {
                     weui.alert('提交失败,' + data.errMsg);
+                    $('#img-verification-code').click();
                 }
-                $('#img-verification-code').click();
             }
         });
     });
