@@ -54,10 +54,13 @@ public class DataSourceConfiguration {
         dataSource.setPassword(DESUtil.getDecryptString(jdbcPassword));
 
         // 配置c3p0连接池的私有属性
+
+        // 连接池初始线程数
+        dataSource.setInitialPoolSize(5);
         // 连接池最大线程数
         dataSource.setMaxPoolSize(30);
         // 连接池最小线程数
-        dataSource.setMinPoolSize(10);
+        dataSource.setMinPoolSize(0);
         // 关闭链接后不自动 commit
         dataSource.setAutoCommitOnClose(false);
         // 连接超时时间

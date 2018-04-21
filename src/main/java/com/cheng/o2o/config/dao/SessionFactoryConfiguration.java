@@ -1,6 +1,7 @@
 package com.cheng.o2o.config.dao;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -59,7 +60,8 @@ public class SessionFactoryConfiguration {
         sqlSessionFactoryBean.setDataSource(dataSource);
         // 设置 typeAlias 包扫描路径
         sqlSessionFactoryBean.setTypeAliasesPackage(typeAliasPackage);
-
+        // 解决 别名扫描不到的问题
+        sqlSessionFactoryBean.setVfs(SpringBootVFS.class);
         return sqlSessionFactoryBean;
     }
 

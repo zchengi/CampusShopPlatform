@@ -66,7 +66,6 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/resources/");
 
         // 添加解析本地文件 windows / linux
         registry.addResourceHandler("/upload/**")
@@ -146,11 +145,15 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        String LoginInterceptPath = "/shopadmin/**";
+        String loginInterceptPath = "/shopadmin/**";
         // 注册拦截器  校验是否已登录了店家管理系统
         InterceptorRegistration loginIR = registry.addInterceptor(new ShopLoginInterceptor());
         // 配置拦截的路径
-        loginIR.addPathPatterns(LoginInterceptPath);
+        loginIR.addPathPatterns(loginInterceptPath);
+
+        // 配置不拦截的路径
+        // shopauthmanagement page
+        loginIR.excludePathPatterns("/shopadmin/addshopauthmap");
 
         String doInterceptPath = "/shop/**";
         // 注册第二个拦截器
