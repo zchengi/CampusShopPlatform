@@ -7,3 +7,8 @@
     margin-right: 23px;
     margin-left: 21px;
 }
+
+#auth-img {
+    display: block;
+    margin: 10px auto;
+}

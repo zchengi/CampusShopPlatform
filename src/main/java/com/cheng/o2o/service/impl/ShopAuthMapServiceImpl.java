@@ -34,13 +34,14 @@ public class ShopAuthMapServiceImpl implements ShopAuthMapService {
             shopAuthMap.setCreateTime(new Date());
             shopAuthMap.setLastEditTime(new Date());
             shopAuthMap.setEnableStatus(1);
-            shopAuthMap.setTitleFlag(0);
+
             try {
                 // 添加授权信息
                 int effectedNum = shopAuthMapDao.insertShopAuthMap(shopAuthMap);
                 if (effectedNum <= 0) {
                     throw new ShopAuthMapOperationException("添加授权信息失败!");
                 }
+
                 return new ShopAuthMapExecution(ShopAuthMapStateEnum.SUCCESS, shopAuthMap);
             } catch (Exception e) {
                 throw new ShopAuthMapOperationException("添加授权失败 : " + e.toString());

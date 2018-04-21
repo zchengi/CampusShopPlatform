@@ -42,6 +42,9 @@
         <!-- 校验是否已登录了店家管理系统 -->
         <mvc:interceptor>
             <mvc:mapping path="/shopadmin/**"/>
+            <!-- shopauthmanagement page -->
+            <mvc:exclude-mapping path="/shopadmin/addshopauthmap"/>
+
             <bean id="shopInterceptor" class="com.cheng.o2o.interceptor.controller.ShopLoginInterceptor"/>
         </mvc:interceptor>
         <!-- 校验是否对该店铺有操作权限的拦截器 -->
