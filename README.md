@@ -1,2 +1,2 @@
 # Campus Shop Platform
-###  校园商铺平台
+###  校园商铺平台 —— SSM
