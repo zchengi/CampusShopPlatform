@@ -11,6 +11,11 @@ import java.util.Date;
 public class ProductSellDaily {
 
     /**
+     * 主键id
+     */
+    private Long productSellDailyId;
+
+    /**
      * 哪天的销量，精确到天
      */
     private Date createTime;
@@ -26,6 +31,14 @@ public class ProductSellDaily {
      * 店铺信息实体类
      */
     private Shop shop;
+
+    public Long getProductSellDailyId() {
+        return productSellDailyId;
+    }
+
+    public void setProductSellDailyId(Long productSellDailyId) {
+        this.productSellDailyId = productSellDailyId;
+    }
 
     public Date getCreateTime() {
         return createTime;

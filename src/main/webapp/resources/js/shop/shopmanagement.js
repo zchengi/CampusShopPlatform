@@ -20,6 +20,7 @@
             $('#productInfo').attr('href', '/o2o/shopadmin/productmanagement');
             $('#productCategoryManagement').attr('href', '/o2o/shopadmin/productcategorymanagement');
             $('#shopAuthManagement').attr('href', '/o2o/shopadmin/shopauthmanagement');
+            $('#productBuyCheck').attr('href', '/o2o/shopadmin/productbuycheck');
         }
     });
 })();
