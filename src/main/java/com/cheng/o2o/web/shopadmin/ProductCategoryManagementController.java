@@ -1,4 +1,4 @@
-package com.cheng.o2o.web.shop;
+package com.cheng.o2o.web.shopadmin;
 
 import com.cheng.o2o.dto.ProductCategoryExecution;
 import com.cheng.o2o.dto.Result;

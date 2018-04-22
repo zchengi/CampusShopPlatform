@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <title>消费记录</title>
+
+    <link rel="stylesheet" href="../resources/css/common/weui.css">
+    <link rel="stylesheet" href="../resources/css/common/common.css">
+    <link rel="stylesheet" href="../resources/css/shop/productbuycheck.css">
+</head>
+<body class="container">
+<!-- 导航层 -->
+<div class="bar" id="title">
+    <div class="weui-media-box">消费记录</div>
+
+    <!-- 搜索栏 -->
+    <div class="weui-search-bar" id="searchBar">
+        <form class="weui-search-bar__form">
+            <div class="weui-search-bar__box">
+                <i class="weui-icon-search"></i>
+                <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="请输入商店名">
+                <a href="javascript:;" class="weui-icon-clear" id="searchClear"></a>
+            </div>
+            <label class="weui-search-bar__label" id="searchText">
+                <i class="weui-icon-search"></i>
+                <span>搜索</span>
+            </label>
+        </form>
+        <a href="javascript:;" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+    </div>
+</div>
+
+<!-- echarts 图表 -->
+<div id="chart"  style="width: 100%; height:300px;"></div>
+
+<!-- 标题 -->
+<div class="weui-cell weui-cells__title">
+    <div class="weui-cell__bd">
+        <label class="weui-label">名称</label>
+    </div>
+    <div class="weui-cell__bd">
+        <label class="weui-label">消费时间</label>
+    </div>
+    <div class="weui-cell__bd">
+        <label class="weui-label">用户</label>
+    </div>
+    <div class="weui-cell__hd">
+        <label class="weui-label">积分</label>
+    </div>
+</div>
+
+<!-- 内容层 -->
+<div id="check-list" class="weui-cells">
+   <!-- <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <label class="weui-label">小黄人</label>
+        </div>
+        <div class="weui-cell__bd">
+            <label class="weui-label">2017-10-29</label>
+        </div>
+        <div class="weui-cell__bd">
+            <label class="weui-label">测试</label>
+        </div>
+        <div class="weui-cell__hd">
+            <label class="weui-label">2</label>
+        </div>
+    </div>-->
+</div>
+
+<div class="weui-btn-area weui-flex">
+    <div class="weui-flex__item">
+        <a href="/o2o/shopadmin/shopmanagement" class="weui-btn weui-btn_warn my-warn">返回</a>
+    </div>
+</div>
+<script type="text/javascript" src="../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/echarts/4.0.4/echarts-en.min.js"></script>
+<script type="text/javascript" src="../resources/js/common/weui.js"></script>
+<script type="text/javascript" src="../resources/js/common/common.js"></script>
+<script type="text/javascript" src="../resources/js/shop/productbuycheck.js"></script>
+</body>
+</html>

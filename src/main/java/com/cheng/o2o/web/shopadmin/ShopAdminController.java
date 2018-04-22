@@ -1,4 +1,4 @@
-package com.cheng.o2o.web.shop;
+package com.cheng.o2o.web.shopadmin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,5 +61,11 @@ public class ShopAdminController {
     private String shopAuthOperation() {
         // 转发至店铺授权信息修改页面
         return "shop/shopauthoperation";
+    }
+
+    @GetMapping("/productbuycheck")
+    private String productBuyCheck() {
+        // 转发至店铺的消费记录的页面
+        return "shop/productbuycheck";
     }
 }

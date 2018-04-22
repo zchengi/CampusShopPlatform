@@ -1,4 +1,4 @@
-package com.cheng.o2o.web.shop;
+package com.cheng.o2o.web.shopadmin;
 
 import com.cheng.o2o.dto.ImageHolder;
 import com.cheng.o2o.dto.ShopExecution;
@@ -25,7 +25,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

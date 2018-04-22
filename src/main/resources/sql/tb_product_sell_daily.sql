@@ -10,3 +10,8 @@ CREATE TABLE `tb_product_sell_daily` (
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+
+# 添加字段 product_sell_daily_id
+ALTER TABLE tb_product_sell_daily
+  ADD product_sell_daily_id INT(100) NOT NULL AUTO_INCREMENT,
+  ADD PRIMARY KEY (product_sell_daily_id);

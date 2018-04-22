@@ -5,6 +5,7 @@
 <mapper namespace="com.cheng.o2o.dao.ProductSellDailyDao">
 
     <resultMap id="productSellDailyResultMap" type="com.cheng.o2o.entity.ProductSellDaily">
+        <id column="product_sell_daily_id" property="productSellDailyId"/>
         <result column="create_time" property="createTime"/>
         <result column="total" property="total"/>
         <association property="product" column="product_id" javaType="com.cheng.o2o.entity.Product">
@@ -17,23 +18,41 @@
         </association>
     </resultMap>
 
-    <insert id="insertProductSellDaily">
-
+    <insert id="insertProductSellDaily"
+            useGeneratedKeys="true" keyColumn="product_sell_daily_id" keyProperty="productSellDailyId">
         INSERT INTO
-            tb_product_sell_daily (SELECT
-                                       product_id,
-                                       shop_id,
-                                       create_time,
-                                       count(product_id) AS total
-                                   FROM tb_user_product_map
-                                   /* 统计每个店铺的每件商品的日销量是多少(不统计当天) */
-                                   WHERE date_format(tb_user_product_map.create_time, '%Y-%m-%d') =
-                                         date_sub(curdate(), INTERVAL 1 DAY)
-                                   GROUP BY tb_user_product_map.product_id)
+            tb_product_sell_daily (product_id, shop_id, create_time, total)
+            (SELECT
+                 product_id,
+                 shop_id,
+                 date_format(create_time, '%Y-%m-%d'),
+                 count(product_id) AS total
+             FROM tb_user_product_map
+             /* 统计每个店铺的每件商品的日销量是多少(不统计当天) */
+             WHERE date_format(tb_user_product_map.create_time, '%Y-%m-%d') = date_sub(curdate(), INTERVAL 1 DAY)
+             GROUP BY tb_user_product_map.product_id)
+    </insert>
+
+    <insert id="insertDefaultProductSellDaily">
+        INSERT INTO
+            tb_product_sell_daily (product_id, shop_id, create_time, total)
+            (SELECT
+                 p.product_id,
+                 p.shop_id,
+                 date_sub(curdate(), INTERVAL 1 DAY),
+                 0 AS total
+             FROM
+                 tb_product p
+             WHERE
+                 p.product_id NOT IN (
+                     SELECT product_id
+                     FROM tb_product_sell_daily
+                     WHERE date_format(create_time, '%Y-%m-%d') = date_sub(curdate(), INTERVAL 1 DAY)))
     </insert>
 
     <select id="queryProductSellDailyList" resultMap="productSellDailyResultMap">
         SELECT
+        psd.product_sell_daily_id,
         psd.create_time,
         psd.total,
         s.shop_id,
@@ -56,14 +75,19 @@
                 and p.product_name like '%${productSellDailyCondition.product.productName}%'
             </if>
             <if test="beginTime != null and endTime != null">
-                and psd.create_time between #{beginTime} and #{endTime};
+                and date_format(psd.create_time,'%Y-%m-%d') between
+                date_format(#{beginTime},'%Y-%m-%d') and
+                date_format(#{endTime},'%Y-%m-%d')
             </if>
             <if test="beginTime != null and endTime == null">
-                and psd.create_time &gt;= #{beginTime};
+                and date_format(psd.create_time,'%Y-%m-%d') &gt;=
+                date_format(#{beginTime},'%Y-%m-%d')
             </if>
             <if test="beginTime == null and endTime != null">
-                and psd.end_time $lt;= #{endTime};
+                and date_format(psd.create_time,'%Y-%m-%d') &lt;=
+                date_format(#{endTime},'%Y-%m-%d')
             </if>
         </where>
+        ORDER BY psd.product_id, psd.create_time
     </select>
 </mapper>

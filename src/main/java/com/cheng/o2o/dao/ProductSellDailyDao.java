@@ -20,6 +20,13 @@ public interface ProductSellDailyDao {
     int insertProductSellDaily();
 
     /**
+     * 统计平台当天没乡销量的商品，补全信息，将销量置为0
+     *
+     * @return
+     */
+    int insertDefaultProductSellDaily();
+
+    /**
      * 根据查询条件返回商品日销售的统计列表
      *
      * @param productSellDailyCondition
@@ -30,6 +37,8 @@ public interface ProductSellDailyDao {
     List<ProductSellDaily> queryProductSellDailyList(
             @Param("productSellDailyCondition") ProductSellDaily productSellDailyCondition,
             @Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
+
+
 }
 
 
