@@ -1,8 +1,6 @@
 package com.cheng.o2o.dto;
 
-import com.cheng.o2o.entity.ShopAuthMap;
 import com.cheng.o2o.entity.UserProductMap;
-import com.cheng.o2o.enums.ShopAuthMapStateEnum;
 import com.cheng.o2o.enums.UserProductMapStateEnum;
 
 import java.util.List;

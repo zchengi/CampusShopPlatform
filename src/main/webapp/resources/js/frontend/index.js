@@ -63,4 +63,9 @@
         window.location.href = '/o2o/fronted/shoplist?parentId=' + shopCategoryId;
     });
 
+    // 商品列表页
+    $('#shop-list').on('click', function () {
+        window.location.href = '/o2o/frontend/shoplist';
+    });
+
 })();

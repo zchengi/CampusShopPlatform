@@ -7,7 +7,7 @@
     <resultMap id="userAwardResultMap" type="com.cheng.o2o.entity.UserAwardMap">
         <id column="user_award_id" property="userAwardId"/>
         <result column="create_time" property="createTime"/>
-        <result column="user_status" property="userStatus"/>
+        <result column="used_status" property="usedStatus"/>
         <result column="point" property="point"/>
         <association property="user" column="user_id" javaType="com.cheng.o2o.entity.PersonInfo">
             <id column="user_id" property="userId"/>
@@ -23,7 +23,7 @@
         </association>
         <association property="operator" column="operator_id" javaType="com.cheng.o2o.entity.PersonInfo">
             <id column="user_id" property="userId"/>
-            <result column="name" property="name"/>
+            <result column="operator_name" property="name"/>
         </association>
     </resultMap>
 
@@ -31,10 +31,10 @@
             useGeneratedKeys="true" keyProperty="userAwardId" keyColumn="user_award_id">
         INSERT INTO
             tb_user_award_map (user_id, award_id, shop_id, operator_id,
-                               create_time, user_status, point)
+                               create_time, used_status, point)
         VALUES
             (#{user.userId}, #{award.awardId}, #{shop.shopId}, #{operator.userId},
-             #{createTime}, #{userStatus}, #{point})
+             #{createTime}, #{usedStatus}, #{point})
     </insert>
 
     <update id="updateUserAwardMap" parameterType="com.cheng.o2o.entity.UserAwardMap"
@@ -42,7 +42,7 @@
         UPDATE
             tb_user_award_map
         SET
-            user_status = #{userStatus}
+            used_status = #{usedStatus}
         WHERE
             user_award_id = #{userAwardId} AND user_id = #{user.userId}
     </update>
@@ -51,7 +51,7 @@
         SELECT
         uam.user_award_id,
         uam.create_time,
-        uam.user_status,
+        uam.used_status,
         uam.point,
         buyer.user_id,
         buyer.name,
@@ -60,7 +60,7 @@
         a.award_id,
         a.award_name,
         operator.user_id AS operator_id,
-        operator.name
+        operator.name AS operator_name
         FROM
         tb_user_award_map uam,
         tb_person_info buyer,
@@ -72,14 +72,14 @@
             AND uam.award_id = a.award_id AND uam.operator_id = operator.user_id
             <!-- 按顾客信息精确查询 -->
             <if test="userAwardMapCondition.user != null and userAwardMapCondition.user.userId != null">
-                and uam.user_id = #{userAwardMapCondition.userId}
+                and uam.user_id = #{userAwardMapCondition.user.userId}
             </if>
             <!-- 按某个店铺精确查询 -->
             <if test="userAwardMapCondition.shop != null and userAwardMapCondition.shop.shopId != null">
                 and uam.shop_id = #{userAwardMapCondition.shop.shopId}
             </if>
             <!-- 按顾客名字模糊查询 -->
-            <if test="userAwardMapCondition.user!= null and userAwardMapCondition.user.name != null">
+            <if test="userAwardMapCondition.user != null and userAwardMapCondition.user.name != null">
                 and buyer.name like '%${userAwardMapCondition.user.name}%'
             </if>
             <!-- 按奖品名模糊查询 -->
@@ -87,8 +87,8 @@
                 and a.award_name like '%${userAwardMapCondition.award.awardName}%'
             </if>
             <!-- 按奖品可用状态查询 -->
-            <if test="userAwardMapCondition.userStatus != null">
-                and uam.user_status = #{userAwardMapCondition.userStatus};
+            <if test="userAwardMapCondition.usedStatus != null">
+                and uam.used_status = #{userAwardMapCondition.usedStatus}
             </if>
         </where>
         ORDER BY uam.create_time DESC
@@ -108,7 +108,7 @@
             AND uam.award_id = a.award_id AND uam.operator_id = operator.user_id
             <!-- 按顾客信息精确查询 -->
             <if test="userAwardMapCondition.user != null and userAwardMapCondition.user.userId != null">
-                and uam.user_id = #{userAwardMapCondition.userId}
+                and uam.user_id = #{userAwardMapCondition.user.userId}
             </if>
             <!-- 按某个店铺精确查询 -->
             <if test="userAwardMapCondition.shop != null and userAwardMapCondition.shop.shopId != null">
@@ -123,8 +123,8 @@
                 and a.award_name like '%${userAwardMapCondition.award.awardName}%'
             </if>
             <!-- 按奖品可用状态查询 -->
-            <if test="userAwardMapCondition.userStatus != null">
-                and uam.user_status = #{userAwardMapCondition.userStatus}
+            <if test="userAwardMapCondition.usedStatus != null">
+                and uam.used_status = #{userAwardMapCondition.usedStatus}
             </if>
         </where>
     </select>
@@ -133,7 +133,7 @@
         SELECT
             uam.user_award_id,
             uam.create_time,
-            uam.user_status,
+            uam.used_status,
             uam.point,
             buyer.user_id,
             buyer.name,
@@ -142,7 +142,7 @@
             a.award_id,
             a.award_name,
             operator.user_id AS operator_id,
-            operator.name
+            operator.name    AS operator_name
         FROM
             tb_user_award_map uam,
             tb_person_info buyer,

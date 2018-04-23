@@ -53,7 +53,7 @@
             usm.user_id = buyer.user_id and usm.shop_id = s.shop_id
             <!-- 按顾客信息精确查询 -->
             <if test="userShopMapCondition.user != null and userShopMapCondition.user.userId != null">
-                and user.user_id = #{userShopMapCondition.user.userId}
+                and usm.user_id = #{userShopMapCondition.user.userId}
             </if>
             <!-- 按店铺信息精确查询 -->
             <if test="userShopMapCondition.shop != null and userShopMapCondition.shop.shopId != null">
@@ -81,7 +81,7 @@
             usm.user_id = buyer.user_id and usm.shop_id = s.shop_id
             <!-- 按顾客信息精确查询 -->
             <if test="userShopMapCondition.user != null and userShopMapCondition.user.userId != null">
-                and user.user_id = #{userShopMapCondition.user.userId}
+                and usm.user_id = #{userShopMapCondition.user.userId}
             </if>
             <!-- 按店铺信息精确查询 -->
             <if test="userShopMapCondition.shop != null and userShopMapCondition.shop.shopId != null">

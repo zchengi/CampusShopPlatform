@@ -50,10 +50,17 @@
 
             var imgListHtml = '';
             // 遍历商品详情图列表，并生成批量img标签
-            product.productImgList.map(function (item, index) {
+            product.productImgList.map(function (item) {
                 imgListHtml += '<div class="weui-cell">' +
                     '<img class="my-img" src="' + common.getContextPath() + item.imgAddr + '"></div>';
             });
+
+            // 判断估计是否已登录，来确定是否要显示二维码
+            if (data.needQRCode) {
+                imgListHtml += '<div class="weui-cell"><img class="my-img"' +
+                    ' src="/o2o/frontend/generateqrcode4product?productId=' + product.productId + '"></div>';
+            }
+
 
             $(".weui-cells").append(imgListHtml);
         }
