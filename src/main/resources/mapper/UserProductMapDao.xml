@@ -22,7 +22,7 @@
         </association>
         <association property="operator" column="operator_id" javaType="com.cheng.o2o.entity.PersonInfo">
             <id column="user_id" property="userId"/>
-            <result column="name" property="name"/>
+            <result column="operator_name" property="name"/>
         </association>
     </resultMap>
 
@@ -47,7 +47,7 @@
         p.product_id,
         p.product_name,
         operator.user_id AS operator_id,
-        operator.name
+        operator.name AS operator_name
         FROM
         tb_user_product_map upm,
         tb_person_info buyer,

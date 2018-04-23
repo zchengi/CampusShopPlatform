@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
  * @since <pre>04/20/2018</pre>
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class UserAwardDaoTest extends BaseTest{
+public class UserAwardMapDaoTest extends BaseTest{
 
     @Autowired
     private UserAwardMapDao userAwardMapDao;
@@ -46,7 +46,7 @@ public class UserAwardDaoTest extends BaseTest{
         shop.setShopId(1L);
         userAwardMap.setShop(shop);
         userAwardMap.setCreateTime(new Date());
-        userAwardMap.setUserStatus(1);
+        userAwardMap.setUsedStatus(1);
         userAwardMap.setPoint(1);
 
         int effectedNum = userAwardMapDao.insertUserAwardMap(userAwardMap);
@@ -65,7 +65,7 @@ public class UserAwardDaoTest extends BaseTest{
 
         userAwardMap2.setShop(shop);
         userAwardMap2.setCreateTime(new Date());
-        userAwardMap2.setUserStatus(0);
+        userAwardMap2.setUsedStatus(0);
         userAwardMap2.setPoint(1);
 
         effectedNum = userAwardMapDao.insertUserAwardMap(userAwardMap2);
@@ -82,9 +82,9 @@ public class UserAwardDaoTest extends BaseTest{
         userAwardMap.setUser(customer);
         List<UserAwardMap> userAwardMapList = userAwardMapDao.
                 queryUserAwardMapList(userAwardMap, 0, 1);
-        assertTrue("Error, 积分不一致!", 0 == userAwardMapList.get(0).getUserStatus());
+        assertTrue("Error, 积分不一致!", 0 == userAwardMapList.get(0).getUsedStatus());
 
-        userAwardMapList.get(0).setUserStatus(1);
+        userAwardMapList.get(0).setUsedStatus(1);
         int effectedNum = userAwardMapDao.updateUserAwardMap(userAwardMapList.get(0));
         assertEquals(1, effectedNum);
     }

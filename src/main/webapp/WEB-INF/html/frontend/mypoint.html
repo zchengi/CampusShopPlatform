@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <title>我的积分</title>
+
+    <link rel="stylesheet" href="../resources/css/common/weui.css">
+    <link rel="stylesheet" href="../resources/css/common/common.css">
+    <link rel="stylesheet" href="../resources/css/frontend/awardlist.css">
+</head>
+<body class="container">
+<!-- 导航层 -->
+<div class="bar" id="title">
+    <div class="weui-media-box">我的积分</div>
+
+    <!-- 搜索栏 -->
+    <div class="weui-search-bar" id="searchBar">
+        <form class="weui-search-bar__form">
+            <div class="weui-search-bar__box">
+                <i class="weui-icon-search"></i>
+                <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="请输入商铺名">
+                <a href="javascript:;" class="weui-icon-clear" id="searchClear"></a>
+            </div>
+            <label class="weui-search-bar__label" id="searchText">
+                <i class="weui-icon-search"></i>
+                <span>搜索</span>
+            </label>
+        </form>
+        <a href="javascript:;" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+    </div>
+</div>
+
+<!-- 内容层 -->
+<div class="content">
+
+    <!-- 搜索内容 -->
+    <div id="searchResult" class="searchbar-result">
+    </div>
+
+    <!-- 滚动加载 -->
+    <div class="weui-loadmore">
+        <i class="weui-loading"></i>
+        <span class="weui-loadmore__tips">正在加载</span>
+    </div>
+</div>
+
+<!-- Tabbar -->
+<div class="weui-tabbar my-tabbar">
+    <a href="javascript:;" class="weui-tabbar__item">
+        <img src="https://weui.io/images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="javascript:;" class="weui-tabbar__item">
+        <img src="https://weui.io/images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+        <p class="weui-tabbar__label">我的</p>
+    </a>
+</div>
+
+<script type="text/javascript" src="../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../resources/js/common/weui.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="../resources/js/common/common.js"></script>
+<script type="text/javascript" src="../resources/js/frontend/mypoint.js"></script>
+</body>
+</html>

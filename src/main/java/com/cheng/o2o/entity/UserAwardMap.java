@@ -21,7 +21,7 @@ public class UserAwardMap {
     /**
      * 使用状态，0:未兑换，1:已兑换
      */
-    private Integer userStatus;
+    private Integer usedStatus;
     /**
      * 领取奖品所消耗的积分
      */
@@ -59,12 +59,12 @@ public class UserAwardMap {
         this.createTime = createTime;
     }
 
-    public Integer getUserStatus() {
-        return userStatus;
+    public Integer getUsedStatus() {
+        return usedStatus;
     }
 
-    public void setUserStatus(Integer userStatus) {
-        this.userStatus = userStatus;
+    public void setUsedStatus(Integer usedStatus) {
+        this.usedStatus = usedStatus;
     }
 
     public Integer getPoint() {

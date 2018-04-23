@@ -24,7 +24,7 @@
             // 给商品信息相关的HTML空间赋值
 
             // 商品缩略图
-            $('#product-img').attr('src', product.imgAddr);
+            $('#product-img').attr('src', common.getContextPath() + product.imgAddr);
             // 商品更新时间
             $('#product-time').text(new Date(product.lastEditTime).Format('yyyy-MM-dd'));
             // 积分信息提示
@@ -50,9 +50,17 @@
 
             var imgListHtml = '';
             // 遍历商品详情图列表，并生成批量img标签
-            product.productImgList.map(function (item, index) {
-                    imgListHtml += '<div class="weui-cell"><img class="my-img" src="' + item.imgAddr + '"></div>';
+            product.productImgList.map(function (item) {
+                imgListHtml += '<div class="weui-cell">' +
+                    '<img class="my-img" src="' + common.getContextPath() + item.imgAddr + '"></div>';
             });
+
+            // 判断估计是否已登录，来确定是否要显示二维码
+            if (data.needQRCode) {
+                imgListHtml += '<div class="weui-cell"><img class="my-img"' +
+                    ' src="/o2o/frontend/generateqrcode4product?productId=' + product.productId + '"></div>';
+            }
+
 
             $(".weui-cells").append(imgListHtml);
         }

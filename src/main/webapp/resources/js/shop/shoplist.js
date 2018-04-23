@@ -44,7 +44,7 @@
     }
 
     function goShop(status, id) {
-        if (status === 1) {
+        if (status == 1) {
             return '<a class="weui-cell weui-cell_access" href="/o2o/shopadmin/shopmanagement?shopId=' + id + '">';
         } else {
             return '<a class="weui-cell">';
@@ -52,9 +52,9 @@
     }
 
     function shopStatus(status) {
-        if (status === 0) {
+        if (status == 0) {
             return '审核中';
-        } else if (status === -1) {
+        } else if (status == -1) {
             return '店铺非法';
         } else {
             return '审核通过';

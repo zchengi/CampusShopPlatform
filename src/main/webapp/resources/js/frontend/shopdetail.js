@@ -21,7 +21,9 @@ $(function () {
         // 获取本店铺信息以及商品类别信息列表的 URL
         searchDivUrl = '/o2o/frontend/listshopdetailpageinfo?shopId=' + shopId,
         // 商品详情页 url
-        productdetailUrl = '/o2o/frontend/productdetail?productId=',
+        productDetailUrl = '/o2o/frontend/productdetail?productId=',
+        // 兑换礼品 url
+        awardListUrl = '/o2o/frontend/awardlist?shopId=',
         $searchBar = $('#searchBar'),
         $searchResult = $('#searchResult'),
         $searchText = $('#searchText'),
@@ -36,6 +38,9 @@ $(function () {
     // 预先加载2条商品信息
     addItems(pageSize, pageNum);
 
+    // 给兑换礼品的a标签赋值兑换礼品的 url
+    $('#exchangeList').attr('href', awardListUrl + shopId);
+
     /**
      * 获取本店铺信息以及商品类别信息列表
      */
@@ -47,12 +52,13 @@ $(function () {
                     productCategoryList = data.productCategoryList,
                     preHtml = '<div class="weui-flex weui-btn-area_inline my-flex">',
                     nextHtml = '</div>';
-                $('#shop-cover-pic').attr('src', shop.shopImg).attr('alt', shop.shopName);
+                $('#shop-cover-pic').attr('src', common.getContextPath() + shop.shopImg).attr('alt', shop.shopName);
                 $('#shop-update-time').html(new Date(shop.lastEditTime).Format('yyyy-MM-dd'));
                 $('#shop-name').html(shop.shopName);
                 $('#product-desc').html(shop.shopDesc);
                 $('#shop-addr').html(shop.shopAddr);
                 $('#shop-phone').html(shop.phone);
+                $('#award-list').attr('href', '/o2o/frontend/awardlist?shopId=' + shopId);
 
                 // 获取后台返回的该店铺的商品类别列表
                 var productCategoryHtml = preHtml;
@@ -100,7 +106,7 @@ $(function () {
                         '<div class="weui-cell weui-cell__bd">' +
                         '<p>' + item.productName + '</p></div>' +
                         '<div class="weui-cell"><div class="weui-cell_primary">' +
-                        '<img width="44" src="' + item.imgAddr + '"></div>' +
+                        '<img width="44" src="' + common.getContextPath() + item.imgAddr + '"></div>' +
                         '<div class="weui-cell__bd my-cell_bd">' +
                         '<p>' + item.productDesc + '</p></div></div>' +
                         '<div class="weui-cell"><div class="weui-cell__bd">' +
@@ -148,7 +154,7 @@ $(function () {
     // 点击商品的 div 进入该商品的详情页
     $searchResult.on('click', '.weui-cells', function (e) {
         var productId = e.currentTarget.dataset.productId;
-        window.location.href = productdetailUrl + productId;
+        window.location.href = productDetailUrl + productId;
     });
 
     // 选择新的商品类别后，重置页码，清空原来的商品列表，按照新的类别去查询

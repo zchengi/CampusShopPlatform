@@ -37,7 +37,7 @@
         data.map(function (item) {
             var textOp = '下架';
             var contraryStatus = 0;
-            if (item.enableStatus === 0) {
+            if (item.enableStatus == 0) {
                 // 如果状态值为0，表明是已下架的商品，操作变为上架（即点击上架按钮上架相关商品）
                 textOp = '上架';
                 contraryStatus = 1;

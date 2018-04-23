@@ -20,7 +20,7 @@
             headLineList.map(function (item) {
                 swiperHtml += '<div class="swiper-slide">'
                     + '<a href ="' + item.lineLink + '">'
-                    // ' + item.linkImg + ' 替换 src
+                    // TODO + common.getContextPath() ' + item.linkImg + ' 替换 src
                     + '<img class="banner-img" src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt="' + item.lineName + '">'
                     + '</a></div>';
             });
@@ -43,7 +43,8 @@
                 categoryHtml += '<a href="javascript:;" class="weui-grid shop-classify"'
                     + ' data-category="' + item.shopCategoryId + '">'
                     + '<div class="weui-grid__icon">'
-                    + '<img src="' + item.shopCategoryImg + '" alt="' + item.shopCategoryDesc + '">'
+                    + '<img src="' + common.getContextPath() + item.shopCategoryImg
+                    + '" alt="' + item.shopCategoryDesc + '">'
                     + '</div>'
                     + '<p class="weui-grid__label">' + item.shopCategoryName + '</p>'
                     + '</a>';
@@ -60,6 +61,11 @@
     $('.weui-grid').on('click', '.shop-classify', function (e) {
         var shopCategoryId = e.currentTarget.dataset.category;
         window.location.href = '/o2o/fronted/shoplist?parentId=' + shopCategoryId;
+    });
+
+    // 商品列表页
+    $('#shop-list').on('click', function () {
+        window.location.href = '/o2o/frontend/shoplist';
     });
 
 })();

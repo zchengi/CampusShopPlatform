@@ -108,7 +108,7 @@ $(function () {
                         '<div class="weui-cell weui-cell__bd">' +
                         '<p>' + item.shopName + '</p></div>' +
                         '<div class="weui-cell"><div class="weui-cell_primary">' +
-                        '<img width="44" src="' + item.shopImg + '"></div>' +
+                        '<img width="44" src="' + common.getContextPath() + item.shopImg + '"></div>' +
                         '<div class="weui-cell__bd my-cell_bd">' +
                         '<p>' + item.shopDesc + '</p></div></div>' +
                         '<div class="weui-cell"><div class="weui-cell__bd">' +
@@ -130,7 +130,7 @@ $(function () {
                     // 隐藏加载提示符
                     $('.weui-loadmore').hide();
                     return;
-                }else {
+                } else {
                     // 显示下滑加载控件
                     $('.weui-loadmore').show();
                 }

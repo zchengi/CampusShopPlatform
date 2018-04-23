@@ -36,20 +36,23 @@
                         '<label class="weui-label">' + item.product.productName + '</label>' +
                         '</div>' +
                         '<div class="weui-cell__bd">' +
-                        '<label class="weui-label">' + new Date(item.createTime).Format('yyyy-MM-dd') + '</label>' +
-                        '</div>' +
+                        '<label class="weui-textarea">' +
+                        new Date(item.createTime).Format('yyyy-MM-dd hh:mm:ss') +
+                        '</label></div>' +
                         '<div class="weui-cell__bd">' +
                         '<label class="weui-label">' + item.user.name + '</label>' +
                         '</div>' +
                         '<div class="weui-cell__hd">' +
                         '<label class="weui-label">' + item.point + '</label>' +
                         '</div>' +
-                        '</div>';
+                        '<div class="weui-cell__hd">' +
+                        '<label class="weui-label">' + item.operator.name + '</label>' +
+                        '</div></div>';
                 });
 
                 $checkList.html(userProductHtml);
             } else {
-                weui.alert('初始化失败,' + data.errMsg);
+                weui.alert('初始化失败!');
             }
         });
     }
@@ -142,7 +145,7 @@
         // 清空商品购买记录列表
         $checkList.empty();
         // 再次加载
-        // getList();
+        getList();
     });
 
     // 取消搜索

@@ -50,7 +50,7 @@
         product.point = $('#point').val();
         product.normalPrice = $('#normal-price').val();
         product.promotionPrice = $('#promotion-price').val();
-        product.productId = productId;
+        product.productId = productId ? product : '';
         // 获取选定的商品类别值
         product.productCategory = {
             productCategoryId: $picker_product_category.pickerId
@@ -119,7 +119,7 @@
 
                 // 获取原本的商品类别以及该店铺的所有商品类别列表
                 data.productCategoryList.map(function (item, index) {
-                    if (product.productCategory.productCategoryId === item.productCategoryId) {
+                    if (product.productCategory.productCategoryId == item.productCategoryId) {
                         defaultLabel = item.productCategoryName;
                         defaultValue = item.productCategoryId;
                     }

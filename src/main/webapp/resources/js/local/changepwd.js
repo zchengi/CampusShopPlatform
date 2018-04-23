@@ -54,7 +54,7 @@
             success: function (data) {
                 if (data.success) {
                     weui.toast('修改密码成功!');
-                    if (userType === 1) {
+                    if (userType == 1) {
                         // 若用户在前端展示系统页面则自动链接到前端展示系统首页
                         window.location.href = '/o2o/frontend/index';
                     } else {

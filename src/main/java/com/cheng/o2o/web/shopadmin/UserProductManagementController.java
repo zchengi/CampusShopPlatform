@@ -1,15 +1,12 @@
 package com.cheng.o2o.web.shopadmin;
 
-import com.cheng.o2o.dto.EchartSeries;
-import com.cheng.o2o.dto.EchartXAxis;
-import com.cheng.o2o.dto.UserProductMapExecution;
-import com.cheng.o2o.entity.Product;
-import com.cheng.o2o.entity.ProductSellDaily;
-import com.cheng.o2o.entity.Shop;
-import com.cheng.o2o.entity.UserProductMap;
-import com.cheng.o2o.service.ProductSellDailyService;
-import com.cheng.o2o.service.UserProductMapService;
+import com.cheng.o2o.dto.*;
+import com.cheng.o2o.entity.*;
+import com.cheng.o2o.enums.UserProductMapStateEnum;
+import com.cheng.o2o.service.*;
 import com.cheng.o2o.util.HttpServletRequestUtil;
+import com.cheng.o2o.util.wechat.WechatUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -32,6 +30,64 @@ public class UserProductManagementController {
     private UserProductMapService userProductMapService;
     @Autowired
     private ProductSellDailyService productSellDailyService;
+    @Autowired
+    private WechatAuthService wechatAuthService;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private ShopAuthMapService shopAuthMapService;
+
+    @GetMapping("/adduserproductmap")
+    @ResponseBody
+    private String addUserProductMap(HttpServletRequest request) {
+
+        WeChatAuth auth = getOperatorInfo(request);
+
+        if (auth != null) {
+            PersonInfo operator = auth.getPersonInfo();
+            request.getSession().setAttribute("user", operator);
+
+            WechatInfo wechatInfo;
+            try {
+                // 解析微信回传过来的自定义参数state，由于之前进行了编码，所以这里需要解码
+                String qrCodeInfo = URLDecoder.decode(
+                        HttpServletRequestUtil.getString(request, "state"), "UTF-8");
+
+                ObjectMapper mapper = new ObjectMapper();
+                // 将解码后的内容用aaa去替换掉之前生成二维码的时候加入的aaa，转换成WechatInfo实体类
+                wechatInfo = mapper.readValue(qrCodeInfo.replace("aaa", "\""), WechatInfo.class);
+            } catch (Exception e) {
+                return "shop/operationfail";
+            }
+
+            // 检验二维码是否已经过期
+            if (!checkQRCodeInfo(wechatInfo)) {
+                return "shop/operationfail";
+            }
+
+            // 获取添加消费记录所需的参数并组成 userProductMap 实例
+            Long productId = wechatInfo.getProductId();
+            Long customerId = wechatInfo.getCustomerId();
+            UserProductMap userProductMap = compactUserShopMap3Add(customerId, productId, auth.getPersonInfo());
+
+            if (userProductMap != null && customerId != -1) {
+                try {
+                    if (!checkShopAuth(operator.getUserId(), userProductMap)) {
+                        return "shop/operationfail";
+                    }
+                    // 添加消费记录
+                    UserProductMapExecution se = userProductMapService.addUserProductMap(userProductMap);
+                    if (se.getState() == UserProductMapStateEnum.SUCCESS.getState()) {
+                        return "shop/operationsuccess";
+                    }
+                } catch (RuntimeException e) {
+                    return "shop/operationfail";
+                }
+            }
+        }
+
+        return "shop/operationfail";
+    }
 
     @GetMapping("/listuserproductmapsbyshop")
     @ResponseBody
@@ -160,5 +216,97 @@ public class UserProductManagementController {
         }
 
         return modelMap;
+    }
+
+
+
+    /**
+     * 根据code获取 userAccessToken ，进而获取微信用户信息
+     *
+     * @param request
+     * @return
+     */
+    private WeChatAuth getOperatorInfo(HttpServletRequest request) {
+
+        String code = request.getParameter("code");
+        WeChatAuth auth = null;
+        if (null != code) {
+            UserAccessToken token;
+            token = WechatUtil.getUserAccessToken(code);
+            String openId = token.getOpenId();
+            auth = wechatAuthService.getWechatAuthByOpenId(openId);
+        }
+
+        return auth;
+    }
+
+
+    /**
+     * 根据二维码携带的createTime判断其是否超过了10分钟，超过10分钟则认为过期
+     *
+     * @param wechatInfo
+     * @return
+     */
+    private boolean checkQRCodeInfo(WechatInfo wechatInfo) {
+
+        if (wechatInfo != null && wechatInfo.getShopId() != null && wechatInfo.getCreateTime() != null) {
+            long nowTime = System.currentTimeMillis();
+            return (nowTime - wechatInfo.getCreateTime()) <= 600000;
+        } else {
+            return false;
+        }
+    }
+
+
+    /**
+     * 组建用户消费记录
+     *
+     * @param customerId
+     * @param productId
+     * @param personInfo
+     * @return
+     */
+    private UserProductMap compactUserShopMap3Add(Long customerId, Long productId, PersonInfo personInfo) {
+
+        UserProductMap userProductMap = null;
+        if (customerId != null && productId != null) {
+            userProductMap = new UserProductMap();
+
+            PersonInfo customer = new PersonInfo();
+            customer.setUserId(customerId);
+
+            // 主要为了获取商品积分
+            Product product = productService.getProductById(productId);
+            userProductMap.setProduct(product);
+            userProductMap.setShop(product.getShop());
+            userProductMap.setUser(customer);
+            userProductMap.setPoint(product.getPoint());
+            userProductMap.setCreateTime(new Date());
+        }
+
+        return userProductMap;
+    }
+
+    /**
+     * 检查扫码人员是否有操作权限
+     *
+     * @param userId
+     * @param userProductMap
+     * @return
+     */
+    private boolean checkShopAuth(Long userId, UserProductMap userProductMap) {
+
+        // 获取该店铺的所有授权信息
+        ShopAuthMapExecution shopAuthMapExecution = shopAuthMapService.
+                listShopAuthMapByShopId(userProductMap.getShop().getShopId(), 0, 999);
+
+        for (ShopAuthMap shopAuthMap : shopAuthMapExecution.getShopAuthMapList()) {
+            // 查看当前人员是否有权限授权
+            if (shopAuthMap.getEmployee().getUserId().equals(userId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

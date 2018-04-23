@@ -17,10 +17,13 @@
                 shopId = data.shopId;
             }
             $('#shopInfo').attr('href', '/o2o/shopadmin/shopoperation?shopId=' + shopId);
-            $('#productInfo').attr('href', '/o2o/shopadmin/productmanagement');
             $('#productCategoryManagement').attr('href', '/o2o/shopadmin/productcategorymanagement');
+            $('#productInfo').attr('href', '/o2o/shopadmin/productmanagement');
             $('#shopAuthManagement').attr('href', '/o2o/shopadmin/shopauthmanagement');
+            $('#awardManagement').attr('href', '/o2o/shopadmin/awardmanagement');
             $('#productBuyCheck').attr('href', '/o2o/shopadmin/productbuycheck');
+            $('#userShopCheck').attr('href', '/o2o/shopadmin/usershopcheck');
+            $('#awardDeliverCheck').attr('href', '/o2o/shopadmin/awarddelivercheck');
         }
     });
 })();

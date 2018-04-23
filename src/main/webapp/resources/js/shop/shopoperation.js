@@ -146,7 +146,7 @@
 
                 var areaList = [];
                 data.areaList.map(function (item, index) {
-                    if (shop.area.areaId === item.areaId) {
+                    if (shop.area.areaId == item.areaId) {
                         defaultAreaName = item.areaName;
                         defaultAreaId = item.areaId;
                     }

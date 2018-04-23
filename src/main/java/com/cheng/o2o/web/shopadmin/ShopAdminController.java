@@ -39,16 +39,16 @@ public class ShopAdminController {
         return "shop/productcategorymanagement";
     }
 
-    @GetMapping("/productoperation")
-    private String productOperation() {
-        // 转发至商品添加/编辑页面
-        return "shop/productoperation";
-    }
-
     @GetMapping("/productmanagement")
     private String productManagement() {
         // 转发至商品管理页面
         return "shop/productmanagement";
+    }
+
+    @GetMapping("/productoperation")
+    private String productOperation() {
+        // 转发至商品添加/编辑页面
+        return "shop/productoperation";
     }
 
     @GetMapping("/shopauthmanagement")
@@ -67,5 +67,30 @@ public class ShopAdminController {
     private String productBuyCheck() {
         // 转发至店铺的消费记录的页面
         return "shop/productbuycheck";
+    }
+
+    @GetMapping("/usershopcheck")
+    private String userShopCheck() {
+        // 转发至用户积分统计页面
+        return "shop/usershopcheck";
+    }
+
+    @GetMapping("/awarddelivercheck")
+    private String awardDeliverCheck() {
+        // 转发至用户积分兑换页面
+        return "shop/awarddelivercheck";
+    }
+
+
+    @GetMapping("/awardmanagement")
+    private String awardManagement() {
+        // 转发至奖品管理页面
+        return "shop/awardmanagement";
+    }
+
+    @GetMapping("/awardoperation")
+    private String awardOperation() {
+        // 转发至奖品添加/编辑页面
+        return "shop/awardoperation";
     }
 }

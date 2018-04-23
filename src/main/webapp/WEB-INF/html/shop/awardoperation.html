@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <title>奖品编辑</title>
+
+    <link rel="stylesheet" href="../resources/css/common/weui.css">
+    <link rel="stylesheet" href="../resources/css/common/common.css">
+</head>
+<body>
+<!-- 导航层 -->
+<div class="bar" id="title">
+    <div class="weui-media-box">奖品编辑</div>
+</div>
+
+<!-- 内容层 -->
+<div class="weui-cells content">
+    <div class="weui-cell">
+        <div class="weui-cell__hd">
+            <label class="weui-label">奖品名称</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input id="award-name" class="weui-input" type="text" required placeholder="请输入奖品名称">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd">
+            <label class="weui-label">优先级</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input id="priority" class="weui-input" type="number" required placeholder="数字越大排名越前">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd">
+            <label class="weui-label">兑换积分</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input id="point" class="weui-input" type="number" placeholder="兑换所需积分">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd">
+            <label class="weui-label">奖品描述</label>
+        </div>
+        <div class="weui-cell__bd">
+            <textarea id="award-desc" class="weui-textarea" placeholder="奖品描述" rows="3"></textarea>
+        </div>
+    </div>
+
+    <!-- 缩略图 上传控件 -->
+    <div class="weui-cell">
+        <div id="uploader" class="weui-cell__bd weui-uploader">
+            <div class="weui-uploader__hd">
+                <p class="weui-uploader__title">缩略图</p>
+                <div class="weui-uploader__info"><span id="uploadCount">0</span>/1</div>
+            </div>
+            <div class="weui-uploader__bd">
+                <ul id="uploaderFiles" class="weui-uploader__files"></ul>
+                <div class="weui-uploader__input-box">
+                    <input id="award-img" class="weui-uploader__input" type="file"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 验证码 -->
+    <div class="weui-cell weui-cell_vcode">
+        <div class="weui-cell__hd">
+            <label class="weui-label">验证码</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input id="j_captcha" class="weui-input" maxlength="4" type="text" placeholder="请输入验证码">
+        </div>
+        <div class="weui-cell__ft">
+            <img id="img-verification-code" onclick="common.changeVerifyCode(this)" class="weui-vcode-img"
+                 src="/o2o/Kaptcha">
+        </div>
+    </div>
+</div>
+
+<div class="weui-btn-area weui-flex">
+    <div class="weui-flex__item">
+        <a href="/o2o/shopadmin/awardmanagement"  class="weui-btn weui-btn_warn my-warn">返回</a>
+    </div>
+    <div class="weui-flex__item">
+        <a href="javascript:;" id="submit" class="weui-btn weui-btn_primary">提交</a>
+    </div>
+</div>
+<script type="text/javascript" src="../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../resources/js/common/weui.js"></script>
+<script type="text/javascript" src="../resources/js/common/common.js"></script>
+<script type="text/javascript" src="../resources/js/shop/awardoperation.js"></script>
+</body>
+</html>

@@ -43,4 +43,43 @@ public class FrontendController {
     private String showProductDetail() {
         return "frontend/productdetail";
     }
+
+    /**
+     * 奖品列表页路由
+     */
+    @GetMapping("/awardlist")
+    private String showAwardList() {
+        return "frontend/awardlist";
+    }
+
+    /**
+     * 奖品兑换页路由
+     */
+    @GetMapping("/pointrecord")
+    private String showPointRecord() {
+        return "frontend/pointrecord";
+    }
+
+    /**
+     * 消费记录列表页路由
+     */
+    @GetMapping("/myrecord")
+    private String showMyRecord() {
+        return "frontend/myrecord";
+    }
+
+    /**
+     * 消费记录列表页路由
+     */
+    @GetMapping("/mypoint")
+    private String showMyPoint() {
+        return "frontend/mypoint";
+    }
+    /**
+     * 奖品详情页路由
+     */
+    @GetMapping("/myawarddetail")
+    private String showMyAwardDetail() {
+        return "frontend/myawarddetail";
+    }
 }
