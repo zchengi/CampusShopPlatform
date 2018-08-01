@@ -14,6 +14,7 @@
 .idea
 *.iws
 *.ipr
+catalina.base_IS_UNDEFINED
 
 ### NetBeans ###
 /nbproject/private/

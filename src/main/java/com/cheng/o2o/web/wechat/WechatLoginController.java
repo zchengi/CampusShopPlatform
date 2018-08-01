@@ -35,7 +35,7 @@ public class WechatLoginController {
 
     private static Logger logger = LoggerFactory.getLogger(WechatLoginController.class);
     private static final String FRONT_END = "1";
-    private static final String SHOP_END = "1";
+    private static final String SHOP_END = "2";
 
     @Autowired
     private PersonInfoService personInfoService;
